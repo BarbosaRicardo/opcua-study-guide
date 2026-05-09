@@ -4,7 +4,9 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Intro() {
   return (
@@ -131,6 +133,10 @@ export default function Intro() {
         and connect to the Prosys OPC UA Simulation Server. Reading the spec while you can click around a real server
         cuts comprehension time in half.
       </Callout>
+
+      {QUIZZES.intro && QUIZZES.intro.length > 0 && (
+        <Quiz chapterId="intro" questions={QUIZZES.intro} level={1} />
+      )}
     </ChapterLayout>
   )
 }

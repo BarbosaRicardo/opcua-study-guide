@@ -4,7 +4,9 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Services() {
   return (
@@ -163,6 +165,10 @@ export default function Services() {
       <FunFact index={3} />
 
       <AnalogyCard analogy={ANALOGIES.services} />
+
+      {QUIZZES.services && QUIZZES.services.length > 0 && (
+        <Quiz chapterId="services" questions={QUIZZES.services} level={1} />
+      )}
     </ChapterLayout>
   )
 }

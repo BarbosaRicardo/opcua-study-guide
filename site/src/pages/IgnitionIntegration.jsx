@@ -4,7 +4,9 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function IgnitionIntegration() {
   return (
@@ -138,6 +140,10 @@ export default function IgnitionIntegration() {
       <FunFact index={8} />
 
       <AnalogyCard analogy={ANALOGIES.ignition} />
+
+      {QUIZZES.ignition && QUIZZES.ignition.length > 0 && (
+        <Quiz chapterId="ignition" questions={QUIZZES.ignition} level={1} />
+      )}
     </ChapterLayout>
   )
 }

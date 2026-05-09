@@ -4,7 +4,9 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Transport() {
   return (
@@ -140,6 +142,10 @@ export default function Transport() {
       <FunFact index={6} />
 
       <AnalogyCard analogy={ANALOGIES.transport} />
+
+      {QUIZZES.transport && QUIZZES.transport.length > 0 && (
+        <Quiz chapterId="transport" questions={QUIZZES.transport} level={1} />
+      )}
     </ChapterLayout>
   )
 }

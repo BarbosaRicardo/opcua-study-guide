@@ -4,7 +4,9 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Lab() {
   return (
@@ -194,6 +196,10 @@ export default function Lab() {
       <FunFact index={10} />
 
       <AnalogyCard analogy={ANALOGIES.lab} />
+
+      {QUIZZES.lab && QUIZZES.lab.length > 0 && (
+        <Quiz chapterId="lab" questions={QUIZZES.lab} level={1} />
+      )}
     </ChapterLayout>
   )
 }
