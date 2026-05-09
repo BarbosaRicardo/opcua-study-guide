@@ -1,0 +1,35 @@
+\contentsline {chapter}{Contents}{1}{section*.1}%
+\contentsline {chapter}{\chapternumberline {1}What Is OPC UA?}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Why OPC Classic Failed}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}What OPC UA Fixed}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}OPC UA in the Wild}{4}{section.1.3}%
+\contentsline {chapter}{\chapternumberline {2}OPC UA Architecture}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}OPC UA Client-Server Diagram}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Secure Channel Lifecycle}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Deployment Patterns}{6}{section.2.3}%
+\contentsline {chapter}{\chapternumberline {3}Information Model \& Address Space}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}NodeId Formats}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Node Classes}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}References}{8}{section.3.3}%
+\contentsline {chapter}{\chapternumberline {4}OPC UA Services}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Key Services}{9}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Read vs. Subscribe}{10}{section.4.2}%
+\contentsline {chapter}{\chapternumberline {5}Security \& Certificates}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}SecurityMode Comparison}{11}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Certificate Trust Workflow}{11}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Security Policies}{12}{section.5.3}%
+\contentsline {chapter}{\chapternumberline {6}Subscriptions \& MonitoredItems}{13}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Key Parameters}{13}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Deadband Filtering}{14}{section.6.2}%
+\contentsline {chapter}{\chapternumberline {7}Transport \& Encoding}{15}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Transport Comparison}{15}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Binary Encoding Built-In Types}{15}{section.7.2}%
+\contentsline {chapter}{\chapternumberline {8}OPC UA in Ignition \& RTAC}{17}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Ignition OPC UA Client Workflow}{17}{section.8.1}%
+\contentsline {section}{\numberline {8.2}SEL RTAC as OPC UA Server}{17}{section.8.2}%
+\contentsline {chapter}{\chapternumberline {9}Troubleshooting OPC UA}{19}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Common Status Codes}{19}{section.9.1}%
+\contentsline {section}{\numberline {9.2}UA Expert Diagnostic Workflow}{20}{section.9.2}%
+\contentsline {chapter}{\chapternumberline {10}Lab \& Tools}{21}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Required Tools (All Free)}{21}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Lab Exercises}{21}{section.10.2}%
