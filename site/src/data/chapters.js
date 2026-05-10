@@ -9,6 +9,7 @@ export const CHAPTERS = [
   { id: 'ignition', label: 'Ch 8: OPC UA in Ignition & RTAC', title: 'OPC UA in Ignition & RTAC', path: '/ignition', emoji: '⚙️', prev: 'transport', next: 'troubleshoot' },
   { id: 'troubleshoot', label: 'Ch 9: Troubleshooting', title: 'Troubleshooting OPC UA', path: '/troubleshoot', emoji: '🔍', prev: 'ignition', next: 'lab' },
   { id: 'lab', label: 'Ch 10: Lab & Tools', title: 'Lab & Tools', path: '/lab', emoji: '🧪', prev: 'troubleshoot' },
+  { id: 'flashcards', label: 'Flashcards', emoji: '🃏', path: '/flashcards' },
 ]
 
 export const ANALOGIES = {
