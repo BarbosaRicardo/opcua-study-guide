@@ -5,8 +5,10 @@ import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
 import Quiz from '../components/Quiz'
+import CodeLab from '../components/CodeLab'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { OPCUA_LAB } from '../data/labExercises'
 
 export default function Lab() {
   return (
@@ -16,6 +18,17 @@ export default function Lab() {
       emoji="🧪"
       prev="troubleshoot"
     >
+      <section>
+        <h2 className="text-xl font-bold text-white mb-2">OPC UA Code Lab</h2>
+        <p className="text-slate-400">
+          Six exercises across three difficulty levels. Parse NodeIds, decode StatusCodes,
+          validate subscriptions, implement deadband filtering, build a session state machine,
+          and validate certificate chains. These are the algorithms inside every OPC UA driver.
+        </p>
+      </section>
+
+      <CodeLab exercises={OPCUA_LAB} />
+
       <p>
         Every concept in this guide has a free, downloadable tool that lets you test it. There is no reason
         to commission a real OPC UA server without having first browsed, subscribed, and debugged a simulated one.
