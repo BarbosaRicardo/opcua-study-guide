@@ -5,8 +5,10 @@ import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { OPCUA_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function Architecture() {
   return (
@@ -164,6 +166,7 @@ export default function Architecture() {
       {QUIZZES.architecture && QUIZZES.architecture.length > 0 && (
         <Quiz chapterId="architecture" questions={QUIZZES.architecture} level={1} />
       )}
+      <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.architecture} />
     </ChapterLayout>
   )
 }

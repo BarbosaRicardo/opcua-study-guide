@@ -5,8 +5,10 @@ import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { OPCUA_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function IgnitionIntegration() {
   return (
@@ -144,6 +146,7 @@ export default function IgnitionIntegration() {
       {QUIZZES.ignition && QUIZZES.ignition.length > 0 && (
         <Quiz chapterId="ignition" questions={QUIZZES.ignition} level={1} />
       )}
+      <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.ignition} />
     </ChapterLayout>
   )
 }
