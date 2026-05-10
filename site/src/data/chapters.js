@@ -1,14 +1,14 @@
 export const CHAPTERS = [
-  { id: 'intro', title: 'What Is OPC UA?', emoji: '🔌', next: 'architecture' },
-  { id: 'architecture', title: 'OPC UA Architecture', emoji: '🏗️', prev: 'intro', next: 'infomodel' },
-  { id: 'infomodel', title: 'Information Model & Address Space', emoji: '🗂️', prev: 'architecture', next: 'services' },
-  { id: 'services', title: 'OPC UA Services', emoji: '🛎️', prev: 'infomodel', next: 'security' },
-  { id: 'security', title: 'Security & Certificates', emoji: '🔐', prev: 'services', next: 'subscriptions' },
-  { id: 'subscriptions', title: 'Subscriptions & MonitoredItems', emoji: '📡', prev: 'security', next: 'transport' },
-  { id: 'transport', title: 'Transport & Encoding', emoji: '🚚', prev: 'subscriptions', next: 'ignition' },
-  { id: 'ignition', title: 'OPC UA in Ignition & RTAC', emoji: '⚙️', prev: 'transport', next: 'troubleshoot' },
-  { id: 'troubleshoot', title: 'Troubleshooting OPC UA', emoji: '🔍', prev: 'ignition', next: 'lab' },
-  { id: 'lab', title: 'Lab & Tools', emoji: '🧪', prev: 'troubleshoot' },
+  { id: 'intro', label: 'Ch 1: What Is OPC UA?', title: 'What Is OPC UA?', path: '/', emoji: '🔌', next: 'architecture' },
+  { id: 'architecture', label: 'Ch 2: Architecture', title: 'OPC UA Architecture', path: '/architecture', emoji: '🏗️', prev: 'intro', next: 'infomodel' },
+  { id: 'infomodel', label: 'Ch 3: Information Model', title: 'Information Model & Address Space', path: '/infomodel', emoji: '🗂️', prev: 'architecture', next: 'services' },
+  { id: 'services', label: 'Ch 4: Services', title: 'OPC UA Services', path: '/services', emoji: '🛎️', prev: 'infomodel', next: 'security' },
+  { id: 'security', label: 'Ch 5: Security & Certificates', title: 'Security & Certificates', path: '/security', emoji: '🔐', prev: 'services', next: 'subscriptions' },
+  { id: 'subscriptions', label: 'Ch 6: Subscriptions', title: 'Subscriptions & MonitoredItems', path: '/subscriptions', emoji: '📡', prev: 'security', next: 'transport' },
+  { id: 'transport', label: 'Ch 7: Transport & Encoding', title: 'Transport & Encoding', path: '/transport', emoji: '🚚', prev: 'subscriptions', next: 'ignition' },
+  { id: 'ignition', label: 'Ch 8: OPC UA in Ignition & RTAC', title: 'OPC UA in Ignition & RTAC', path: '/ignition', emoji: '⚙️', prev: 'transport', next: 'troubleshoot' },
+  { id: 'troubleshoot', label: 'Ch 9: Troubleshooting', title: 'Troubleshooting OPC UA', path: '/troubleshoot', emoji: '🔍', prev: 'ignition', next: 'lab' },
+  { id: 'lab', label: 'Ch 10: Lab & Tools', title: 'Lab & Tools', path: '/lab', emoji: '🧪', prev: 'troubleshoot' },
 ]
 
 export const ANALOGIES = {
