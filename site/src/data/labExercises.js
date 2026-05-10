@@ -60,6 +60,71 @@ const solution = parseNodeId;
 console.log(parseNodeId('i=84'));              // {namespace:0, type:'numeric', identifier:84}
 console.log(parseNodeId('ns=2;s=Tank1.Level')); // {namespace:2, type:'string', identifier:'Tank1.Level'}
 console.log(parseNodeId('ns=3;i=1001'));       // {namespace:3, type:'numeric', identifier:1001}`,
+    starterPy: `def parse_node_id(s):
+    """Parse an OPC UA NodeId string into components."""
+    if not s or not isinstance(s, str):
+        return None
+
+    namespace = 0
+    remaining = s.strip()
+
+    if remaining.startswith('ns='):
+        semi = remaining.find(';')
+        if semi == -1:
+            return None
+        namespace = int(remaining[3:semi])
+        remaining = remaining[semi+1:]
+
+    if remaining.startswith('i='):
+        try:
+            identifier = int(remaining[2:])
+        except ValueError:
+            return None
+        return {'namespace': namespace, 'type': 'numeric', 'identifier': identifier}
+    elif remaining.startswith('s='):
+        return {'namespace': namespace, 'type': 'string', 'identifier': remaining[2:]}
+    elif remaining.startswith('g='):
+        return {'namespace': namespace, 'type': 'guid', 'identifier': remaining[2:]}
+
+    return None
+
+solution = parse_node_id
+
+print(parse_node_id('i=84'))
+print(parse_node_id('ns=2;s=Tank1.Level'))
+print(parse_node_id('ns=3;i=1001'))
+print(parse_node_id(None))`,
+    starterJython: `def parse_node_id(s):
+    """Parse an OPC UA NodeId string. Jython 2.7."""
+    if not s or not isinstance(s, str):
+        return None
+
+    namespace = 0
+    remaining = s.strip()
+
+    if remaining.startswith('ns='):
+        semi = remaining.find(';')
+        if semi == -1:
+            return None
+        namespace = int(remaining[3:semi])
+        remaining = remaining[semi+1:]
+
+    if remaining.startswith('i='):
+        try:
+            identifier = int(remaining[2:])
+        except ValueError:
+            return None
+        return {'namespace': namespace, 'type': 'numeric', 'identifier': identifier}
+    elif remaining.startswith('s='):
+        return {'namespace': namespace, 'type': 'string', 'identifier': remaining[2:]}
+    elif remaining.startswith('g='):
+        return {'namespace': namespace, 'type': 'guid', 'identifier': remaining[2:]}
+    return None
+
+solution = parse_node_id
+
+print(parse_node_id('i=84'))
+print(parse_node_id('ns=2;s=Tank1.Level'))`,
     tests: [
       { description: 'parseNodeId("i=84") → {namespace:0, type:"numeric", identifier:84}' },
       { description: 'parseNodeId("ns=2;s=Tank1.Level") → {namespace:2, type:"string", identifier:"Tank1.Level"}' },
@@ -139,6 +204,46 @@ const solution = decodeStatusCode;
 console.log(decodeStatusCode(0x00000000)); // Good
 console.log(decodeStatusCode(0x80350000)); // Bad, subCode=0x35
 console.log(decodeStatusCode(0x40000000)); // Uncertain`,
+    starterPy: `def decode_status_code(code):
+    """Decode an OPC UA StatusCode into severity and sub-code."""
+    u32 = code & 0xFFFFFFFF
+    severity_bits = (u32 >> 30) & 0x03
+    severity_map = {0: 'Good', 1: 'Uncertain', 2: 'Bad', 3: 'Bad'}
+    severity = severity_map[severity_bits]
+    sub_code = (u32 >> 16) & 0x3FFF
+    return {
+        'severity': severity,
+        'isGood': severity_bits == 0,
+        'isBad': severity_bits >= 2,
+        'hex': '0x{:08X}'.format(u32),
+        'subCode': sub_code,
+    }
+
+solution = decode_status_code
+
+print(decode_status_code(0x00000000))  # Good
+print(decode_status_code(0x80350000))  # Bad, subCode=0x35
+print(decode_status_code(0x40000000))  # Uncertain`,
+    starterJython: `def decode_status_code(code):
+    """Decode an OPC UA StatusCode. Jython 2.7."""
+    u32 = code & 0xFFFFFFFF
+    severity_bits = (u32 >> 30) & 0x03
+    severity_map = {0: 'Good', 1: 'Uncertain', 2: 'Bad', 3: 'Bad'}
+    severity = severity_map[severity_bits]
+    sub_code = (u32 >> 16) & 0x3FFF
+    return {
+        'severity': severity,
+        'isGood': severity_bits == 0,
+        'isBad': severity_bits >= 2,
+        'hex': '0x%08X' % u32,
+        'subCode': sub_code,
+    }
+
+solution = decode_status_code
+
+print(decode_status_code(0x00000000))
+print(decode_status_code(0x80350000))
+print(decode_status_code(0x40000000))`,
     tests: [
       { description: '0x00000000 → severity:"Good", isGood:true, isBad:false' },
       { description: '0x80000000 → severity:"Bad", isGood:false, isBad:true' },
@@ -229,6 +334,81 @@ console.log(validateSubscription({
   lifetimeCount: 20,       // ← too low! should be >= 30
   maxNotificationsPerPublish: 0,
 }));`,
+    starterPy: `def validate_subscription(params):
+    """Validate OPC UA subscription parameters per the spec."""
+    errors = []
+    warnings = []
+    adjusted = dict(params)
+
+    pi = params.get('publishingInterval', 0)
+    if pi < 100:
+        errors.append('publishingInterval must be >= 100ms (OPC UA minimum)')
+        adjusted['publishingInterval'] = 100
+    elif pi < 1000:
+        warnings.append('publishingInterval < 1000ms — check server support in production')
+
+    ka = params.get('maxKeepAliveCount', 0)
+    if not ka or ka < 1:
+        errors.append('maxKeepAliveCount must be >= 1')
+        adjusted['maxKeepAliveCount'] = 10
+        ka = 10
+
+    lt = params.get('lifetimeCount', 0)
+    min_lt = 3 * ka
+    if lt < min_lt:
+        errors.append('lifetimeCount must be >= 3 * maxKeepAliveCount ({})'.format(min_lt))
+        adjusted['lifetimeCount'] = min_lt
+
+    return {
+        'valid': len(errors) == 0,
+        'errors': errors,
+        'warnings': warnings,
+        'adjusted': adjusted,
+    }
+
+solution = validate_subscription
+
+print(validate_subscription({
+    'publishingInterval': 500,
+    'maxKeepAliveCount': 10,
+    'lifetimeCount': 20,
+    'maxNotificationsPerPublish': 0,
+}))`,
+    starterJython: `def validate_subscription(params):
+    """Validate OPC UA subscription parameters. Jython 2.7."""
+    errors = []
+    warnings = []
+    adjusted = dict(params)
+
+    pi = params.get('publishingInterval', 0)
+    if pi < 100:
+        errors.append('publishingInterval must be >= 100ms (OPC UA minimum)')
+        adjusted['publishingInterval'] = 100
+    elif pi < 1000:
+        warnings.append('publishingInterval < 1000ms')
+
+    ka = params.get('maxKeepAliveCount', 0)
+    if not ka or ka < 1:
+        errors.append('maxKeepAliveCount must be >= 1')
+        adjusted['maxKeepAliveCount'] = 10
+        ka = 10
+
+    lt = params.get('lifetimeCount', 0)
+    min_lt = 3 * ka
+    if lt < min_lt:
+        errors.append('lifetimeCount must be >= 3 * maxKeepAliveCount (%d)' % min_lt)
+        adjusted['lifetimeCount'] = min_lt
+
+    return {
+        'valid': len(errors) == 0,
+        'errors': errors,
+        'warnings': warnings,
+        'adjusted': adjusted,
+    }
+
+solution = validate_subscription
+
+print(validate_subscription({'publishingInterval': 500, 'maxKeepAliveCount': 10, 'lifetimeCount': 20, 'maxNotificationsPerPublish': 0}))`,
     tests: [
       { description: 'Valid params (PI=1000, keepAlive=10, lifetime=30) → valid:true, no errors' },
       { description: 'lifetimeCount=20 with maxKeepAlive=10 → error about lifetime < 3x keepAlive' },
@@ -327,6 +507,90 @@ console.log(f.shouldNotify(10.0)); // true  (first value)
 console.log(f.shouldNotify(11.5)); // true  (delta=1.5 >= 2.0? NO — should be false)
 console.log(f.shouldNotify(12.5)); // true  (delta=2.5 >= 2.0? YES)
 console.log(f.getLastReported());  // 12.5`,
+    starterPy: `class DeadbandFilter(object):
+    """OPC UA deadband filter for MonitoredItems."""
+
+    def __init__(self, filter_type, value, eu_low=0.0, eu_high=100.0):
+        self.type = filter_type   # 'none', 'absolute', 'percent'
+        self.deadband_value = value
+        self.eu_low = eu_low
+        self.eu_high = eu_high
+        self.last_reported = None
+
+    def should_notify(self, new_value):
+        if self.last_reported is None:
+            self.last_reported = new_value
+            return True
+
+        delta = abs(new_value - self.last_reported)
+
+        if self.type == 'none':
+            self.last_reported = new_value
+            return True
+        elif self.type == 'absolute':
+            if delta >= self.deadband_value:
+                self.last_reported = new_value
+                return True
+        elif self.type == 'percent':
+            pct = delta / (self.eu_high - self.eu_low) * 100.0
+            if pct >= self.deadband_value:
+                self.last_reported = new_value
+                return True
+
+        return False
+
+    def get_last_reported(self):
+        return self.last_reported
+
+    # camelCase aliases for test runner compatibility
+    def shouldNotify(self, v): return self.should_notify(v)
+    def getLastReported(self): return self.get_last_reported()
+
+solution = DeadbandFilter
+
+f = DeadbandFilter('absolute', 2.0)
+print(f.should_notify(10.0))  # True  (first value)
+print(f.should_notify(11.5))  # False (delta=1.5 < 2.0)
+print(f.should_notify(12.5))  # True  (delta=2.5 from 10.0)
+print(f.get_last_reported())  # 12.5`,
+    starterJython: `class DeadbandFilter(object):
+    """OPC UA deadband filter. Jython 2.7."""
+
+    def __init__(self, filter_type, value, eu_low=0.0, eu_high=100.0):
+        self.type = filter_type
+        self.deadband_value = value
+        self.eu_low = eu_low
+        self.eu_high = eu_high
+        self.last_reported = None
+
+    def shouldNotify(self, new_value):
+        if self.last_reported is None:
+            self.last_reported = new_value
+            return True
+        delta = abs(new_value - self.last_reported)
+        if self.type == 'none':
+            self.last_reported = new_value
+            return True
+        elif self.type == 'absolute':
+            if delta >= self.deadband_value:
+                self.last_reported = new_value
+                return True
+        elif self.type == 'percent':
+            pct = delta / (self.eu_high - self.eu_low) * 100.0
+            if pct >= self.deadband_value:
+                self.last_reported = new_value
+                return True
+        return False
+
+    def getLastReported(self):
+        return self.last_reported
+
+solution = DeadbandFilter
+
+f = DeadbandFilter('absolute', 2.0)
+print(f.shouldNotify(10.0))
+print(f.shouldNotify(11.5))
+print(f.shouldNotify(12.5))`,
     tests: [
       { description: 'Absolute deadband=2.0: first value always notifies' },
       { description: 'Absolute deadband=2.0: delta=1.5 does NOT notify; delta=2.5 DOES notify' },
@@ -469,6 +733,127 @@ const val = mgr.read('ns=2;s=Tank1.Level');
 console.log('Read value:', val.value.toFixed(2));
 mgr.closeSession();
 console.log('State:', mgr.getState());                 // DISCONNECTED`,
+    starterPy: `import random
+
+class SessionManager(object):
+    """OPC UA Session state machine."""
+
+    def __init__(self, endpoint):
+        self.endpoint = endpoint
+        self.state = 'DISCONNECTED'
+        self.channel_id = None
+        self.session_id = None
+        self.auth_token = None
+
+    def get_state(self):
+        return self.state
+
+    def getState(self):
+        return self.state
+
+    def open_channel(self, security_mode='None'):
+        if self.state != 'DISCONNECTED':
+            raise RuntimeError('Cannot open channel in state: ' + self.state)
+        self.channel_id = random.randint(1, 10000)
+        self.state = 'CHANNEL_OPEN'
+        return {'channelId': self.channel_id, 'tokenId': random.randint(1, 1000), 'securityMode': security_mode}
+
+    def openChannel(self, security_mode='None'):
+        return self.open_channel(security_mode)
+
+    def create_session(self, app_uri):
+        if self.state != 'CHANNEL_OPEN':
+            raise RuntimeError('createSession requires CHANNEL_OPEN state, got: ' + self.state)
+        self.session_id = 'sess_{}'.format(random.randint(1, 100000))
+        self.auth_token = 'token_{}'.format(random.randint(1, 100000))
+        self.state = 'SESSION_CREATED'
+        return {'sessionId': self.session_id, 'authToken': self.auth_token}
+
+    def createSession(self, app_uri):
+        return self.create_session(app_uri)
+
+    def activate_session(self, username, password):
+        if self.state != 'SESSION_CREATED':
+            raise RuntimeError('activateSession requires SESSION_CREATED state, got: ' + self.state)
+        self.state = 'SESSION_ACTIVATED'
+        return {'activated': True, 'username': username}
+
+    def activateSession(self, username, password):
+        return self.activate_session(username, password)
+
+    def read(self, node_id):
+        if self.state != 'SESSION_ACTIVATED':
+            raise RuntimeError('read requires SESSION_ACTIVATED state, got: ' + self.state)
+        return {'nodeId': node_id, 'value': random.random() * 100, 'statusCode': 0x00000000}
+
+    def close_session(self):
+        if self.state == 'DISCONNECTED':
+            raise RuntimeError('No session to close')
+        self.state = 'DISCONNECTED'
+        self.channel_id = None
+        self.session_id = None
+        self.auth_token = None
+        return {'closed': True}
+
+    def closeSession(self):
+        return self.close_session()
+
+solution = SessionManager
+
+mgr = SessionManager('opc.tcp://localhost:4840')
+mgr.open_channel('SignAndEncrypt')
+mgr.create_session('urn:myapp')
+mgr.activate_session('engineer', 'pass')
+print('State:', mgr.get_state())
+val = mgr.read('ns=2;s=Tank1.Level')
+print('Value:', val['value'])
+mgr.close_session()`,
+    starterJython: `import random
+
+class SessionManager(object):
+    """OPC UA Session state machine. Jython 2.7."""
+
+    def __init__(self, endpoint):
+        self.endpoint = endpoint
+        self.state = 'DISCONNECTED'
+        self.channel_id = None
+        self.session_id = None
+
+    def getState(self):
+        return self.state
+
+    def openChannel(self, security_mode='None'):
+        if self.state != 'DISCONNECTED':
+            raise Exception('Cannot open channel in state: ' + self.state)
+        self.channel_id = random.randint(1, 10000)
+        self.state = 'CHANNEL_OPEN'
+        return {'channelId': self.channel_id}
+
+    def createSession(self, app_uri):
+        if self.state != 'CHANNEL_OPEN':
+            raise Exception('createSession requires CHANNEL_OPEN, got: ' + self.state)
+        self.session_id = 'sess_%d' % random.randint(1, 100000)
+        self.state = 'SESSION_CREATED'
+        return {'sessionId': self.session_id}
+
+    def activateSession(self, username, password):
+        if self.state != 'SESSION_CREATED':
+            raise Exception('activateSession requires SESSION_CREATED, got: ' + self.state)
+        self.state = 'SESSION_ACTIVATED'
+        return {'activated': True}
+
+    def read(self, node_id):
+        if self.state != 'SESSION_ACTIVATED':
+            raise Exception('read requires SESSION_ACTIVATED, got: ' + self.state)
+        return {'nodeId': node_id, 'value': random.random() * 100, 'statusCode': 0}
+
+    def closeSession(self):
+        if self.state == 'DISCONNECTED':
+            raise Exception('No session to close')
+        self.state = 'DISCONNECTED'
+        return {'closed': True}
+
+solution = SessionManager`,
     tests: [
       { description: 'Happy path: DISCONNECTED → CHANNEL_OPEN → SESSION_CREATED → SESSION_ACTIVATED' },
       { description: 'createSession() without openChannel() throws an error' },
@@ -596,6 +981,85 @@ const trustedStore = [rootCA];
 
 console.log(validateCertificateChain(clientCert, trustedStore));
 // Expected: { trusted: true, reason: 'ChainTrusted' }`,
+    starterPy: `import time
+
+def validate_certificate_chain(cert, trusted_store, now=None):
+    """Validate an OPC UA X.509 certificate chain."""
+    if now is None:
+        now = int(time.time() * 1000)
+    if not cert or not trusted_store:
+        return {'trusted': False, 'reason': 'BadCertificateInvalid'}
+
+    # Check 1: directly trusted by thumbprint
+    direct = next((t for t in trusted_store if t.get('thumbprint') == cert.get('thumbprint')), None)
+    if direct:
+        if now < cert.get('validFrom', 0) or now > cert.get('validTo', 0):
+            return {'trusted': False, 'reason': 'BadCertificateTimeInvalid'}
+        return {'trusted': True, 'reason': 'DirectlyTrusted'}
+
+    # Check 2: find issuer in trusted store
+    issuer_cert = next((t for t in trusted_store if t.get('subject') == cert.get('issuer')), None)
+    if not issuer_cert:
+        return {'trusted': False, 'reason': 'BadCertificateUntrusted'}
+
+    # Check issuer is actually a CA
+    if not issuer_cert.get('isCa'):
+        return {'trusted': False, 'reason': 'BadCertificateIssuerNotTrusted'}
+
+    # Check validity of both certificates
+    if now < cert.get('validFrom', 0) or now > cert.get('validTo', 0):
+        return {'trusted': False, 'reason': 'BadCertificateTimeInvalid'}
+    if now < issuer_cert.get('validFrom', 0) or now > issuer_cert.get('validTo', 0):
+        return {'trusted': False, 'reason': 'BadCertificateTimeInvalid'}
+
+    return {'trusted': True, 'reason': 'ChainTrusted'}
+
+solution = validate_certificate_chain
+
+now_ms = int(time.time() * 1000)
+root_ca = {
+    'thumbprint': 'ca-001', 'subject': 'CN=CA', 'issuer': 'CN=CA',
+    'validFrom': now_ms - 1000000, 'validTo': now_ms + 1000000000, 'isCa': True
+}
+client_cert = {
+    'thumbprint': 'cl-001', 'subject': 'CN=Client', 'issuer': 'CN=CA',
+    'validFrom': now_ms - 1000000, 'validTo': now_ms + 1000000000, 'isCa': False
+}
+print(validate_certificate_chain(client_cert, [root_ca], now_ms))`,
+    starterJython: `import time
+
+def validate_certificate_chain(cert, trusted_store, now=None):
+    """Validate OPC UA certificate chain. Jython 2.7."""
+    if now is None:
+        now = int(time.time() * 1000)
+    if not cert or not trusted_store:
+        return {'trusted': False, 'reason': 'BadCertificateInvalid'}
+
+    direct = None
+    for t in trusted_store:
+        if t.get('thumbprint') == cert.get('thumbprint'):
+            direct = t
+            break
+    if direct:
+        if now < cert.get('validFrom', 0) or now > cert.get('validTo', 0):
+            return {'trusted': False, 'reason': 'BadCertificateTimeInvalid'}
+        return {'trusted': True, 'reason': 'DirectlyTrusted'}
+
+    issuer_cert = None
+    for t in trusted_store:
+        if t.get('subject') == cert.get('issuer'):
+            issuer_cert = t
+            break
+    if not issuer_cert:
+        return {'trusted': False, 'reason': 'BadCertificateUntrusted'}
+    if not issuer_cert.get('isCa'):
+        return {'trusted': False, 'reason': 'BadCertificateIssuerNotTrusted'}
+    if now < cert.get('validFrom', 0) or now > cert.get('validTo', 0):
+        return {'trusted': False, 'reason': 'BadCertificateTimeInvalid'}
+
+    return {'trusted': True, 'reason': 'ChainTrusted'}
+
+solution = validate_certificate_chain`,
     tests: [
       { description: 'Directly trusted cert (in store) with valid dates → {trusted:true, reason:"DirectlyTrusted"}' },
       { description: 'Chain trust: cert signed by trusted CA → {trusted:true, reason:"ChainTrusted"}' },
