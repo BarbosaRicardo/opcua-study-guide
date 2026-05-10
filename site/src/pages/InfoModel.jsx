@@ -4,7 +4,7 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
@@ -165,7 +165,7 @@ export default function InfoModel() {
       <AnalogyCard analogy={ANALOGIES.infomodel} />
 
       {QUIZZES.infomodel && QUIZZES.infomodel.length > 0 && (
-        <Quiz chapterId="infomodel" questions={QUIZZES.infomodel} level={1} />
+        <QuizLevels chapterId="infomodel" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.infomodel} />
     </ChapterLayout>

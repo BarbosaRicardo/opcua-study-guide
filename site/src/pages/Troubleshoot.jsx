@@ -4,7 +4,7 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
@@ -160,7 +160,7 @@ export default function Troubleshoot() {
       <AnalogyCard analogy={ANALOGIES.troubleshoot} />
 
       {QUIZZES.troubleshoot && QUIZZES.troubleshoot.length > 0 && (
-        <Quiz chapterId="troubleshoot" questions={QUIZZES.troubleshoot} level={1} />
+        <QuizLevels chapterId="troubleshoot" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.troubleshoot} />
     </ChapterLayout>

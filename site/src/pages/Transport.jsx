@@ -4,7 +4,7 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
@@ -146,7 +146,7 @@ export default function Transport() {
       <AnalogyCard analogy={ANALOGIES.transport} />
 
       {QUIZZES.transport && QUIZZES.transport.length > 0 && (
-        <Quiz chapterId="transport" questions={QUIZZES.transport} level={1} />
+        <QuizLevels chapterId="transport" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.transport} />
     </ChapterLayout>

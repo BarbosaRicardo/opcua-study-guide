@@ -1,1087 +1,693 @@
 export const QUIZZES = {
 
-  intro: [
-    {
-      id: 'intro_1',
-      type: 'mcq',
-      question: 'What does "OPC" stand for in its original 1996 form?',
-      options: ['Open Process Control', 'OLE for Process Control', 'Open Protocol Communication', 'Operational Control'],
-      answer: 1,
-      explanation: 'OLE for Process Control. Yes, OLE — that 1990s Windows embedding technology most people forgot existed. OPC Classic was born Windows-only and stayed that way until UA came along and freed everyone from the DCOM dungeon.'
-    },
-    {
-      id: 'intro_2',
-      type: 'mcq',
-      question: 'Which of the following is a correct list of the three main OPC Classic specifications?',
-      options: [
-        'OPC-DA, OPC-AE, OPC-UA',
-        'OPC-DA, OPC-HDA, OPC-AE',
-        'OPC-DA, OPC-HDA, OPC-DX',
-        'OPC-RT, OPC-HDA, OPC-AE'
-      ],
-      answer: 1,
-      explanation: 'Data Access (DA), Historical Data Access (HDA), and Alarms & Events (AE). Three separate specs, three separate installs, three separate COM servers, three separate ways for everything to break. OPC UA replaced all three with one standard.'
-    },
-    {
-      id: 'intro_3',
-      type: 'mcq',
-      question: 'OPC Classic\'s biggest architectural weakness was its reliance on which Windows technology?',
-      options: ['WinSock', 'DCOM', 'ActiveX', 'Named Pipes'],
-      answer: 1,
-      explanation: 'DCOM — Distributed Component Object Model. A technology so fragile that configuring it correctly was considered a dark art. It was firewall-hostile, Windows-only, and responsible for more 3 AM support calls than any technology deserved to be.'
-    },
-    {
-      id: 'intro_4',
-      type: 'mcq',
-      question: 'In what year was OPC UA introduced?',
-      options: ['2002', '2005', '2008', '2012'],
-      answer: 2,
-      explanation: '2008. Over a decade of DCOM pain was finally codified into a lesson learned. OPC UA arrived as a TCP-based, platform-independent replacement that could run on Linux, embedded devices, and cloud — not just Windows Server 2003 Service Pack 2.'
-    },
-    {
-      id: 'intro_5',
-      type: 'mcq',
-      question: 'What IEC standard defines OPC UA?',
-      options: ['IEC 61850', 'IEC 62541', 'IEC 61131', 'IEC 60870'],
-      answer: 1,
-      explanation: 'IEC 62541, published in 14 parts. If you ever need to put someone to sleep, read Part 6 aloud. That said, having an IEC standard means OPC UA is an internationally recognized protocol — not just a vendor\'s weekend project.'
-    },
-    {
-      id: 'intro_6',
-      type: 'mcq',
-      question: 'What does "UA" stand for in OPC UA?',
-      options: ['Universal Access', 'Unified Architecture', 'Unified Automation', 'Universal Application'],
-      answer: 1,
-      explanation: 'Unified Architecture. One standard to rule them all — replacing OPC-DA, OPC-HDA, and OPC-AE with a single coherent framework. "Unified" because the OPC Foundation got tired of maintaining three separate specs that all did slightly different things wrong.'
-    },
-    {
-      id: 'intro_7',
-      type: 'fill',
-      question: 'OPC UA is published and maintained by the ___.',
-      answer: 'OPC Foundation',
-      hint: 'The industry organization, not a standards body like IEC or ISO',
-      explanation: 'The OPC Foundation. A vendor-neutral consortium that manages the OPC UA spec, certification, and conformance testing. They also published OPC Classic, which is why they get credit for both the problem and the solution.'
-    },
-    {
-      id: 'intro_8',
-      type: 'mcq',
-      question: 'Which of the following is NOT a platform where OPC UA can natively run?',
-      options: ['Linux servers', 'Embedded microcontrollers', 'Cloud services', 'Windows XP SP2 via DCOM only'],
-      answer: 3,
-      explanation: 'OPC UA is platform-independent by design. It runs on Linux, embedded systems, cloud, and yes, also Windows — but not *only* Windows via DCOM. That\'s the whole point of UA. DCOM is retired. Let it go.'
-    },
-  ],
+  intro: {
+    level1: [
+      { id:'intro_l1_1', type:'mcq', q:'What does OPC UA stand for?', options:['Open Platform Communications Unified Architecture','Object Process Control Unified Access','Open Protocol Control Universal API','Operational Process Communications Unified Agent'], answer:'Open Platform Communications Unified Architecture', explanation:'OPC UA is the cross-platform, service-oriented successor to classic OPC.' },
+      { id:'intro_l1_2', type:'tf', q:'OPC UA requires Windows to operate.', answer:'False', explanation:'OPC UA is platform-independent and runs on Linux, macOS, embedded systems, and Windows.' },
+      { id:'intro_l1_3', type:'mcq', q:'Classic OPC (OPC DA) relied on which Windows technology?', options:['COM/DCOM','TCP/IP sockets','REST APIs','UDP multicast'], answer:'COM/DCOM', explanation:'Classic OPC used Microsoft\'s COM/DCOM, restricting it to Windows and causing firewall issues.' },
+      { id:'intro_l1_4', type:'mcq', q:'Which year was OPC UA (IEC 62541) first published?', options:['2006','2000','2012','1996'], answer:'2006', explanation:'OPC UA was first published in 2006 as a set of specifications.' },
+      { id:'intro_l1_5', type:'tf', q:'OPC UA combines the functionality of OPC DA, OPC HDA, and OPC A&E.', answer:'True', explanation:'OPC UA unifies data access, historical data access, and alarms & events into a single specification.' },
+      { id:'intro_l1_6', type:'mcq', q:'What is the primary communication model of OPC UA?', options:['Client-Server and Pub/Sub','Peer-to-Peer only','Master-Slave only','Token ring'], answer:'Client-Server and Pub/Sub', explanation:'OPC UA supports both client-server and publish-subscribe communication models.' },
+      { id:'intro_l1_7', type:'fill', q:'OPC UA is standardized under the IEC _____ series of specifications.', answer:'62541', explanation:'IEC 62541 is the international standard defining OPC UA.' },
+      { id:'intro_l1_8', type:'mcq', q:'Which feature makes OPC UA suitable for cloud and IoT applications?', options:['Platform independence and built-in security','Dependency on Windows DCOM','Fixed point-to-point connections','Proprietary encoding only'], answer:'Platform independence and built-in security', explanation:'OPC UA\'s platform independence and built-in security (TLS, X.509) make it ideal for IIoT.' },
+      { id:'intro_l1_9', type:'tf', q:'OPC UA has built-in security mechanisms including authentication and encryption.', answer:'True', explanation:'OPC UA includes security at the application layer: authentication, authorization, and message encryption.' },
+      { id:'intro_l1_10', type:'mcq', q:'In OPC UA, what is the "Address Space"?', options:['A hierarchical node repository accessible to clients','A physical memory address','A TCP port range','A network subnet'], answer:'A hierarchical node repository accessible to clients', explanation:'The Address Space is OPC UA\'s organized collection of nodes that clients can browse and read.' },
+      { id:'intro_l1_11', type:'mcq', q:'What replaced OPC DA in modern industrial systems?', options:['OPC UA','OPC DX','OPC XML-DA','Modbus TCP'], answer:'OPC UA', explanation:'OPC UA is the modern successor to OPC DA, providing backward compatibility via wrappers.' },
+      { id:'intro_l1_12', type:'tf', q:'OPC UA only supports polling-based data acquisition.', answer:'False', explanation:'OPC UA supports both polling (read services) and subscription-based (monitored items) data access.' },
+      { id:'intro_l1_13', type:'mcq', q:'Which default TCP port does OPC UA typically use?', options:['4840','502','102','44818'], answer:'4840', explanation:'Port 4840 is the IANA-registered default port for OPC UA.' },
+      { id:'intro_l1_14', type:'mcq', q:'What organization maintains the OPC UA specification?', options:['OPC Foundation','IEC only','IEEE','CERN'], answer:'OPC Foundation', explanation:'The OPC Foundation owns and maintains the OPC UA specification.' },
+      { id:'intro_l1_15', type:'fill', q:'OPC UA\'s security is built on _____ certificates for authentication.', answer:'X.509', explanation:'OPC UA uses X.509 digital certificates for client and server authentication.' },
+      { id:'intro_l1_16', type:'mcq', q:'Which protocol does OPC UA\'s binary transport use by default?', options:['TCP','UDP','HTTP only','Serial RS-232'], answer:'TCP', explanation:'OPC UA Binary protocol runs over TCP for reliable, ordered delivery.' },
+      { id:'intro_l1_17', type:'tf', q:'OPC UA can model complex hierarchical data structures.', answer:'True', explanation:'OPC UA\'s information model supports arbitrary hierarchies, types, and references.' },
+      { id:'intro_l1_18', type:'mcq', q:'What is a "Node" in OPC UA?', options:['The fundamental addressable entity in the address space','A physical network router','A PLC I/O point only','A session token'], answer:'The fundamental addressable entity in the address space', explanation:'Nodes are the building blocks of the OPC UA address space — they can represent variables, objects, methods, etc.' },
+      { id:'intro_l1_19', type:'mcq', q:'OPC UA Pub/Sub uses which protocol for large-scale messaging?', options:['MQTT or AMQP','COM/DCOM','Modbus','Profibus'], answer:'MQTT or AMQP', explanation:'OPC UA Pub/Sub extensions support MQTT and AMQP for broker-based publish/subscribe.' },
+      { id:'intro_l1_20', type:'tf', q:'A single OPC UA server can expose multiple namespaces.', answer:'True', explanation:'OPC UA servers use namespace indexes to separate address spaces from different vendors or applications.' },
+    ],
+    level2: [
+      { id:'intro_l2_1', type:'mcq', q:'A plant uses OPC DA with 500 SCADA clients on Windows XP. What is the PRIMARY migration challenge to OPC UA?', options:['COM/DCOM removal requires new client software or wrappers','OPC UA cannot handle 500 clients','OPC UA requires Linux servers','OPC UA does not support analog data'], answer:'COM/DCOM removal requires new client software or wrappers', explanation:'Migrating away from COM/DCOM requires either OPC UA-native clients or COM wrappers.' },
+      { id:'intro_l2_2', type:'mcq', q:'An OPC UA server advertises its endpoint at opc.tcp://192.168.1.10:4840. What does "opc.tcp" indicate?', options:['OPC UA Binary over TCP transport','OPC UA over HTTP','OPC UA over UDP','Classic OPC tunnel'], answer:'OPC UA Binary over TCP transport', explanation:'The "opc.tcp" scheme indicates OPC UA Binary encoding transported over TCP.' },
+      { id:'intro_l2_3', type:'tf', q:'Namespace index 0 in OPC UA is always reserved for the OPC Foundation\'s standard types.', answer:'True', explanation:'Namespace 0 contains the OPC UA standard types and is reserved; vendor types use indices 1+.' },
+      { id:'intro_l2_4', type:'mcq', q:'Which OPC UA feature enables a historian client to retrieve data from 6 months ago?', options:['Historical Access service set','Monitored Items','Pub/Sub broker','Browse service'], answer:'Historical Access service set', explanation:'OPC UA\'s Historical Access services allow reading historical data from servers with historian capability.' },
+      { id:'intro_l2_5', type:'mcq', q:'A factory needs device-to-cloud connectivity without a PC gateway. Which OPC UA feature helps?', options:['OPC UA Pub/Sub over MQTT','OPC UA Binary over TCP requiring a PC gateway','OPC DA COM tunneling','Classic OPC with DCOM'], answer:'OPC UA Pub/Sub over MQTT', explanation:'OPC UA Pub/Sub over MQTT allows embedded devices to publish data directly to cloud brokers.' },
+      { id:'intro_l2_6', type:'fill', q:'The OPC UA companion specification for robotics is maintained under the _____ working group.', answer:'OPC UA for Robotics', explanation:'Joint Working Group with OPC Foundation and VDMA defines OPC UA for Robotics (OPC 40010).' },
+      { id:'intro_l2_7', type:'tf', q:'OPC UA sessions can survive brief network outages and reconnect without losing subscriptions.', answer:'True', explanation:'OPC UA has session timeout and reconnect logic; subscriptions can be transferred to new sessions.' },
+      { id:'intro_l2_8', type:'mcq', q:'A security audit finds OPC UA running with SecurityMode=None. What risk does this introduce?', options:['All data is transmitted in plaintext with no authentication','Performance degrades significantly','The server crashes on reconnect','Subscriptions cannot be created'], answer:'All data is transmitted in plaintext with no authentication', explanation:'SecurityMode=None disables signing and encryption — all traffic is observable and unverified.' },
+      { id:'intro_l2_9', type:'mcq', q:'Which OPC UA node class represents a callable function on a server?', options:['Method','Variable','Object','DataType'], answer:'Method', explanation:'The Method node class represents a callable function, like RPC, that clients can invoke.' },
+      { id:'intro_l2_10', type:'mcq', q:'OPC UA Binary encoding is chosen over XML encoding in most industrial deployments because:', options:['Lower overhead, faster parsing, smaller messages','XML is deprecated in OPC UA 1.04','Binary requires no TCP stack','XML cannot encode numeric values'], answer:'Lower overhead, faster parsing, smaller messages', explanation:'OPC UA Binary encoding is compact and fast; XML encoding exists for interop but is rarely used in production.' },
+      { id:'intro_l2_11', type:'tf', q:'OPC UA supports method calls with input and output arguments.', answer:'True', explanation:'OPC UA Methods accept InputArguments and return OutputArguments, enabling RPC-style interactions.' },
+      { id:'intro_l2_12', type:'mcq', q:'An integrator configures DiscoveryURL in a client. What does this allow?', options:['Automatically finding server endpoints without hardcoding URLs','Encrypting the session','Setting the sampling interval','Defining custom data types'], answer:'Automatically finding server endpoints without hardcoding URLs', explanation:'Discovery endpoints let clients locate server endpoints dynamically via the OPC UA Discovery mechanism.' },
+      { id:'intro_l2_13', type:'mcq', q:'What distinguishes OPC UA "Object" nodes from "Variable" nodes?', options:['Objects group related nodes; Variables hold data values','Objects hold numeric data; Variables hold strings','Objects require authentication; Variables do not','Objects cannot have children'], answer:'Objects group related nodes; Variables hold data values', explanation:'Object nodes are containers organizing the address space; Variable nodes carry actual data values.' },
+      { id:'intro_l2_14', type:'fill', q:'OPC UA Part 6 defines the _____ encoding, which is the binary wire format.', answer:'UA Binary', explanation:'OPC UA Part 6 specifies the UA Binary (and UA XML) encoding for messages.' },
+      { id:'intro_l2_15', type:'tf', q:'A LocalDiscoveryServer (LDS) allows multiple OPC UA servers to register on one host for browsing.', answer:'True', explanation:'LDS is an OPC UA service that aggregates server endpoints so clients can discover all servers on a network segment.' },
+      { id:'intro_l2_16', type:'mcq', q:'Which service set handles creating and deleting nodes at runtime in OPC UA?', options:['NodeManagement','Attribute','View','Session'], answer:'NodeManagement', explanation:'The NodeManagement service set provides AddNodes, DeleteNodes, AddReferences, and DeleteReferences.' },
+      { id:'intro_l2_17', type:'mcq', q:'In OPC UA, StatusCode "Bad_NodeIdUnknown" means:', options:['The requested NodeId does not exist in the server address space','The node has a bad sensor reading','The session expired','The server rejected the certificate'], answer:'The requested NodeId does not exist in the server address space', explanation:'Bad_NodeIdUnknown is returned when the client requests a node that the server cannot find.' },
+      { id:'intro_l2_18', type:'tf', q:'OPC UA can run over WebSockets for web browser-based clients.', answer:'True', explanation:'OPC UA Part 6 defines UA over WebSockets (opc.wss) allowing browser-based HMI clients.' },
+      { id:'intro_l2_19', type:'mcq', q:'A Redundancy-aware OPC UA client should handle which server state transition?', options:['Primary-to-secondary failover with session migration','DCOM registration changes','COM object versioning','Windows service restart only'], answer:'Primary-to-secondary failover with session migration', explanation:'OPC UA redundancy (Part 4) defines hot/warm/cold redundancy with client session migration.' },
+      { id:'intro_l2_20', type:'mcq', q:'OPC UA\'s "Aggregates" service allows clients to request:', options:['Pre-computed historical summaries like Average or Minimum','Live streaming data only','Node deletion','Custom encoding formats'], answer:'Pre-computed historical summaries like Average or Minimum', explanation:'Aggregate functions (Average, Min, Max, Count, etc.) are defined in OPC UA\'s Historical Access specification.' },
+    ],
+    level3: [
+      { id:'intro_l3_1', type:'mcq', q:'An OPC UA server implements OPC 40001 (UA for Machinery). What does this imply about its information model?', options:['It follows a companion spec defining standard machine types, interfaces, and identification nodes','It only exposes raw I/O tags','It requires OPC DA wrappers','It uses UDP transport exclusively'], answer:'It follows a companion spec defining standard machine types, interfaces, and identification nodes', explanation:'Companion specifications like OPC 40001 define standardized object types enabling interoperability across vendors.' },
+      { id:'intro_l3_2', type:'tf', q:'OPC UA\'s RequestedSessionTimeout parameter guarantees the server will close the session at exactly that time.', answer:'False', explanation:'RequestedSessionTimeout is negotiated; the server may set a different ActualSessionTimeout and closes the session only after the agreed period with no activity.' },
+      { id:'intro_l3_3', type:'mcq', q:'A client connects to an OPC UA server using SecurityPolicy=Basic256Sha256 with SecurityMode=SignAndEncrypt. Which statement about session establishment is true?', options:['The client and server exchange X.509 certificates and establish a SecureChannel before creating the session','Certificates are optional when SignAndEncrypt is chosen','The channel is only encrypted after the first subscription is created','Basic256Sha256 uses symmetric keys only'], answer:'The client and server exchange X.509 certificates and establish a SecureChannel before creating the session', explanation:'SecureChannel establishment with certificate exchange precedes CreateSession, ensuring secure session setup.' },
+      { id:'intro_l3_4', type:'mcq', q:'Which mechanism does OPC UA use to prevent sequence number replay attacks in binary messages?', options:['SequenceNumber increment with SecureChannel TokenId validation','Session-level HMAC only','Application-layer timestamps','Random padding bytes'], answer:'SequenceNumber increment with SecureChannel TokenId validation', explanation:'OPC UA binary messages include SequenceNumber and SecureChannelId/TokenId; replayed messages are rejected.' },
+      { id:'intro_l3_5', type:'fill', q:'In OPC UA, the numeric portion of a standard NodeId is called a _____.', answer:'Identifier', explanation:'NodeIds have a namespace index and an identifier; standard nodes have numeric identifiers defined in the spec.' },
+      { id:'intro_l3_6', type:'mcq', q:'OPC UA Part 2 defines the Security Model. Which attack does the application-layer nonce protect against?', options:['Man-in-the-middle attacks during session creation','SQL injection','DNS spoofing','Buffer overflow in the address space'], answer:'Man-in-the-middle attacks during session creation', explanation:'Client and server nonces are exchanged and validated during CreateSession/ActivateSession to prevent MITM.' },
+      { id:'intro_l3_7', type:'tf', q:'The OPC UA Global Discovery Server (GDS) can automatically push certificates to OPC UA applications.', answer:'True', explanation:'GDS supports certificate management including push/pull certificate distribution to clients and servers.' },
+      { id:'intro_l3_8', type:'mcq', q:'An OPC UA server exposes a FolderType node with 10,000 child variable nodes. A client browses with BrowseDirection=Forward and NodeClassMask=Variable. What performance concern arises?', options:['Large browse results may exceed message size limits requiring continuation points','BrowseDirection=Forward is not supported','Variable nodes cannot be browsed','NodeClassMask filtering increases server CPU to O(n²)'], answer:'Large browse results may exceed message size limits requiring continuation points', explanation:'OPC UA Browse responses are size-limited; servers return ContinuationPoints for large result sets requiring multiple Browse/BrowseNext calls.' },
+      { id:'intro_l3_9', type:'mcq', q:'Which OPC UA specification part defines the Pub/Sub communication model?', options:['Part 14','Part 4','Part 8','Part 11'], answer:'Part 14', explanation:'OPC UA Part 14 defines the Pub/Sub communication model including MQTT and AMQP transports.' },
+      { id:'intro_l3_10', type:'mcq', q:'A multi-server OPC UA deployment uses an Aggregating Server. What is its primary role?', options:['Proxy that presents multiple servers as a single unified address space to clients','Encrypt traffic between field devices','Store historical data locally','Act as a DCOM bridge for legacy OPC DA'], answer:'Proxy that presents multiple servers as a single unified address space to clients', explanation:'Aggregating Servers (defined in OPC UA Part 4) federate multiple servers, simplifying client connectivity.' },
+      { id:'intro_l3_11', type:'tf', q:'OPC UA Alarms & Conditions is a separate specification from OPC UA for Process Values (OPC DA replacement).', answer:'False', explanation:'OPC UA Part 9 (Alarms & Conditions) is part of the unified OPC UA specification, not separate from it.' },
+      { id:'intro_l3_12', type:'mcq', q:'What is the purpose of the OPC UA "RolePermissions" attribute on a node?', options:['Define which user roles can access the node and what operations they can perform','Set the physical access control panel code','Define network ACLs for the server','Restrict the node to specific OPC UA versions'], answer:'Define which user roles can access the node and what operations they can perform', explanation:'RolePermissions enables fine-grained access control — each role can have Browse, Read, Write, Call, etc. permissions.' },
+      { id:'intro_l3_13', type:'fill', q:'OPC UA Part 8 defines the _____ access, enabling clients to read time-series data stored by historians.', answer:'Historical', explanation:'OPC UA Part 8 (Historical Access) defines services for reading, updating, and deleting historical data.' },
+      { id:'intro_l3_14', type:'mcq', q:'A vendor implements OPC UA using self-signed certificates but the plant\'s PKI rejects them. The correct resolution per OPC UA spec is:', options:['The server should support a PKI trust list where the admin manually trusts the self-signed certificate','Replace the server with a COM/DCOM version','Use SecurityMode=None instead','Regenerate certificates hourly'], answer:'The server should support a PKI trust list where the admin manually trusts the self-signed certificate', explanation:'OPC UA allows explicit trust of self-signed certificates via a manually maintained trust store on each application.' },
+      { id:'intro_l3_15', type:'mcq', q:'In OPC UA complex event filtering, a ContentFilter combines:', options:['Operator elements and operands into a tree-structured boolean expression','SQL WHERE clauses embedded in XML','JavaScript callbacks on the server','Hardware interrupt signals'], answer:'Operator elements and operands into a tree-structured boolean expression', explanation:'ContentFilter uses FilterOperators (like And, Or, GreaterThan, InList) with FilterOperands to create complex filter expressions.' },
+      { id:'intro_l3_16', type:'tf', q:'OPC UA defines a standard "Diagnostics" subtree that all compliant servers must expose.', answer:'True', explanation:'OPC UA mandates a Server\\Diagnostics node hierarchy exposing server statistics, session info, and subscription state.' },
+      { id:'intro_l3_17', type:'mcq', q:'When should a client implement "TransferSubscriptions" service?', options:['After session reconnection to restore subscriptions to a new session without data loss','During initial endpoint discovery','When changing SecurityPolicy at runtime','Before calling Browse on a folder node'], answer:'After session reconnection to restore subscriptions to a new session without data loss', explanation:'TransferSubscriptions migrates existing subscriptions (including queued notifications) from an old session to a new one.' },
+      { id:'intro_l3_18', type:'mcq', q:'An OPC UA server running on an ARM-based edge device has 256MB RAM. The vendor recommends limiting MaxSessionCount to 5. Which OPC UA server capability profile applies?', options:['Nano Embedded Device Server Profile','Standard Server Profile','Full Server Profile','DataAccess Server Facet'], answer:'Nano Embedded Device Server Profile', explanation:'OPC UA defines server profiles for resource-constrained devices; Nano profile minimizes mandatory services.' },
+      { id:'intro_l3_19', type:'fill', q:'The OPC UA mechanism for encoding arbitrary structured data types dynamically, without pre-compiled code, is called _____.', answer:'DataTypeDefinition', explanation:'DataTypeDefinition attribute and ExtensionObject allow dynamic encoding of structured types without generated code.' },
+      { id:'intro_l3_20', type:'tf', q:'OPC UA\'s "Auditing" service set requires servers to generate audit events for security-relevant operations like session creation and certificate changes.', answer:'True', explanation:'OPC UA Part 4 defines audit events (AuditSessionEventType, AuditCertificateEventType, etc.) that compliant servers emit for security auditing.' },
+    ],
+  },
 
-  architecture: [
-    {
-      id: 'arch_1',
-      type: 'mcq',
-      question: 'In OPC UA, which entity initiates the connection and sends service requests?',
-      options: ['The Server', 'The Client', 'The Broker', 'The Gateway'],
-      answer: 1,
-      explanation: 'The Client always initiates. The Server sits there, exposes its Address Space, and waits politely. If you\'re expecting the server to call you, you\'ve mixed up your OPC UA roles — and possibly your phone number.'
-    },
-    {
-      id: 'arch_2',
-      type: 'mcq',
-      question: 'What is the correct order of connection establishment in OPC UA?',
-      options: [
-        'Create Session → Open Secure Channel → Activate Session',
-        'Open Secure Channel → Create Session → Activate Session',
-        'Activate Session → Open Secure Channel → Create Session',
-        'Open Secure Channel → Activate Session → Create Session'
-      ],
-      answer: 1,
-      explanation: 'Open Secure Channel first (transport-level security), then Create Session (negotiate session parameters), then Activate Session (authenticate the user). Skip any step and the server will politely — or not so politely — reject you.'
-    },
-    {
-      id: 'arch_3',
-      type: 'mcq',
-      question: 'What does an OPC UA Aggregation Server do?',
-      options: [
-        'Converts OPC UA to Modbus',
-        'Connects to multiple OPC UA servers and re-exposes their data as a single unified server',
-        'Stores historical data from OPC UA servers',
-        'Provides authentication services for OPC UA networks'
-      ],
-      answer: 1,
-      explanation: 'An Aggregation Server is a middleman that connects to several OPC UA servers and presents all their data as one unified Address Space. Your client only has to talk to one server. Think of it as a very hardworking receptionist.'
-    },
-    {
-      id: 'arch_4',
-      type: 'mcq',
-      question: 'Ignition\'s relationship to OPC UA is best described as:',
-      options: [
-        'A pure OPC UA server only',
-        'A pure OPC UA client only',
-        'Simultaneously a client (to PLCs) and a server (to HMI/SCADA clients)',
-        'An OPC UA broker'
-      ],
-      answer: 2,
-      explanation: 'Ignition wears both hats. It\'s a client when connecting down to PLCs and devices, and a server when exposing tag data up to Perspective, Vision, or third-party SCADA clients. It\'s the industrial equivalent of a player-coach — doing two jobs for the price of one.'
-    },
-    {
-      id: 'arch_5',
-      type: 'mcq',
-      question: 'The Session layer in OPC UA sits on top of which layer?',
-      options: ['TCP Transport', 'Secure Channel', 'Discovery Service', 'Address Space'],
-      answer: 1,
-      explanation: 'Session sits on top of Secure Channel. The Secure Channel handles message security and sits on top of the transport (TCP). It\'s a proper layered cake: TCP → Secure Channel → Session → your actual data. Don\'t eat it out of order.'
-    },
-    {
-      id: 'arch_6',
-      type: 'mcq',
-      question: 'In the OPC UA Pub/Sub model, how does a subscriber receive data?',
-      options: [
-        'It polls the server periodically',
-        'It receives data pushed from the server via an MQTT broker',
-        'It sends a Read request for each value',
-        'It opens a direct TCP connection to the publisher'
-      ],
-      answer: 1,
-      explanation: 'In Pub/Sub, a broker (typically MQTT) sits in the middle. Publishers push data to the broker; subscribers receive it from the broker. No polling, no direct connections between publisher and subscriber. Very cloud-friendly. Very different from the classic client-server model.'
-    },
-    {
-      id: 'arch_7',
-      type: 'fill',
-      question: 'The service used to close an OPC UA session gracefully is called ___.',
-      answer: 'Close Session',
-      hint: 'It\'s named exactly what it does',
-      explanation: 'CloseSession. After you\'re done, you close the session, then close the secure channel. Dropping the TCP connection without closing the session politely leaves the server holding resources. Be a good citizen — close your connections.'
-    },
-    {
-      id: 'arch_8',
-      type: 'mcq',
-      question: 'Which OPC UA component is responsible for exposing the hierarchy of data points, objects, and methods available on a server?',
-      options: ['Secure Channel', 'Session Manager', 'Address Space', 'Discovery Endpoint'],
-      answer: 2,
-      explanation: 'The Address Space. It\'s the server\'s complete map of everything it knows about — tags, objects, methods, types. When you browse an OPC UA server, you\'re walking the Address Space tree. Lose your map and you\'re just guessing at NodeIds.'
-    },
-    {
-      id: 'arch_9',
-      type: 'mcq',
-      question: 'What service does an OPC UA client use to discover available servers on the network?',
-      options: ['Browse Service', 'Discovery Service', 'Find Servers Service', 'Endpoint Service'],
-      answer: 2,
-      explanation: 'The Find Servers service (part of the Discovery service set) lets clients locate available OPC UA servers. A Local Discovery Server (LDS) can also run on port 4840 to act as a local registry. It\'s like a phonebook, except this one actually gets maintained.'
-    },
-    {
-      id: 'arch_10',
-      type: 'mcq',
-      question: 'Which statement about OPC UA security is architecturally correct?',
-      options: [
-        'Security is optional and applied at the application layer only',
-        'Security is built into the Secure Channel layer, below the Session layer',
-        'Security is handled entirely by the transport (TLS)',
-        'Security must be configured separately on each service call'
-      ],
-      answer: 1,
-      explanation: 'OPC UA security is built into the Secure Channel layer — it\'s part of the core architecture, not bolted on. The Secure Channel handles signing and encryption before the Session is even established. Security as an afterthought is why DCOM hurt so many people.'
-    },
-  ],
+  architecture: {
+    level1: [
+      { id:'arch_l1_1', type:'mcq', q:'In OPC UA client-server, which party exposes the address space?', options:['Server','Client','Both equally','The OPC Foundation registry'], answer:'Server', explanation:'The OPC UA server hosts the address space that clients can browse, read, write, and subscribe to.' },
+      { id:'arch_l1_2', type:'mcq', q:'What is a "Namespace" in OPC UA?', options:['A logical partition of the address space identified by a URI and index','A TCP subnet','A physical PLC rack','A security zone'], answer:'A logical partition of the address space identified by a URI and index', explanation:'Namespaces let vendors and applications organize their nodes without NodeId conflicts.' },
+      { id:'arch_l1_3', type:'tf', q:'OPC UA NodeIds must be numeric.', answer:'False', explanation:'NodeIds can be numeric (UInt32), string, GUID, or opaque (byte string).' },
+      { id:'arch_l1_4', type:'mcq', q:'Which node class represents a data value that can change over time?', options:['Variable','Object','Method','DataType'], answer:'Variable', explanation:'Variable nodes carry a Value attribute that holds the current data value.' },
+      { id:'arch_l1_5', type:'mcq', q:'What attribute is common to ALL OPC UA node classes?', options:['NodeId','Value','Executable','Description'], answer:'NodeId', explanation:'NodeId is the unique identifier required by every node class in OPC UA.' },
+      { id:'arch_l1_6', type:'tf', q:'References in OPC UA are always hierarchical parent-child relationships.', answer:'False', explanation:'OPC UA supports both hierarchical references (HasChild, Organizes) and non-hierarchical references (HasProperty, HasComponent).' },
+      { id:'arch_l1_7', type:'fill', q:'The OPC UA node class that groups related Variable and Object nodes is called _____.', answer:'Object', explanation:'Object nodes are containers; their type is defined by ObjectType nodes.' },
+      { id:'arch_l1_8', type:'mcq', q:'What does the "BrowseName" attribute of a node identify?', options:['A human-readable name used for browsing, scoped to a namespace','The node\'s TCP port','The security policy','The data type'], answer:'A human-readable name used for browsing, scoped to a namespace', explanation:'BrowseName is a QualifiedName (namespace + name) used when traversing the address space.' },
+      { id:'arch_l1_9', type:'mcq', q:'How does a client navigate the OPC UA address space?', options:['Using the Browse service, starting from well-known root nodes','By reading a static XML configuration file','By querying DNS','Through DCOM enumeration'], answer:'Using the Browse service, starting from well-known root nodes', explanation:'Clients use Browse/BrowseNext services to traverse the address space hierarchy.' },
+      { id:'arch_l1_10', type:'tf', q:'The OPC UA server\'s "Objects" folder is a well-known entry point for browsing.', answer:'True', explanation:'Node ns=0;i=85 (Objects folder) is the standard root for browsable device data.' },
+      { id:'arch_l1_11', type:'mcq', q:'Which OPC UA layer handles message encoding and transport?', options:['Communication Stack','Application Layer','Security Manager','Discovery Service'], answer:'Communication Stack', explanation:'The OPC UA communication stack handles encoding (Binary/XML) and transport (TCP/HTTPS).' },
+      { id:'arch_l1_12', type:'mcq', q:'A SecureChannel in OPC UA provides:', options:['Encrypted and optionally signed message transport between client and server','A dedicated TCP port per session','A VLAN for OPC traffic','Physical cable redundancy'], answer:'Encrypted and optionally signed message transport between client and server', explanation:'SecureChannel is established first; it wraps all subsequent session-level messages with security.' },
+      { id:'arch_l1_13', type:'fill', q:'The OPC UA node that defines the structure (type definition) of an Object is called an _____ node.', answer:'ObjectType', explanation:'ObjectType nodes define the blueprint for Object instances, similar to classes in OOP.' },
+      { id:'arch_l1_14', type:'mcq', q:'Which reference type connects an Object to its TypeDefinition?', options:['HasTypeDefinition','HasComponent','Organizes','HasSubtype'], answer:'HasTypeDefinition', explanation:'HasTypeDefinition links an instance node to its type definition node.' },
+      { id:'arch_l1_15', type:'tf', q:'OPC UA sessions are independent of the underlying SecureChannel.', answer:'False', explanation:'Sessions are bound to SecureChannels; if the SecureChannel fails, the session is invalidated.' },
+      { id:'arch_l1_16', type:'mcq', q:'What is the root node of the OPC UA address space?', options:['Root (ns=0;i=84)','Server (ns=0;i=2253)','Objects (ns=0;i=85)','Types (ns=0;i=86)'], answer:'Root (ns=0;i=84)', explanation:'The Root node (i=84) is the absolute top of the address space hierarchy.' },
+      { id:'arch_l1_17', type:'mcq', q:'Which service allows a client to read the current value of a Variable node?', options:['Read','Browse','Publish','Subscribe'], answer:'Read', explanation:'The Read service (Attribute service set) reads current or historical attributes of nodes.' },
+      { id:'arch_l1_18', type:'tf', q:'OPC UA supports writing to Variable nodes if the server permits it.', answer:'True', explanation:'The Write service allows clients to modify Variable values; access is controlled by UserAccessLevel and RolePermissions.' },
+      { id:'arch_l1_19', type:'mcq', q:'What does the "DataType" attribute of a Variable node specify?', options:['The type of data stored in the Value attribute','The physical unit of measurement','The TCP connection timeout','The security policy'], answer:'The type of data stored in the Value attribute', explanation:'DataType references a DataType node defining whether the Value is Boolean, Int32, String, structure, etc.' },
+      { id:'arch_l1_20', type:'fill', q:'OPC UA node browsing starts from the well-known _____ folder node.', answer:'Objects', explanation:'The Objects folder (i=85) is the conventional entry point for browsing device and application data.' },
+    ],
+    level2: [
+      { id:'arch_l2_1', type:'mcq', q:'A client calls Browse on node i=85 and receives 200 ReferenceDescriptions with a non-null ContinuationPoint. What must the client do next?', options:['Call BrowseNext with the ContinuationPoint to retrieve remaining results','Call Browse again with a larger MaxReferencesPerNode','Abort and reconnect','Read the node\'s value instead'], answer:'Call BrowseNext with the ContinuationPoint to retrieve remaining results', explanation:'ContinuationPoints signal that more results exist; BrowseNext retrieves subsequent pages.' },
+      { id:'arch_l2_2', type:'mcq', q:'What is the difference between HasComponent and HasProperty reference types?', options:['HasComponent links complex structural children; HasProperty links configuration parameters','HasComponent is for Variables only; HasProperty is for Methods','HasComponent implies inheritance; HasProperty does not','They are identical'], answer:'HasComponent links complex structural children; HasProperty links configuration parameters', explanation:'HasComponent organizes components (sub-objects, variables); HasProperty attaches metadata/configuration as Properties.' },
+      { id:'arch_l2_3', type:'tf', q:'A VariableType node\'s Value attribute serves as the default value for instances of that type.', answer:'True', explanation:'VariableType defines the default Value, DataType, ValueRank, and ArrayDimensions for Variable instances.' },
+      { id:'arch_l2_4', type:'mcq', q:'A vendor defines namespace URI "urn:acme:machinedata". What namespace index will clients use?', options:['Determined dynamically by the server and returned via GetNamespaceTable','Always index 1','Always the same across all servers','Defined in a global registry'], answer:'Determined dynamically by the server and returned via GetNamespaceTable', explanation:'Namespace indices are server-specific. Clients resolve URIs to indices via the NamespaceTable or Translate calls.' },
+      { id:'arch_l2_5', type:'fill', q:'The OPC UA service that resolves human-readable browse paths to NodeIds is called _____.', answer:'TranslateBrowsePathsToNodeIds', explanation:'TranslateBrowsePathsToNodeIds converts a browse path (BrowseName sequence) to a NodeId for direct access.' },
+      { id:'arch_l2_6', type:'mcq', q:'An engineer needs to add a new sensor tag to a running OPC UA server without restart. Which service set supports this?', options:['NodeManagement (AddNodes)','Attribute service (Write)','View service (Browse)','Discovery service'], answer:'NodeManagement (AddNodes)', explanation:'AddNodes service allows dynamically adding nodes to the address space while the server is running.' },
+      { id:'arch_l2_7', type:'tf', q:'OPC UA ObjectType nodes can define mandatory and optional components for their instances.', answer:'True', explanation:'ModellingRule nodes (Mandatory, Optional, MandatoryPlaceholder) define which components must exist in instances.' },
+      { id:'arch_l2_8', type:'mcq', q:'A PLC vendor publishes a custom ObjectType for pump stations. This is an example of:', options:['OPC UA information modeling with custom types','Breaking the OPC UA standard','Requiring a proprietary OPC DA server','COM/DCOM extension'], answer:'OPC UA information modeling with custom types', explanation:'OPC UA\'s extensible type system allows vendors to define custom ObjectTypes that clients can discover at runtime.' },
+      { id:'arch_l2_9', type:'mcq', q:'The "Server" node (ns=0;i=2253) in the address space exposes what category of information?', options:['Server diagnostics, capabilities, session info, and namespace table','Only security certificates','Only subscription state','Physical hardware inventory'], answer:'Server diagnostics, capabilities, session info, and namespace table', explanation:'The Server object contains standard nodes for ServerStatus, ServerCapabilities, Diagnostics, and NamespaceTable.' },
+      { id:'arch_l2_10', type:'mcq', q:'A client receives StatusCode "UncertainInitialValue" on a variable read. What does this mean?', options:['The server has not yet received a confirmed reading since startup','The value is definitely wrong','The server rejected the read request','The node does not exist'], answer:'The server has not yet received a confirmed reading since startup', explanation:'Uncertain quality codes indicate the value may not reflect true process state; InitialValue means no scan has completed yet.' },
+      { id:'arch_l2_11', type:'tf', q:'OPC UA Reference types form an inheritance hierarchy where custom reference types can subtype built-in ones.', answer:'True', explanation:'ReferenceType nodes support HasSubtype, allowing custom reference types that inherit semantics from standard ones.' },
+      { id:'arch_l2_12', type:'mcq', q:'In OPC UA, what is a "View"?', options:['A subset of the address space presented to clients with restricted browse scope','A graphical HMI screen','A SQL database view','A security role filter'], answer:'A subset of the address space presented to clients with restricted browse scope', explanation:'Views define subsets of the address space; browsing within a View limits results to nodes in that View.' },
+      { id:'arch_l2_13', type:'fill', q:'An OPC UA node\'s _____ attribute contains a human-readable description of the node\'s purpose.', answer:'Description', explanation:'Description is a LocalizedText attribute providing human-readable node documentation.' },
+      { id:'arch_l2_14', type:'mcq', q:'A SCADA client requests node i=9999 which doesn\'t exist. The correct server response is:', options:['Return StatusCode Bad_NodeIdUnknown for that result','Silently ignore the request','Return default value 0','Create the node automatically'], answer:'Return StatusCode Bad_NodeIdUnknown for that result', explanation:'OPC UA Read/Browse for unknown NodeIds returns Bad_NodeIdUnknown without crashing or creating nodes.' },
+      { id:'arch_l2_15', type:'tf', q:'OPC UA supports multi-dimensional arrays as Variable values.', answer:'True', explanation:'OPC UA ValueRank and ArrayDimensions attributes define 1D, 2D, or higher-dimensional array values.' },
+      { id:'arch_l2_16', type:'mcq', q:'The ModellingRule "Mandatory" on a component of an ObjectType means:', options:['Every instance of the ObjectType MUST have this component','The component is optional for instances','The component must be write-protected','The component requires a special license'], answer:'Every instance of the ObjectType MUST have this component', explanation:'Mandatory ModellingRule ensures type compliance — all instances include this component.' },
+      { id:'arch_l2_17', type:'mcq', q:'Which OPC UA node class is used to define enumeration types?', options:['DataType with enumeration definition','Object','Variable','ReferenceType'], answer:'DataType with enumeration definition', explanation:'DataType nodes use EnumDefinition (via DataTypeDefinition attribute) to define enumerated values.' },
+      { id:'arch_l2_18', type:'tf', q:'The OPC UA "Types" folder contains standard and custom type definitions.', answer:'True', explanation:'The Types folder (i=86) organizes DataTypes, ReferenceTypes, ObjectTypes, and VariableTypes.' },
+      { id:'arch_l2_19', type:'mcq', q:'A client retrieves a node\'s AccessLevel attribute. Bit 0 set means:', options:['The current value is readable','The value is writable','Historical data is readable','The value is an array'], answer:'The current value is readable', explanation:'AccessLevel bit 0 = CurrentRead; bit 1 = CurrentWrite; bit 2 = HistoryRead; bit 3 = HistoryWrite.' },
+      { id:'arch_l2_20', type:'fill', q:'The OPC UA server node attribute _____ lists URIs of all namespaces registered on the server.', answer:'NamespaceArray', explanation:'NamespaceArray (i=2255) maps namespace index to URI, enabling portable NodeId interpretation.' },
+    ],
+    level3: [
+      { id:'arch_l3_1', type:'mcq', q:'A companion spec defines a PumpType ObjectType with MandatoryPlaceholder components named "<PumpDrive>". What does this imply?', options:['Instances must include at least one component with browse name matching the placeholder pattern, named by the implementer','No instances can be created until the placeholder is filled at design time','The PumpDrive component is always optional','Placeholder names must be globally unique GUIDs'], answer:'Instances must include at least one component with browse name matching the placeholder pattern, named by the implementer', explanation:'MandatoryPlaceholder allows type-safe extensibility where instances provide named components matching the pattern.' },
+      { id:'arch_l3_2', type:'tf', q:'OPC UA forbids forward and inverse references between nodes in different namespaces.', answer:'False', explanation:'Cross-namespace references are fully supported; this is how companion specs link to standard OPC UA types.' },
+      { id:'arch_l3_3', type:'mcq', q:'An OPC UA server using ServerProfileArray claims "Nano Embedded Device Server 2017". A client tries to call Browse. What may happen?', options:['Browse may not be supported; Nano profile mandates only Read/Write/Translate','Browse is always supported regardless of profile','The session will be terminated','Security certificates are ignored'], answer:'Browse may not be supported; Nano profile mandates only Read/Write/Translate', explanation:'The Nano profile is for severely constrained devices and does not require Browse; clients must handle service-not-supported.' },
+      { id:'arch_l3_4', type:'mcq', q:'In OPC UA\'s type system, HasSubtype between two ObjectType nodes establishes:', options:['An inheritance relationship where the subtype inherits all mandatory components of the supertype','A containment relationship where instances are nested','A security boundary','A reference that only works within namespace 0'], answer:'An inheritance relationship where the subtype inherits all mandatory components of the supertype', explanation:'OPC UA type inheritance via HasSubtype propagates mandatory components and properties from supertype to subtype.' },
+      { id:'arch_l3_5', type:'fill', q:'The OPC UA NodeId format for a string identifier in namespace 2 is written as _____.', answer:'ns=2;s=<identifier>', explanation:'OPC UA NodeId notation: ns=<index>;<type>=<value> where s= indicates string type.' },
+      { id:'arch_l3_6', type:'mcq', q:'A server exposes ConditionType subtype nodes for process alarms. Which service does a client use to get current alarm state, not just notifications?', options:['ConditionRefresh (a Method call) to synchronize alarm state','Subscribe and wait for the first event','Read the Value attribute of alarm nodes','Call Browse on the Alarms folder'], answer:'ConditionRefresh (a Method call) to synchronize alarm state', explanation:'ConditionRefresh triggers the server to re-send all current condition states, synchronizing client alarm displays.' },
+      { id:'arch_l3_7', type:'tf', q:'OPC UA defines a standard "Interface" mechanism (InterfaceType) that allows multiple inheritance for ObjectTypes.', answer:'True', explanation:'OPC UA 1.04 introduced InterfaceType with HasInterface references, enabling multiple-interface inheritance for objects.' },
+      { id:'arch_l3_8', type:'mcq', q:'A server returns "Bad_ViewIdUnknown" when a client provides a ViewId in a Browse request. The root cause is:', options:['The client specified a ViewId that doesn\'t exist on this server','Browse service doesn\'t support ViewIds','The namespace index is invalid','The session expired'], answer:'The client specified a ViewId that doesn\'t exist on this server', explanation:'ViewId in Browse restricts browsing to a named View; if the View doesn\'t exist, Bad_ViewIdUnknown is returned.' },
+      { id:'arch_l3_9', type:'mcq', q:'Which OPC UA mechanism enables efficient bulk reading of node attributes without individual Read calls per node?', options:['ReadValueId array in a single Read service call','TranslateBrowsePathsToNodeIds batching','Multiple parallel sessions','RegisteredNodes followed by Read'], answer:'ReadValueId array in a single Read service call', explanation:'The Read service accepts multiple ReadValueId entries in one request, returning all values in a single response.' },
+      { id:'arch_l3_10', type:'tf', q:'RegisterNodes service permanently changes the server\'s address space by creating aliases.', answer:'False', explanation:'RegisterNodes is a performance optimization that returns server-assigned handles for frequent reads; it doesn\'t modify the address space.' },
+      { id:'arch_l3_11', type:'mcq', q:'A plant historian uses OPC UA HistoricalAccess. The client requests ReadRaw with a TimestampsToReturn of "Server". What does this return?', options:['Values with server-side timestamps only, not source timestamps','Values with both timestamps','Values without any timestamps','An error since Server timestamps are not stored'], answer:'Values with server-side timestamps only, not source timestamps', explanation:'TimestampsToReturn=Server returns ServerTimestamp only; Source returns SourceTimestamp; Both returns both.' },
+      { id:'arch_l3_12', type:'fill', q:'The OPC UA attribute that specifies whether a Variable\'s value is a scalar, 1D array, or multi-dimensional array is called _____.', answer:'ValueRank', explanation:'ValueRank: -1=Scalar, -2=Any, -3=ScalarOrOneDimension, 1=OneDimension, 2=TwoDimensions, etc.' },
+      { id:'arch_l3_13', type:'mcq', q:'An OPC UA client uses CallMethod to invoke a pump start method. The server returns InputArgument validation error. Per spec, the response contains:', options:['StatusCode array for each input argument indicating which failed validation','A single Bad status with no detail','An event notification only','The method result with a warning'], answer:'StatusCode array for each input argument indicating which failed validation', explanation:'OPC UA Method Call responses include InputArgumentResults — a StatusCode array aligned with InputArguments.' },
+      { id:'arch_l3_14', type:'mcq', q:'Which OPC UA concept enables "lazy loading" of large address spaces on resource-constrained servers?', options:['External NodeManagement with dynamic population on Browse','Pre-loading all nodes at startup','Caching nodes in client memory','DCOM proxy delegation'], answer:'External NodeManagement with dynamic population on Browse', explanation:'Servers can populate address space nodes dynamically when first browsed, avoiding full pre-load on embedded devices.' },
+      { id:'arch_l3_15', type:'tf', q:'OPC UA allows a single node to appear in multiple Views simultaneously.', answer:'True', explanation:'A node is part of the main address space; Views just reference it with different browse scopes — no duplication.' },
+      { id:'arch_l3_16', type:'mcq', q:'An integrator needs to map a legacy Modbus register map to OPC UA. The best approach per OPC UA architecture is:', options:['Create Variable nodes for each register with DataType matching the register\'s data type, organized under a device Object','Create one giant string Variable containing all register values as CSV','Use a custom non-standard binary protocol over port 4840','Map registers to OPC UA session attributes'], answer:'Create Variable nodes for each register with DataType matching the register\'s data type, organized under a device Object', explanation:'Properly mapped OPC UA information models represent each data point as a typed Variable under an Object hierarchy.' },
+      { id:'arch_l3_17', type:'mcq', q:'The "Historizing" attribute on a Variable node indicates:', options:['The server is currently collecting history for this variable','The variable existed in a previous address space version','The value has a historical trend only','The node was migrated from OPC DA'], answer:'The server is currently collecting history for this variable', explanation:'Historizing=True means the server is actively recording value history for this variable.' },
+      { id:'arch_l3_18', type:'fill', q:'In OPC UA, the _____ attribute defines the minimum and maximum sampling interval the server supports for a monitored variable.', answer:'SamplingInterval (within MinimumSamplingInterval)', explanation:'MinimumSamplingInterval on a Variable defines the fastest rate the server can sample it for subscriptions.' },
+      { id:'arch_l3_19', type:'tf', q:'OPC UA\'s "Annotations" feature allows clients to add comments to historical data points.', answer:'True', explanation:'OPC UA Historical Access includes HistoryUpdateType=InsertAnnotation for adding client-authored annotations to historical records.' },
+      { id:'arch_l3_20', type:'mcq', q:'A server implements FolderType incorrectly by not including the "Organizes" reference from the folder to its contents. Per OPC UA spec, the impact is:', options:['Clients using standard browsing will not find the contents','The server crashes on startup','Contents are still readable by NodeId if known','Security policies prevent access'], answer:'Clients using standard browsing will not find the contents', explanation:'Organizes references are mandatory for folders so Browse operations return the folder\'s contents. Missing references break discoverability.' },
+    ],
+  },
 
-  infomodel: [
-    {
-      id: 'info_1',
-      type: 'mcq',
-      question: 'What uniquely identifies every Node in an OPC UA Address Space?',
-      options: ['Display Name', 'Browse Name', 'NodeId', 'SymbolicName'],
-      answer: 2,
-      explanation: 'NodeId. Every node has one, every NodeId is unique within its namespace. A NodeId includes a namespace index and an identifier — numeric, string, GUID, or opaque. Knowing the NodeId is how you actually address data programmatically.'
-    },
-    {
-      id: 'info_2',
-      type: 'mcq',
-      question: 'Which namespace index is reserved for the OPC UA standard specification itself?',
-      options: ['Namespace 1', 'Namespace 0', 'Namespace 255', 'Namespace 100'],
-      answer: 1,
-      explanation: 'Namespace 0 is the OPC UA standard namespace — it contains all the built-in types, standard node classes, and reference types defined in the spec. Namespaces 1 and above are for vendors, applications, and server-specific data. Don\'t squatting on namespace 0.'
-    },
-    {
-      id: 'info_3',
-      type: 'mcq',
-      question: 'Which OPC UA Node Class represents a container that groups related nodes?',
-      options: ['Variable', 'Object', 'Method', 'View'],
-      answer: 1,
-      explanation: 'Object nodes are containers — the folders and devices in your address space hierarchy. They don\'t hold values themselves; they organize and group Variables and Methods. Think of them as the directories in the filesystem of your data.'
-    },
-    {
-      id: 'info_4',
-      type: 'mcq',
-      question: 'A Variable node in OPC UA has which of the following key attributes? (select the most complete answer)',
-      options: [
-        'Value, DataType, AccessLevel',
-        'Value, DataType, ValueRank, ArrayDimensions, AccessLevel, UserAccessLevel, MinimumSamplingInterval',
-        'Value, Tag Name, Engineering Units',
-        'Value, Timestamp, Quality'
-      ],
-      answer: 1,
-      explanation: 'Variable nodes are fully described: Value (the actual data), DataType, ValueRank (scalar vs array), ArrayDimensions, AccessLevel (what the server allows), UserAccessLevel (what this user can do), and MinimumSamplingInterval. OPC UA is not shy about attributes.'
-    },
-    {
-      id: 'info_5',
-      type: 'mcq',
-      question: 'What is the correct format for a string-based OPC UA NodeId in namespace 2?',
-      options: ['ns2::Temperature', 'ns=2;s=Temperature', '2:Temperature', 'ns[2]Temperature'],
-      answer: 1,
-      explanation: 'ns=2;s=Temperature — namespace index 2, string identifier "Temperature". Numeric NodeIds use "i" instead of "s": ns=2;i=1001. GUIDs use "g". Getting the format wrong means your read request goes nowhere, and the server judges you silently.'
-    },
-    {
-      id: 'info_6',
-      type: 'mcq',
-      question: 'Which reference type indicates that a Variable is a property of an Object (rather than a component)?',
-      options: ['HasComponent', 'HasProperty', 'Organizes', 'HasTypeDefinition'],
-      answer: 1,
-      explanation: 'HasProperty links an Object to its property Variables — metadata like engineering units, ranges, or descriptions. HasComponent is for structural components (like a Variable that IS part of the object\'s data). The distinction matters when you\'re building conformant information models.'
-    },
-    {
-      id: 'info_7',
-      type: 'mcq',
-      question: 'The reference type "HasTypeDefinition" connects a node instance to what?',
-      options: [
-        'Its parent object',
-        'Its type definition node (ObjectType or VariableType)',
-        'Its data source in the PLC',
-        'Its engineering unit'
-      ],
-      answer: 1,
-      explanation: 'HasTypeDefinition connects an instance (an Object or Variable) to its type template. It\'s OPC UA\'s object-oriented mechanism — types define the structure, instances are the data. Very fancy. Very useful when you have 50 identical pump objects.'
-    },
-    {
-      id: 'info_8',
-      type: 'fill',
-      question: 'A node that represents a server-side callable function in OPC UA is of class ___.',
-      answer: 'Method',
-      hint: 'It\'s named after what you\'d call it in object-oriented programming',
-      explanation: 'Method nodes are callable server-side functions. You call them using the Call service. They can accept input arguments and return output arguments. Unlike Variables, you don\'t read or write them — you invoke them. Treat them like buttons, not data points.'
-    },
-    {
-      id: 'info_9',
-      type: 'mcq',
-      question: 'Which category of OPC UA References includes HasComponent, HasProperty, and Organizes?',
-      options: ['NonHierarchicalReferences', 'HierarchicalReferences', 'TypeReferences', 'DataReferences'],
-      answer: 1,
-      explanation: 'HierarchicalReferences establish parent-child, containment, and organizational relationships — the tree structure you see when you browse. NonHierarchicalReferences like HasTypeDefinition and HasEventSource are cross-references that don\'t form the tree.'
-    },
-    {
-      id: 'info_10',
-      type: 'mcq',
-      question: 'AccessLevel on a Variable node controls which of the following?',
-      options: [
-        'Which users can log into the server',
-        'Whether the server itself allows reading, writing, or history access to this variable',
-        'The network port used to access the variable',
-        'The encryption level required to read the variable'
-      ],
-      answer: 1,
-      explanation: 'AccessLevel is a bitmask on the Variable node specifying what operations the server permits: CurrentRead, CurrentWrite, HistoryRead, etc. UserAccessLevel further restricts based on the logged-in user. If AccessLevel says no writes, no amount of Write service calls will succeed.'
-    },
-    {
-      id: 'info_11',
-      type: 'mcq',
-      question: 'A View node in OPC UA is used for what purpose?',
-      options: [
-        'To display data in a human-readable format',
-        'To define a subset of the address space, acting as an alternate entry point for browsing',
-        'To store configuration data for the OPC UA server',
-        'To define historical data retention policies'
-      ],
-      answer: 1,
-      explanation: 'View nodes let you define a filtered subset of the Address Space. Instead of browsing everything, a client can start browsing from a View node and only see what\'s relevant. Useful for hiding the server\'s internal plumbing from clients who just want the temperature reading.'
-    },
-    {
-      id: 'info_12',
-      type: 'fill',
-      question: 'The four OPC UA NodeId identifier types are: numeric, string, GUID, and ___.',
-      answer: 'opaque',
-      hint: 'The fourth type is a byte array with no defined internal structure',
-      explanation: 'Opaque NodeIds are raw byte arrays — useful when a vendor\'s device uses a proprietary binary identifier scheme. It\'s the "none of the above" option for NodeId types. Numeric is most common and most compact; string is most human-readable.'
-    },
-  ],
+  infomodel: {
+    level1: [
+      { id:'info_l1_1', type:'mcq', q:'What is the OPC UA Information Model?', options:['A structured representation of data in the address space using nodes, references, and types','A SQL database schema','A physical network topology','A Windows registry hive'], answer:'A structured representation of data in the address space using nodes, references, and types', explanation:'The Information Model defines how data is organized and typed in the OPC UA address space.' },
+      { id:'info_l1_2', type:'tf', q:'OPC UA base node classes include Variable, Object, Method, View, DataType, and ReferenceType.', answer:'True', explanation:'These 8 node classes cover all OPC UA information model concepts.' },
+      { id:'info_l1_3', type:'mcq', q:'Which node class defines reusable data type structures?', options:['DataType','Variable','Object','ReferenceType'], answer:'DataType', explanation:'DataType nodes define primitive types (Int32, Boolean), enumerations, and structured types.' },
+      { id:'info_l1_4', type:'fill', q:'The OPC UA data type for a 32-bit signed integer is called _____.', answer:'Int32', explanation:'OPC UA built-in types include Boolean, Byte, Int16, Int32, Int64, Float, Double, String, etc.' },
+      { id:'info_l1_5', type:'mcq', q:'What OPC UA data type is used for timestamps?', options:['DateTime','Timestamp','Time','DateTimeOffset'], answer:'DateTime', explanation:'OPC UA uses DateTime (64-bit Windows FILETIME format, 100ns ticks since Jan 1, 1601) for all timestamps.' },
+      { id:'info_l1_6', type:'tf', q:'OPC UA supports user-defined structured data types.', answer:'True', explanation:'OPC UA Structure DataTypes allow defining complex types with named fields, similar to C structs.' },
+      { id:'info_l1_7', type:'mcq', q:'What does "ValueRank = -1" mean for a Variable?', options:['Scalar value (not an array)','One-dimensional array','Multi-dimensional array','Not specified'], answer:'Scalar value (not an array)', explanation:'ValueRank -1 means Scalar; -2 means Any; values ≥1 indicate array dimensions.' },
+      { id:'info_l1_8', type:'mcq', q:'Which OPC UA type carries a value with embedded quality and timestamp?', options:['DataValue','Variant','QualifiedName','LocalizedText'], answer:'DataValue', explanation:'DataValue wraps a Variant value with StatusCode, SourceTimestamp, and ServerTimestamp.' },
+      { id:'info_l1_9', type:'tf', q:'OPC UA "Variant" can hold any OPC UA built-in data type.', answer:'True', explanation:'Variant is a union type that can contain any OPC UA built-in type or arrays thereof.' },
+      { id:'info_l1_10', type:'mcq', q:'What is a "QualifiedName" in OPC UA?', options:['A name with a namespace index, used for BrowseName','A fully-qualified domain name','A security certificate name','An IPv6 address'], answer:'A name with a namespace index, used for BrowseName', explanation:'QualifiedName = {namespaceIndex, name} — used for BrowseName to scope node names to namespaces.' },
+      { id:'info_l1_11', type:'mcq', q:'Which attribute on a Variable defines the engineering unit (e.g., "bar", "°C")?', options:['EngineeringUnits property','Unit attribute','DataType','Description'], answer:'EngineeringUnits property', explanation:'EngineeringUnits is a standard Property of AnalogItemType, defined per UNECE Rec 20.' },
+      { id:'info_l1_12', type:'tf', q:'OPC UA LocalizedText allows server to return node descriptions in multiple languages.', answer:'True', explanation:'LocalizedText contains a locale identifier and text, supporting internationalization.' },
+      { id:'info_l1_13', type:'fill', q:'OPC UA\'s unique identifier for each node within its namespace is called the _____.', answer:'Identifier', explanation:'NodeId = {namespaceIndex, identifierType, identifier}; the identifier is the unique part within the namespace.' },
+      { id:'info_l1_14', type:'mcq', q:'A Variable of AnalogItemType has what additional standard properties?', options:['InstrumentRange, EURange, EngineeringUnits','ScanRate, Deadband, PollGroup','PLC address, register type, bit offset','Security level, access token, audit trail'], answer:'InstrumentRange, EURange, EngineeringUnits', explanation:'AnalogItemType extends DataItemType with measurement range and engineering unit properties.' },
+      { id:'info_l1_15', type:'mcq', q:'Which built-in OPC UA type represents a 128-bit globally unique identifier?', options:['Guid','NodeId','XmlElement','ByteString'], answer:'Guid', explanation:'GUID is one of the four NodeId identifier types (numeric, string, Guid, opaque).' },
+      { id:'info_l1_16', type:'tf', q:'OPC UA Boolean data type can store three states: True, False, and Unknown.', answer:'False', explanation:'OPC UA Boolean is strictly True or False; quality uncertainty is handled via StatusCode, not the Boolean value.' },
+      { id:'info_l1_17', type:'mcq', q:'What OPC UA node class defines the type for references between nodes?', options:['ReferenceType','DataType','Object','VariableType'], answer:'ReferenceType', explanation:'ReferenceType nodes define the semantics of references; built-in examples include HasComponent, Organizes, HasProperty.' },
+      { id:'info_l1_18', type:'mcq', q:'The "StatusCode" in OPC UA is a 32-bit value where bits 30-31 indicate:', options:['Good, Uncertain, or Bad quality class','The data type','The namespace index','The session ID'], answer:'Good, Uncertain, or Bad quality class', explanation:'The top 2 bits of StatusCode encode the quality: 0=Good, 1=Uncertain, 2=Bad.' },
+      { id:'info_l1_19', type:'fill', q:'The OPC UA data type that can hold structured data including nested types is called _____.', answer:'ExtensionObject', explanation:'ExtensionObject wraps structured data types with type metadata, enabling generic handling of custom types.' },
+      { id:'info_l1_20', type:'tf', q:'OPC UA defines standard node IDs for all built-in data types in namespace 0.', answer:'True', explanation:'Built-in types (Int32=6, String=12, Boolean=1, etc.) have fixed NodeIds in namespace 0.' },
+    ],
+    level2: [
+      { id:'info_l2_1', type:'mcq', q:'A vendor defines a custom structure "PumpTelemetry" with fields Speed, Pressure, Temp. How is this represented in OPC UA?', options:['A Structure DataType node with field definitions in DataTypeDefinition attribute','As three separate unrelated Variable nodes with no type link','As a Method call that returns a tuple','As a custom namespace attribute'], answer:'A Structure DataType node with field definitions in DataTypeDefinition attribute', explanation:'Custom structures use DataType nodes with StructureDefinition (fields with names and DataType NodeIds).' },
+      { id:'info_l2_2', type:'tf', q:'OPC UA allows defining an "Option Set" data type for bitfield-style enumerations.', answer:'True', explanation:'OptionSet DataType supports bitfield patterns where multiple bits can be set simultaneously (unlike exclusive enum).' },
+      { id:'info_l2_3', type:'mcq', q:'A client reads a Variable and receives a DataValue with StatusCode "GoodClamped". What happened?', options:['The value was valid but clamped to the EURange limits','The data is encrypted','The value is an estimated extrapolation','The server rounded the value'], answer:'The value was valid but clamped to the EURange limits', explanation:'GoodClamped indicates a Good quality reading that exceeded the instrument range and was clamped to min/max.' },
+      { id:'info_l2_4', type:'mcq', q:'The OPC UA "DataEncoding" service allows clients to request data in:', options:['Binary or XML form for structured types','JSON only','CSV format','Raw byte streams'], answer:'Binary or XML form for structured types', explanation:'Clients can request structured type values encoded as OPC UA Binary or XML via the DataEncoding parameter in Read.' },
+      { id:'info_l2_5', type:'fill', q:'The OPC UA property that defines the valid measurement range for an AnalogItemType variable is called _____.', answer:'EURange', explanation:'EURange (Engineering Unit Range) defines the operational range [low, high] for analog measurements.' },
+      { id:'info_l2_6', type:'mcq', q:'An engineer needs to represent a motor state with values: Stopped, Starting, Running, Faulted. The correct OPC UA DataType is:', options:['Enumeration DataType','Int32','Boolean','ByteString'], answer:'Enumeration DataType', explanation:'Enumeration DataType with defined EnumValues maps integers to meaningful string names.' },
+      { id:'info_l2_7', type:'mcq', q:'A Variable has ValueRank=2 and ArrayDimensions=[3,4]. What does this represent?', options:['A 3×4 matrix (3 rows, 4 columns)','An array of 12 elements total, unordered','Two independent arrays of length 3 and 4','A nested OPC UA namespace'], answer:'A 3×4 matrix (3 rows, 4 columns)', explanation:'ValueRank=2 means 2D array; ArrayDimensions defines size per dimension: [3,4] = 3 rows × 4 columns.' },
+      { id:'info_l2_8', type:'tf', q:'OPC UA NodeIds with namespace index 0 are always defined by the OPC Foundation spec.', answer:'True', explanation:'Namespace 0 is reserved for OPC UA standard types; all standard nodes (ObjectsFolder, Server, base types) live there.' },
+      { id:'info_l2_9', type:'mcq', q:'A historian stores raw values at 1Hz. A client requests ReadProcessed with aggregate "Average" over 1-hour intervals. The server returns:', options:['One value per hour representing the mean of all raw samples','Raw 1Hz values unchanged','Only the last value of each hour','An error because aggregation is not in base OPC UA'], answer:'One value per hour representing the mean of all raw samples', explanation:'ProcessedHistoricalAccess with Aggregate=Average returns one computed value per interval.' },
+      { id:'info_l2_10', type:'mcq', q:'What does "AccessLevel" bit 4 set on a Variable node indicate?', options:['SemanticChange notifications are supported','The value is writable','The value is readable','History is available'], answer:'SemanticChange notifications are supported', explanation:'AccessLevel bit 4 = SemanticChange; the server can notify clients when the semantic meaning of the value changes.' },
+      { id:'info_l2_11', type:'fill', q:'The OPC UA data type that represents a name qualified with a namespace index is called _____.', answer:'QualifiedName', explanation:'QualifiedName = {namespaceIndex, name} — used for BrowseName and method argument names.' },
+      { id:'info_l2_12', type:'mcq', q:'An OPC UA server returns "Bad_OutOfRange" when writing to an AnalogItemType variable. The likely cause is:', options:['The written value exceeds the EURange','The session expired during write','The certificate is invalid','The node does not accept writes'], answer:'The written value exceeds the EURange', explanation:'Servers implementing range validation reject values outside the EURange with Bad_OutOfRange.' },
+      { id:'info_l2_13', type:'tf', q:'OPC UA allows arrays with zero length (empty arrays).', answer:'True', explanation:'OPC UA supports empty arrays; the value is a valid array with length 0.' },
+      { id:'info_l2_14', type:'mcq', q:'A client needs real-time alarm acknowledgment tracking. Which OPC UA standard type should the server expose?', options:['AcknowledgeableConditionType with AckedState and AckMethod','AlarmType with ACK boolean variable','EventType with AlertLevel','ConditionType with severity only'], answer:'AcknowledgeableConditionType with AckedState and AckMethod', explanation:'AcknowledgeableConditionType (Part 9) adds AckedState, ConfirmedState, Acknowledge, and Confirm methods.' },
+      { id:'info_l2_15', type:'mcq', q:'A device manufacturer wants consistent motor object models across customers. The best OPC UA approach is:', options:['Define a companion specification with standardized MotorType ObjectType','Ship proprietary clients that know the custom address space','Use flat Modbus register maps via OPC UA variables','Hardcode NodeIds in all clients'], answer:'Define a companion specification with standardized MotorType ObjectType', explanation:'Companion specs define reusable, standard information models enabling interoperability across implementations.' },
+      { id:'info_l2_16', type:'tf', q:'OPC UA defines a standard data type for representing a 32-bit IEEE 754 floating-point number as "Float".', answer:'True', explanation:'OPC UA built-in Float is 32-bit IEEE 754; Double is 64-bit IEEE 754.' },
+      { id:'info_l2_17', type:'mcq', q:'Which OPC UA property defines the deadband for change notifications on an AnalogItemType?', options:['DeadbandType and DeadbandValue properties within the subscription filter','EURange property','InstrumentRange property','SamplingInterval attribute'], answer:'DeadbandType and DeadbandValue properties within the subscription filter', explanation:'Deadband is configured per MonitoredItem as a DataChangeFilter, not on the node itself.' },
+      { id:'info_l2_18', type:'fill', q:'The OPC UA type that enables a client to handle any data type generically without knowing the type at compile time is called _____.', answer:'Variant', explanation:'Variant is OPC UA\'s union type — it holds any built-in type value and its type code.' },
+      { id:'info_l2_19', type:'mcq', q:'A vendor uses OPC UA to model a recipe system. Recipes have variable numbers of ingredients. The best OPC UA construct is:', options:['PlaceholderComponent with MandatoryPlaceholder ModellingRule under a RecipeType ObjectType','One giant String variable per recipe','A single Array variable of strings','Session-level method arguments'], answer:'PlaceholderComponent with MandatoryPlaceholder ModellingRule under a RecipeType ObjectType', explanation:'MandatoryPlaceholder (>= 1 instances required) with an OptionalPlaceholder (0+) models variable-count components.' },
+      { id:'info_l2_20', type:'tf', q:'OPC UA StatusCodes for sub-codes of "Bad" quality have the pattern 0x8xxxxxxx in hex.', answer:'True', explanation:'Bad quality StatusCodes have bits 31-30 = 10 (binary), which maps to 0x80000000 range in hex.' },
+    ],
+    level3: [
+      { id:'info_l3_1', type:'mcq', q:'An OPC UA server receives a Write request for a Structure variable using a different encoding than the server\'s preferred type. How should a compliant server handle it?', options:['Accept any valid encoding format and decode internally','Reject with Bad_TypeMismatch regardless of validity','Request re-encoding from the client','Downgrade security to accept it'], answer:'Accept any valid encoding format and decode internally', explanation:'OPC UA Part 6 requires servers to accept both Binary and XML encoded ExtensionObjects and decode them.' },
+      { id:'info_l3_2', type:'fill', q:'The OPC UA abstract data type that serves as the supertype for all event types is called _____.', answer:'BaseEventType', explanation:'BaseEventType (i=2041) is the root of the OPC UA event type hierarchy; all events inherit from it.' },
+      { id:'info_l3_3', type:'mcq', q:'A client reads a multi-dimensional Array variable and receives "Bad_IndexRangeInvalid". The client requested IndexRange="0:2,0:3". What went wrong?', options:['The IndexRange format is invalid or exceeds actual array dimensions','The node does not exist','The session expired','Encryption is required for array reads'], answer:'The IndexRange format is invalid or exceeds actual array dimensions', explanation:'IndexRange uses NumericRange syntax (start:end,start:end); Bad_IndexRangeInvalid means the range is malformed or out of bounds.' },
+      { id:'info_l3_4', type:'tf', q:'OPC UA UnionType DataType allows exactly one field to be active at a time (like C union), with a SwitchField indicating the active variant.', answer:'True', explanation:'OPC UA 1.04 introduced UnionType with a SwitchField (UInt32) indicating which field is currently active.' },
+      { id:'info_l3_5', type:'mcq', q:'A monitoring system needs to detect semantic changes (e.g., engineering unit changed from bar to PSI). Which StatusCode sub-code signals this?', options:['GoodSemanticChanged in the subscription notification','Bad_SemanticError','UncertainEUExceeded','Good with OverflowBit set'], answer:'GoodSemanticChanged in the subscription notification', explanation:'When a variable\'s meaning changes (units, range, etc.), servers send GoodSemanticChanged to alert clients to re-read metadata.' },
+      { id:'info_l3_6', type:'mcq', q:'Implementing OPC UA Alarms for a gas detection system, the engineer needs state machine tracking. Which type hierarchy is most appropriate?', options:['LimitAlarmType → ExclusiveLimitAlarmType with high/high-high/low/low-low states','BaseEventType directly','ConditionType without states','DiscreteAlarmType only'], answer:'LimitAlarmType → ExclusiveLimitAlarmType with high/high-high/low/low-low states', explanation:'ExclusiveLimitAlarmType manages mutually-exclusive limit states (HH, H, L, LL) appropriate for process limit alarms.' },
+      { id:'info_l3_7', type:'fill', q:'The OPC UA attribute that stores enumeration string/value mappings for a DataType node is called _____.', answer:'EnumStrings (or EnumValues)', explanation:'EnumStrings (simple) or EnumValues (with descriptions) properties on DataType expose human-readable enum mappings.' },
+      { id:'info_l3_8', type:'tf', q:'OPC UA\'s "AnnotationDataType" structure has fields: Message (String), UserName (String), and AnnotationTime (DateTime).', answer:'True', explanation:'Per OPC UA Part 11, Annotation has exactly these three fields for annotating historical data points.' },
+      { id:'info_l3_9', type:'mcq', q:'A client application pre-compiles generated code from a server\'s custom DataType definitions. What happens if the server updates the structure (adds a field)?', options:['The client fails to decode the new structure unless it regenerates and updates its code','The server auto-migrates old client code','OPC UA prohibits structure changes after first deployment','The new field is silently dropped by the server'], answer:'The client fails to decode the new structure unless it regenerates and updates its code', explanation:'Pre-compiled structure codecs are brittle; OPC UA 1.04\'s DataTypeDefinition metadata enables dynamic decoding without recompilation.' },
+      { id:'info_l3_10', type:'mcq', q:'An OPC UA server uses StringNodeId for all custom tags (e.g., ns=2;s=Tank1.Level). What is a performance consideration versus numeric NodeIds?', options:['String NodeIds require more bandwidth and memory per message than numeric NodeIds','Numeric NodeIds cannot represent hierarchical tags','String NodeIds have better compression','There is no performance difference'], answer:'String NodeIds require more bandwidth and memory per message than numeric NodeIds', explanation:'String NodeIds transmit the full string in each message reference; numeric NodeIds are compact 4-byte integers.' },
+      { id:'info_l3_11', type:'mcq', q:'The OPC UA "ContentFilter" for event subscriptions uses which operator to match specific alarm source node?', options:['OfType or IsNull operator with InList operand','SQL LIKE clause','Regular expression','NodeClassMask bitmask'], answer:'OfType or IsNull operator with InList operand', explanation:'ContentFilter uses FilterOperators like OfType (match event type hierarchy) and InList for set membership matching.' },
+      { id:'info_l3_12', type:'tf', q:'OPC UA\'s DataTypeDefinition attribute (introduced in 1.04) allows clients to dynamically decode complex types without pre-generated code.', answer:'True', explanation:'DataTypeDefinition exposes field names, types, and structure so clients can decode ExtensionObjects at runtime.' },
+      { id:'info_l3_13', type:'fill', q:'The OPC UA built-in data type for raw binary data (byte array without fixed size) is called _____.', answer:'ByteString', explanation:'ByteString is OPC UA\'s raw binary blob type; length-prefixed, used for certificates, keys, and opaque data.' },
+      { id:'info_l3_14', type:'mcq', q:'A server reports "Bad_DataEncodingUnsupported" when a client requests XML encoding for a Structure variable. What does this mean?', options:['The server does not implement XML encoding for this type — only Binary is supported','The structure type is invalid','The session lacks permissions','The node does not exist'], answer:'The server does not implement XML encoding for this type — only Binary is supported', explanation:'Servers may support only Binary encoding for complex types; Bad_DataEncodingUnsupported signals the requested encoding is unavailable.' },
+      { id:'info_l3_15', type:'mcq', q:'In OPC UA Pub/Sub, the "DataSetMetaData" message carries:', options:['Field names, data types, and description of published data for subscriber decoding','The current values of all fields','The broker connection parameters','Security keys for the session'], answer:'Field names, data types, and description of published data for subscriber decoding', explanation:'DataSetMetaData enables subscribers to interpret the binary payload without prior knowledge of the data model.' },
+      { id:'info_l3_16', type:'tf', q:'OPC UA restricts Structure types to a maximum of 128 fields.', answer:'False', explanation:'OPC UA does not mandate a maximum field count for Structures; practical limits depend on implementation.' },
+      { id:'info_l3_17', type:'mcq', q:'To model a physical sensor with calibration coefficients, the best OPC UA approach is:', options:['A SensorType ObjectType with CalibrationCoefficients as a Property containing a custom Structure','A single String variable with JSON-encoded calibration','Multiple unrelated global variables','A Method returning calibration data on demand only'], answer:'A SensorType ObjectType with CalibrationCoefficients as a Property containing a custom Structure', explanation:'Properties (HasProperty) on ObjectType instances hold configuration/metadata; structured types capture multi-field calibration data.' },
+      { id:'info_l3_18', type:'mcq', q:'An OPC UA companion spec defines an "interface" via InterfaceType. A pump ObjectType implements it with HasInterface reference. What does this guarantee?', options:['The pump exposes all mandatory nodes defined in the InterfaceType','The pump inherits all methods from the interface\'s parent type','No naming conflicts between companion specs','The pump uses a fixed namespace index'], answer:'The pump exposes all mandatory nodes defined in the InterfaceType', explanation:'HasInterface (OPC UA 1.04+) establishes that an ObjectType or Object implements all mandatory components of the InterfaceType.' },
+      { id:'info_l3_19', type:'fill', q:'OPC UA nodes\' _____ attribute defines the set of attributes and properties that characterize the node for access control.', answer:'WriteMask', explanation:'WriteMask defines which attributes of a node a client is permitted to modify (e.g., Description, DisplayName, Value).' },
+      { id:'info_l3_20', type:'tf', q:'OPC UA\'s "DiagnosticInfo" structure can include nested DiagnosticInfo for multi-level error reporting.', answer:'True', explanation:'DiagnosticInfo has an InnerDiagnosticInfo field allowing recursive diagnostic nesting for complex error chains.' },
+    ],
+  },
 
-  services: [
-    {
-      id: 'svc_1',
-      type: 'mcq',
-      question: 'Which OPC UA service set is used to walk the Address Space tree and discover nodes?',
-      options: ['Attribute Service Set', 'View Service Set (Browse)', 'Session Service Set', 'Discovery Service Set'],
-      answer: 1,
-      explanation: 'The View Service Set, specifically the Browse and BrowseNext services. You hand it a NodeId and it returns the node\'s references and children. It\'s how every OPC UA client explores what a server has to offer — and how you find the NodeId you actually want.'
-    },
-    {
-      id: 'svc_2',
-      type: 'mcq',
-      question: 'The Read service in OPC UA reads what from a node?',
-      options: [
-        'Only the Value attribute',
-        'One or more attributes (e.g., Value, DisplayName, DataType) identified by NodeId + AttributeId',
-        'The full node definition including all references',
-        'Historical values from the server database'
-      ],
-      answer: 1,
-      explanation: 'Read is attribute-level: you specify a NodeId and an AttributeId (Value=13, DisplayName=3, DataType=14, etc.). You can batch multiple reads in a single request. Reading only Value is common, but OPC UA lets you read *any* attribute — because sometimes you really do need that MinimumSamplingInterval.'
-    },
-    {
-      id: 'svc_3',
-      type: 'mcq',
-      question: 'What is the key architectural difference between Subscribe (MonitoredItems/Subscription) and Read in OPC UA?',
-      options: [
-        'Subscribe is encrypted; Read is not',
-        'Subscribe is a push model (server sends changes); Read is a pull model (client polls)',
-        'Subscribe only works for historical data',
-        'Read is faster but Subscribe is more secure'
-      ],
-      answer: 1,
-      explanation: 'Subscriptions are push: server monitors values and sends changes to you. Read is pull: you ask, server answers. For high-frequency or many tags, subscriptions are dramatically more efficient. Polling hundreds of tags with Read every second is a great way to bog down your network.'
-    },
-    {
-      id: 'svc_4',
-      type: 'mcq',
-      question: 'The TranslateBrowsePathsToNodeIds service does what?',
-      options: [
-        'Converts NodeIds to human-readable browse names',
-        'Converts a human-readable browse path (like /Objects/Device/Temperature) to a NodeId',
-        'Lists all browse paths on the server',
-        'Validates that a NodeId exists'
-      ],
-      answer: 1,
-      explanation: 'TranslateBrowsePathsToNodeIds takes a starting NodeId and a sequence of browse names (the path), and returns the target NodeId. It\'s how you go from "I know the name of what I want" to "I have the NodeId I need to actually read it." Saves a lot of manual browsing.'
-    },
-    {
-      id: 'svc_5',
-      type: 'mcq',
-      question: 'Which service do you use to invoke a Method node on an OPC UA server?',
-      options: ['Write', 'Execute', 'Call', 'Invoke'],
-      answer: 2,
-      explanation: 'The Call service. You provide the ObjectId (parent object), the MethodId (the Method node\'s NodeId), and any input arguments. The server executes the method and returns output arguments. It\'s not "Execute" or "Invoke" — it\'s just "Call." Keep it simple.'
-    },
-    {
-      id: 'svc_6',
-      type: 'mcq',
-      question: 'The Write service in OPC UA writes to which attribute by default?',
-      options: ['DisplayName', 'BrowseName', 'Value', 'Description'],
-      answer: 2,
-      explanation: 'Write targets the Value attribute by default — that\'s the operational data. You can technically specify other AttributeIds in a Write request, but writing anything other than Value is unusual and often restricted. Most servers only allow writing Value anyway.'
-    },
-    {
-      id: 'svc_7',
-      type: 'fill',
-      question: 'The OPC UA service used to create a new session after the Secure Channel is open is called ___.',
-      answer: 'CreateSession',
-      hint: 'Two words, no space — it creates a session',
-      explanation: 'CreateSession establishes the session context between client and server: negotiates session parameters, exchanges Application Instance Certificates, and returns a session ID. Without this step, you can\'t activate a session or use any other services.'
-    },
-    {
-      id: 'svc_8',
-      type: 'mcq',
-      question: 'In OPC UA, what is an "AttributeId" used for?',
-      options: [
-        'A unique identifier for each OPC UA server endpoint',
-        'A numeric code identifying which attribute of a node to read or write (e.g., Value=13)',
-        'The namespace index for a node',
-        'The security policy identifier'
-      ],
-      answer: 1,
-      explanation: 'AttributeId is a numeric code specifying *which* attribute of a node you\'re addressing. Value is AttributeId 13, NodeId is 1, NodeClass is 2, DisplayName is 3. The OPC UA spec defines 22 standard attribute IDs. If you want to read the value, you want AttributeId 13.'
-    },
-    {
-      id: 'svc_9',
-      type: 'mcq',
-      question: 'What does the Publish service do in OPC UA?',
-      options: [
-        'Publishes data from the server to all connected clients',
-        'Client sends Publish request to server; server responds with any pending data changes from subscriptions',
-        'Client pushes new values to the server',
-        'Server announces new nodes to all clients'
-      ],
-      answer: 1,
-      explanation: 'Publish is initiated by the *client* — it sends a Publish request and the server responds with any queued subscription notifications. It\'s the client saying "hey, anything new?" and the server delivering the mail. The client must keep sending Publish requests or the subscription will time out. Cruel but effective.'
-    },
-    {
-      id: 'svc_10',
-      type: 'mcq',
-      question: 'What service set handles the initial discovery of OPC UA servers and their endpoints?',
-      options: ['Session Service Set', 'View Service Set', 'Discovery Service Set', 'Attribute Service Set'],
-      answer: 2,
-      explanation: 'The Discovery Service Set — specifically FindServers and GetEndpoints. FindServers returns known server URLs; GetEndpoints returns all available endpoint configurations (security modes, transport URLs) for a given server. You need this before you can even connect.'
-    },
-    {
-      id: 'svc_11',
-      type: 'fill',
-      question: 'To read historical data values from an OPC UA server, you would use the ___ service.',
-      answer: 'HistoryRead',
-      hint: 'Combines the word "History" with the standard read service name',
-      explanation: 'HistoryRead retrieves time-series historical data stored on the server. It\'s part of the Historical Access service set. Not all servers implement it — a PLC might not store history at all. Ignition\'s internal historian does, which is one reason Ignition is such a popular SCADA platform.'
-    },
-    {
-      id: 'svc_12',
-      type: 'mcq',
-      question: 'When using the Browse service, what is returned for each referenced node?',
-      options: [
-        'Only the NodeId',
-        'NodeId, BrowseName, DisplayName, NodeClass, and TypeDefinition of the referenced node',
-        'Only the DisplayName and Value',
-        'The full node definition including all attributes and references'
-      ],
-      answer: 1,
-      explanation: 'Browse returns a ReferenceDescription for each reference: NodeId, BrowseName, DisplayName, NodeClass, TypeDefinition, and the Reference Type. Enough to understand what the node is and decide whether to dig deeper. Not the full node — for that you\'d use Read.'
-    },
-  ],
+  services: {
+    level1: [
+      { id:'svc_l1_1', type:'mcq', q:'Which OPC UA service set handles reading and writing node attribute values?', options:['Attribute service set','View service set','Session service set','Discovery service set'], answer:'Attribute service set', explanation:'The Attribute service set provides Read, Write, and HistoryRead/Update operations.' },
+      { id:'svc_l1_2', type:'mcq', q:'What is the purpose of the OPC UA Session service set?', options:['Create and manage client-server sessions','Browse the address space','Subscribe to data changes','Discover server endpoints'], answer:'Create and manage client-server sessions', explanation:'Session services: CreateSession, ActivateSession, CloseSession, Cancel.' },
+      { id:'svc_l1_3', type:'tf', q:'OPC UA services follow a request-response pattern.', answer:'True', explanation:'Every OPC UA service call is a synchronous request from client matched by a response from server.' },
+      { id:'svc_l1_4', type:'mcq', q:'Which service allows a client to discover available endpoints on a server?', options:['GetEndpoints','Browse','FindServers','CreateSession'], answer:'GetEndpoints', explanation:'GetEndpoints returns the list of endpoint descriptions (URL, security policy, security mode, etc.) the server supports.' },
+      { id:'svc_l1_5', type:'fill', q:'The OPC UA service that creates a subscription for monitoring data changes is called _____.', answer:'CreateSubscription', explanation:'CreateSubscription establishes a subscription with a publishingInterval, lifetimeCount, and maxNotificationsPerPublish.' },
+      { id:'svc_l1_6', type:'mcq', q:'A client wants notification when a tank level changes by more than 5%. Which service adds the monitoring item?', options:['CreateMonitoredItems','CreateSubscription','Browse','Read'], answer:'CreateMonitoredItems', explanation:'CreateMonitoredItems adds nodes to a subscription for monitoring; it supports deadband filtering.' },
+      { id:'svc_l1_7', type:'tf', q:'The OPC UA Publish service is always called by the server to push notifications to clients.', answer:'False', explanation:'Publish is called by the CLIENT to request notifications; the server responds with pending notifications or empty responses (keepalives).' },
+      { id:'svc_l1_8', type:'mcq', q:'Which service allows a client to call a function on the OPC UA server?', options:['Call','Execute','Invoke','RunMethod'], answer:'Call', explanation:'The Method service set provides the Call service to invoke Method nodes on the server.' },
+      { id:'svc_l1_9', type:'mcq', q:'What does the "FindServers" service return?', options:['ApplicationDescriptions of OPC UA servers registered with a Discovery Server','Variable values from the server','Security certificates','Session tokens'], answer:'ApplicationDescriptions of OPC UA servers registered with a Discovery Server', explanation:'FindServers queries a LocalDiscoveryServer or GDS to find registered OPC UA server instances.' },
+      { id:'svc_l1_10', type:'tf', q:'OPC UA allows a client to read multiple nodes in a single Read service call.', answer:'True', explanation:'Read accepts a ReadValueId array — multiple nodes can be read with one request/response pair.' },
+      { id:'svc_l1_11', type:'mcq', q:'The "RegisterNodes" service is used to:', options:['Optimize repeated access by getting server-assigned handles for frequently accessed nodes','Add new nodes to the address space','Register the client as a known application','Secure a set of nodes for exclusive access'], answer:'Optimize repeated access by getting server-assigned handles for frequently accessed nodes', explanation:'RegisterNodes returns optimized handles; subsequent Read/Write using handles is faster than using full NodeIds.' },
+      { id:'svc_l1_12', type:'mcq', q:'Which service is used to browse inverse references (who references me)?', options:['Browse with BrowseDirection=Inverse','BrowseInverse','ReverseRead','BrowseBack'], answer:'Browse with BrowseDirection=Inverse', explanation:'Browse supports BrowseDirection: Forward, Inverse, or Both for navigating references.' },
+      { id:'svc_l1_13', type:'fill', q:'The OPC UA service that transfers ownership of subscriptions from one session to another is called _____.', answer:'TransferSubscriptions', explanation:'TransferSubscriptions moves subscriptions (including queued notifications) to a new session after reconnection.' },
+      { id:'svc_l1_14', type:'tf', q:'OPC UA Write service can write multiple nodes in a single request.', answer:'True', explanation:'Write accepts a WriteValue array enabling bulk writes in one request/response round trip.' },
+      { id:'svc_l1_15', type:'mcq', q:'What does "ActivateSession" do in OPC UA?', options:['Authenticates user identity and activates a created session','Creates a new session from scratch','Terminates and restarts a session','Registers the client application'], answer:'Authenticates user identity and activates a created session', explanation:'CreateSession establishes the session; ActivateSession provides user credentials and completes authentication.' },
+      { id:'svc_l1_16', type:'mcq', q:'The "ModifyMonitoredItems" service allows changing which monitored item parameter?', options:['Sampling interval, deadband, and queue size','NodeId being monitored','The subscription it belongs to','The session it belongs to'], answer:'Sampling interval, deadband, and queue size', explanation:'ModifyMonitoredItems updates monitoring parameters (SamplingInterval, DeadbandValue, QueueSize) without recreating items.' },
+      { id:'svc_l1_17', type:'tf', q:'OPC UA subscription PublishingInterval defines the minimum time between notifications sent to the client.', answer:'True', explanation:'The server collects monitored item changes and sends them as a batch to the client at each PublishingInterval.' },
+      { id:'svc_l1_18', type:'mcq', q:'Which service checks if a subscription is still alive without actual data changes?', options:['Keepalive mechanism within the Publish service','Ping service','HeartbeatCheck','Subscribe with empty filter'], answer:'Keepalive mechanism within the Publish service', explanation:'If no data changes occur within MaxKeepAliveCount × PublishingInterval, the server sends an empty keepalive PublishResponse.' },
+      { id:'svc_l1_19', type:'fill', q:'The OPC UA service that deletes a subscription is called _____.', answer:'DeleteSubscriptions', explanation:'DeleteSubscriptions terminates subscriptions and all their monitored items.' },
+      { id:'svc_l1_20', type:'mcq', q:'What is the "Republish" service used for?', options:['Request retransmission of a specific notification message using its sequence number','Create a duplicate subscription','Re-establish a closed session','Re-read all monitored items'], answer:'Request retransmission of a specific notification message using its sequence number', explanation:'Republish allows clients to request specific missed notifications by sequence number from the server\'s retransmission queue.' },
+    ],
+    level2: [
+      { id:'svc_l2_1', type:'mcq', q:'A client creates 1000 MonitoredItems with 100ms sampling but 1000ms PublishingInterval. How does the server handle this?', options:['Samples at 100ms, queues changes, delivers batched notifications every 1000ms','Samples at 1000ms ignoring the 100ms request','Creates 1000 separate subscriptions','Rejects the request as sampling < publishing is invalid'], answer:'Samples at 100ms, queues changes, delivers batched notifications every 1000ms', explanation:'MonitoredItem SamplingInterval and Subscription PublishingInterval are independent; items are sampled at SamplingInterval and reported at PublishingInterval.' },
+      { id:'svc_l2_2', type:'tf', q:'OPC UA subscription LifetimeCount defines how many PublishingIntervals without a Publish request before the server deletes the subscription.', answer:'True', explanation:'If the client doesn\'t issue Publish requests for LifetimeCount × PublishingInterval, the server considers the client dead and auto-deletes the subscription.' },
+      { id:'svc_l2_3', type:'mcq', q:'A SCADA client sends Publish and receives a notification with SequenceNumber=5, then gets 7. What should the client do?', options:['Detect the gap (6 missing) and call Republish for sequence 6','Ignore and process 7 as normal','Reset the subscription','Reconnect immediately'], answer:'Detect the gap (6 missing) and call Republish for sequence 6', explanation:'Sequence number gaps indicate lost notifications; clients should use Republish to recover missed messages.' },
+      { id:'svc_l2_4', type:'mcq', q:'An OPC UA server returns "Bad_SubscriptionIdInvalid" on a Publish call. What does this indicate?', options:['The subscription was deleted, timed out, or never existed','The server is overloaded','The client certificate expired','The PublishingInterval is zero'], answer:'The subscription was deleted, timed out, or never existed', explanation:'Bad_SubscriptionIdInvalid means the SubscriptionId in the Publish request doesn\'t match any live subscription.' },
+      { id:'svc_l2_5', type:'fill', q:'The OPC UA parameter in CreateMonitoredItems that specifies the minimum change required to trigger a notification for analog values is called _____.', answer:'DeadbandValue', explanation:'DataChangeFilter.DeadbandValue (with DeadbandType=Absolute or Percent) defines the change threshold for notifications.' },
+      { id:'svc_l2_6', type:'mcq', q:'A client needs to monitor 10,000 nodes with 500ms updates. What is the recommended architecture?', options:['Group items into multiple subscriptions to balance load across sessions','Create one MonitoredItem per session, 10,000 sessions','Use 10,000 individual Read polls at 500ms','Use OPC DA instead'], answer:'Group items into multiple subscriptions to balance load across sessions', explanation:'Multiple subscriptions distribute processing load; grouping by rate, priority, or type also improves efficiency.' },
+      { id:'svc_l2_7', type:'tf', q:'OPC UA SetPublishingMode service allows temporarily pausing notification delivery without deleting the subscription.', answer:'True', explanation:'SetPublishingMode(Enabled=False) pauses notification delivery; items continue sampling but notifications are queued.' },
+      { id:'svc_l2_8', type:'mcq', q:'The "DisableMonitoredItem" operation is performed via which service?', options:['SetMonitoringMode with MonitoringMode=Disabled','DeleteMonitoredItems','ModifySubscription','SetPublishingMode'], answer:'SetMonitoringMode with MonitoringMode=Disabled', explanation:'SetMonitoringMode toggles monitoring between Disabled, Sampling, and Reporting modes per MonitoredItem.' },
+      { id:'svc_l2_9', type:'mcq', q:'A client session timeout is set to 30 seconds. The network drops for 25 seconds. What happens?', options:['Session survives; client can reconnect and reuse the session within 30 seconds','Session is immediately terminated at network drop','Server deletes all subscriptions after 1 second','Client must create a new session'], answer:'Session survives; client can reconnect and reuse the session within 30 seconds', explanation:'OPC UA session timeout allows brief network interruptions; the client can reconnect and continue the same session.' },
+      { id:'svc_l2_10', type:'mcq', q:'Which OPC UA service set handles creating, modifying, and deleting subscriptions?', options:['Subscription service set','View service set','Session service set','NodeManagement service set'], answer:'Subscription service set', explanation:'The Subscription service set: CreateSubscription, ModifySubscription, DeleteSubscriptions, SetPublishingMode, Publish, Republish.' },
+      { id:'svc_l2_11', type:'fill', q:'The OPC UA parameter "MaxNotificationsPerPublish" controls the maximum number of _____ in one Publish response.', answer:'notifications (MonitoredItemNotifications)', explanation:'MaxNotificationsPerPublish limits how many item notifications the server bundles in one Publish response, preventing oversized messages.' },
+      { id:'svc_l2_12', type:'tf', q:'OPC UA Read service can retrieve historical data if TimestampsToReturn includes Source.', answer:'False', explanation:'Historical data is retrieved via HistoryRead service, not Read. Read only returns current values; TimestampsToReturn affects which timestamps are returned for current reads.' },
+      { id:'svc_l2_13', type:'mcq', q:'A client calls CloseSession with DeleteSubscriptions=False. What happens to the subscriptions?', options:['They remain on the server until LifetimeCount expires, allowing TransferSubscriptions later','They are immediately deleted','They are transferred to the next session automatically','They become read-only'], answer:'They remain on the server until LifetimeCount expires, allowing TransferSubscriptions later', explanation:'DeleteSubscriptions=False during CloseSession preserves subscriptions for potential transfer to a new session.' },
+      { id:'svc_l2_14', type:'mcq', q:'An OPC UA aggregation server proxies reads from 10 downstream servers. A client reads 50 nodes. How does the aggregator handle this efficiently?', options:['Group reads by originating server and issue parallel parallel Read requests','Make 50 sequential reads one at a time','Read all 50 from a cached local copy only','Reject the multi-node Read'], answer:'Group reads by originating server and issue parallel parallel Read requests', explanation:'Aggregating servers group ReadValueIds by source server and parallelize upstream reads for efficiency.' },
+      { id:'svc_l2_15', type:'tf', q:'MonitoredItem QueueSize > 1 enables the server to buffer multiple value changes between Publish intervals.', answer:'True', explanation:'QueueSize defines how many notifications are buffered per MonitoredItem; important for fast-changing values with long PublishingInterval.' },
+      { id:'svc_l2_16', type:'mcq', q:'A plant engineer sets sampling interval to 0 on a MonitoredItem. What does this mean?', options:['The server samples at the fastest rate it supports for that node','No sampling occurs','Sampling occurs once per second','The server determines the rate based on load'], answer:'The server samples at the fastest rate it supports for that node', explanation:'SamplingInterval=0 requests the server\'s fastest possible rate; the server negotiates and reports the actual RevisedSamplingInterval.' },
+      { id:'svc_l2_17', type:'fill', q:'The OPC UA service that marks a set of nodes for efficient, repeated access using server-issued handles is called _____.', answer:'RegisterNodes', explanation:'RegisterNodes pre-registers NodeIds; the server returns optimized handles for use in subsequent Read/Write calls.' },
+      { id:'svc_l2_18', type:'mcq', q:'HistoryRead with ReadEventDetails returns:', options:['Historical events matching the filter criteria','Raw value samples','Processed aggregate values','Current event state'], answer:'Historical events matching the filter criteria', explanation:'ReadEventDetails specifies time range and EventFilter for retrieving historical alarm/event records.' },
+      { id:'svc_l2_19', type:'tf', q:'OPC UA Browse results include the target node\'s BrowseName, NodeClass, and TypeDefinition by default.', answer:'True', explanation:'BrowseResultMask defaults to include BrowseName, DisplayName, NodeClass, TypeDefinition, IsForward, and ReferenceTypeId.' },
+      { id:'svc_l2_20', type:'mcq', q:'A server operator sees high CPU usage from OPC UA. Which client behavior most likely causes it?', options:['Clients polling with Read at 10ms on 10,000 tags instead of using subscriptions','Clients using CreateSubscription with 5-second intervals','Clients calling GetEndpoints repeatedly','Clients using CloseSession properly'], answer:'Clients polling with Read at 10ms on 10,000 tags instead of using subscriptions', explanation:'Polling with rapid Read requests is far more CPU-intensive than subscriptions, which use efficient change detection.' },
+    ],
+    level3: [
+      { id:'svc_l3_1', type:'mcq', q:'A client\'s Publish request receives StatusCode "Bad_TooManyPublishRequests". What should the client do?', options:['Reduce outstanding Publish requests to the recommended limit (typically SubscriptionCount + a few)','Immediately close all subscriptions','Reconnect with a new session','Increase MaxNotificationsPerPublish'], answer:'Reduce outstanding Publish requests to the recommended limit (typically SubscriptionCount + a few)', explanation:'Servers reject excess Publish requests; clients should maintain only enough to cover round-trip latency (typically subscriptions + 1-3).' },
+      { id:'svc_l3_2', type:'tf', q:'OPC UA HistoryUpdate with UpdateType=Replace allows overwriting existing historical data points.', answer:'True', explanation:'HistoryUpdate UpdateType=Replace overwrites existing data at specified timestamps; Insert adds without overwriting.' },
+      { id:'svc_l3_3', type:'mcq', q:'An OPC UA server implements "Server-side Callbacks" for monitoring. When sampling interval is -1 for a MonitoredItem:', options:['The server only reports changes when the underlying value actually changes, not on a timer','Sampling is disabled','Sampling occurs every 1 second','An error is returned'], answer:'The server only reports changes when the underlying value actually changes, not on a timer', explanation:'SamplingInterval=-1 means "exception-based" reporting — the server notifies only on actual data source changes.' },
+      { id:'svc_l3_4', type:'mcq', q:'A client calls Browse on a node with ReferenceTypeId pointing to a custom reference type. What happens if the server doesn\'t recognize the custom ReferenceTypeId?', options:['The server returns Bad_ReferenceTypeIdInvalid','The server returns all references ignoring the filter','The server crashes','The server auto-creates the reference type'], answer:'The server returns Bad_ReferenceTypeIdInvalid', explanation:'Invalid ReferenceTypeId in Browse filter results in service-level error Bad_ReferenceTypeIdInvalid.' },
+      { id:'svc_l3_5', type:'fill', q:'The OPC UA mechanism allowing the server to notify the client when the address space changes is called _____.', answer:'ModelChangeEvent', explanation:'ModelChangeEvents (GeneralModelChangeEventType) notify clients when nodes are added, deleted, or modified in the address space.' },
+      { id:'svc_l3_6', type:'mcq', q:'A high-security OPC UA deployment requires all service calls to be auditable. Which mechanism supports this?', options:['Server emitting AuditEventType subtype events for each security-relevant service call','Client-side logging only','Network packet capture','SNMP traps'], answer:'Server emitting AuditEventType subtype events for each security-relevant service call', explanation:'OPC UA Part 4 defines audit events (AuditCreateSessionEventType, AuditActivateSessionEventType, etc.) for security operations.' },
+      { id:'svc_l3_7', type:'tf', q:'OPC UA allows servers to reject Write requests based on user access rights without exposing whether the node exists.', answer:'False', explanation:'Bad_UserAccessDenied is returned when the node exists but the user lacks write permission; Bad_NodeIdUnknown when it doesn\'t exist — these are distinguishable.' },
+      { id:'svc_l3_8', type:'mcq', q:'A client receives "GoodResultsMayBeIncomplete" after a Browse call. What does this indicate?', options:['The browse completed but some results may be missing due to a server timeout or resource limit','The result set is definitely complete','The session needs renewal','A network error occurred'], answer:'The browse completed but some results may be missing due to a server timeout or resource limit', explanation:'GoodResultsMayBeIncomplete signals partial results — the server couldn\'t guarantee completeness, often in aggregating server scenarios.' },
+      { id:'svc_l3_9', type:'mcq', q:'The OPC UA "SubscriptionDiagnosticsArray" server node provides what information?', options:['Per-subscription statistics including notification counts, publish request counts, and transfer counts','Physical server CPU and memory','Session certificate chain','TCP connection state'], answer:'Per-subscription statistics including notification counts, publish request counts, and transfer counts', explanation:'SubscriptionDiagnosticsArray (ns=0;i=2290) exposes detailed per-subscription metrics for diagnostics and capacity planning.' },
+      { id:'svc_l3_10', type:'fill', q:'The OPC UA service that allows a client to request immediate re-evaluation of all monitored items in a subscription is called _____.', answer:'SetMonitoringMode (then back to Reporting)', explanation:'Toggling MonitoringMode from Disabled to Reporting triggers re-evaluation; there is no dedicated "refresh" service for subscriptions.' },
+      { id:'svc_l3_11', type:'mcq', q:'A data center OPC UA server needs to handle 10,000 concurrent sessions. Which architectural design is most appropriate?', options:['Implement OPC UA Aggregating Server pattern with multiple backend servers handling subsets of sessions','Have one monolithic server handle all sessions','Use OPC DA COM with session pooling','Implement a custom non-standard session-sharing protocol'], answer:'Implement OPC UA Aggregating Server pattern with multiple backend servers handling subsets of sessions', explanation:'Session scalability is achieved through aggregation and load balancing across multiple backend server instances.' },
+      { id:'svc_l3_12', type:'tf', q:'OPC UA HistoryRead with AggregateFilter=Count returns the number of Good quality samples in the interval.', answer:'True', explanation:'The Count aggregate returns the number of quality-Good raw values in the time interval (Bad values excluded unless AllQualitiesCount).' },
+      { id:'svc_l3_13', type:'mcq', q:'An OPC UA client implements redundancy and calls TransferSubscriptions to the secondary server. The secondary reports "Bad_SubscriptionIdInvalid". Why?', options:['The subscription ID only exists on the primary; the secondary doesn\'t share state unless explicitly configured for redundancy','TransferSubscriptions is not defined in OPC UA','Session IDs must be transferred first','The client must use a different port on the secondary'], answer:'The subscription ID only exists on the primary; the secondary doesn\'t share state unless explicitly configured for redundancy', explanation:'OPC UA redundancy requires servers to share subscription state (transparent redundancy) or clients to recreate subscriptions on failover.' },
+      { id:'svc_l3_14', type:'mcq', q:'When implementing server-side OPC UA sampling for a slow physical device (10-second scan cycle), and a client requests 100ms sampling interval, what is the correct behavior?', options:['Server returns RevisedSamplingInterval=10000ms and samples at the device rate','Server creates 100ms polling that ignores device scan cycle','Server rejects the request','Server creates multiple connections to the device'], answer:'Server returns RevisedSamplingInterval=10000ms and samples at the device rate', explanation:'OPC UA servers revise SamplingInterval to the actual minimum achievable; clients must use RevisedSamplingInterval not the requested value.' },
+      { id:'svc_l3_15', type:'tf', q:'OPC UA MonitoredItem with DiscardOldest=True drops the oldest queued item when QueueSize is full.', answer:'True', explanation:'DiscardOldest=True (default) discards the oldest queued notification when the queue is full; False discards the newest.' },
+      { id:'svc_l3_16', type:'mcq', q:'A client implements "dead reckoning" to handle missed subscription notifications. Which OPC UA mechanism best supports this?', options:['MonitoredItem QueueSize>1 with DiscardOldest=False to preserve recent values when queues fill','Polling fallback every 100ms','Calling Republish for every possible sequence number','Using OPC DA instead'], answer:'MonitoredItem QueueSize>1 with DiscardOldest=False to preserve recent values when queues fill', explanation:'Large queues with DiscardOldest=False preserve most recent data; combined with Republish for missed sequence numbers.' },
+      { id:'svc_l3_17', type:'fill', q:'The OPC UA service fault tolerance mechanism where clients maintain outstanding Publish requests equal to round-trip latency divided by publishing interval is called _____.', answer:'Publish pipeline (or publish request pipelining)', explanation:'Publish pipelining keeps multiple Publish requests in-flight to ensure the server always has requests ready when notifications are due.' },
+      { id:'svc_l3_18', type:'mcq', q:'An OPC UA server indicates "ServerCapabilities.MaxBrowseContinuationPoints = 5". A client creates 6 concurrent browse operations with large result sets. What happens?', options:['The 6th Browse returns Bad_NoContinuationPoints; client must release existing continuation points first','All 6 operate normally sharing the 5 slots','The server creates a 6th slot dynamically','The session is terminated'], answer:'The 6th Browse returns Bad_NoContinuationPoints; client must release existing continuation points first', explanation:'MaxBrowseContinuationPoints limits simultaneous continuation point handles; exceeding it fails with Bad_NoContinuationPoints.' },
+      { id:'svc_l3_19', type:'tf', q:'OPC UA mandates that a server must maintain a complete session when a client sends a Cancel request.', answer:'False', explanation:'Cancel service cancels an outstanding service call (async operations); it does not close the session.' },
+      { id:'svc_l3_20', type:'mcq', q:'Implementing OPC UA Pub/Sub without broker (UDP multicast), what is a key challenge compared to client-server?', options:['No guaranteed delivery — subscribers may miss messages without any acknowledgment or republish mechanism','UDP has higher latency than TCP','The address space is not accessible','Security is not supported in Pub/Sub'], answer:'No guaranteed delivery — subscribers may miss messages without any acknowledgment or republish mechanism', explanation:'UDP Pub/Sub (UADP) is fire-and-forget; unlike client-server, there\'s no acknowledgment or republish for missed messages.' },
+    ],
+  },
 
-  security: [
-    {
-      id: 'sec_1',
-      type: 'mcq',
-      question: 'Which OPC UA Security Mode provides both message signing AND encryption?',
-      options: ['None', 'Sign', 'SignAndEncrypt', 'Encrypt'],
-      answer: 2,
-      explanation: 'SignAndEncrypt: messages are cryptographically signed (tamper detection) AND encrypted (confidentiality). Sign-only gives you integrity without confidentiality. None gives you nothing — suitable for test environments, development, and people who enjoy living dangerously on production networks.'
-    },
-    {
-      id: 'sec_2',
-      type: 'mcq',
-      question: 'What is the recommended OPC UA Security Policy for production deployments?',
-      options: ['None', 'Basic128Rsa15', 'Basic256Sha256', 'Aes256-Sha256-RsaPss'],
-      answer: 2,
-      explanation: 'Basic256Sha256 is the widely recommended minimum for production. Basic128Rsa15 is considered weak (RSA-15 padding has known vulnerabilities). Aes256-Sha256-RsaPss is stronger but has less broad device support. Basic256Sha256 hits the security/compatibility sweet spot.'
-    },
-    {
-      id: 'sec_3',
-      type: 'mcq',
-      question: 'What is an Application Instance Certificate in OPC UA?',
-      options: [
-        'A certificate that proves the OPC Foundation certified the application',
-        'An X.509 certificate that uniquely identifies a specific running instance of an OPC UA application',
-        'A certificate used only for user authentication',
-        'A certificate issued by the server to the client during session creation'
-      ],
-      answer: 1,
-      explanation: 'An Application Instance Certificate is an X.509 cert tied to a specific application instance running on a specific machine. It\'s how OPC UA applications identify themselves to each other. One Ignition gateway has one AIC. One PLC has one AIC. Lose it, and mutual trust needs to be re-established from scratch.'
-    },
-    {
-      id: 'sec_4',
-      type: 'mcq',
-      question: 'OPC UA uses which type of certificate trust model?',
-      options: [
-        'One-way: client trusts server certificate only',
-        'CA-only: both must have certs from a common Certificate Authority',
-        'Mutual trust: client must trust server cert AND server must trust client cert',
-        'No trust model — certificates are only for encryption, not authentication'
-      ],
-      answer: 2,
-      explanation: 'Mutual trust. Both sides must explicitly trust the other\'s certificate. This is why self-signed certs require action on both ends — you must add the server cert to the client\'s trust store AND add the client cert to the server\'s trust store. Miss one side and the connection fails. This surprises everyone exactly once.'
-    },
-    {
-      id: 'sec_5',
-      type: 'mcq',
-      question: 'What is the default TCP port for OPC UA?',
-      options: ['102', '502', '4840', '62541'],
-      answer: 2,
-      explanation: 'Port 4840 is the registered IANA port for OPC UA binary TCP. Ignition\'s built-in OPC UA server defaults to 62541 instead (to avoid conflicts if another OPC UA server is on the same machine). SEL RTACs and most PLCs use 4840. Know both, confuse neither.'
-    },
-    {
-      id: 'sec_6',
-      type: 'mcq',
-      question: 'Which user authentication method in OPC UA provides the weakest security?',
-      options: ['X.509 User Certificate', 'Username/Password', 'Anonymous', 'Kerberos Token'],
-      answer: 2,
-      explanation: 'Anonymous authentication — no credentials at all. It\'s appropriate for read-only public data displays. Using Anonymous on a production system with write access is how industrial incidents get a Wikipedia article. Pair it with SecurityMode None and you\'ve got a complete security disaster.'
-    },
-    {
-      id: 'sec_7',
-      type: 'fill',
-      question: 'Self-signed OPC UA certificates must be manually placed in each application\'s ___ to establish trust.',
-      answer: 'trust store',
-      hint: 'It\'s the folder/storage where trusted certificates are kept',
-      explanation: 'The trust store is where an OPC UA application keeps certificates it explicitly trusts. With CAs, you trust the CA and it handles everything. With self-signed certs, there\'s no CA — you must manually copy each peer\'s cert into your trust store. Both sides. Every time.'
-    },
-    {
-      id: 'sec_8',
-      type: 'mcq',
-      question: 'OPC UA security operates at which layer of the connection stack?',
-      options: [
-        'Application layer only',
-        'Transport layer (TLS)',
-        'Secure Channel layer — below Session, above transport',
-        'Session layer only'
-      ],
-      answer: 2,
-      explanation: 'The Secure Channel layer is OPC UA\'s own security mechanism — it\'s not TLS (though HTTPS transport does use TLS). The Secure Channel provides message-level signing and encryption using the application certificates, and it\'s established before the Session is created.'
-    },
-    {
-      id: 'sec_9',
-      type: 'mcq',
-      question: 'Which OPC UA Security Policy uses RSA-OAEP padding (considered more secure than PKCS#1 v1.5)?',
-      options: ['Basic256Sha256', 'Aes128-Sha256-RsaOaep', 'Basic128Rsa15', 'None'],
-      answer: 1,
-      explanation: 'Aes128-Sha256-RsaOaep uses RSA-OAEP for key exchange, which is more resistant to padding oracle attacks than PKCS#1 v1.5 (used in Basic128Rsa15). Aes256-Sha256-RsaPss goes even further with RSA-PSS. The naming tells you what\'s inside if you know what to look for.'
-    },
-    {
-      id: 'sec_10',
-      type: 'mcq',
-      question: 'User authentication in OPC UA happens at which layer?',
-      options: [
-        'At the Secure Channel layer, before the session',
-        'At the Session layer, via ActivateSession, on top of the Secure Channel',
-        'At the transport layer via TLS client certificates',
-        'At the discovery layer'
-      ],
-      answer: 1,
-      explanation: 'User authentication is part of ActivateSession — it happens after the Secure Channel is established. The Secure Channel secures the connection; ActivateSession authenticates the user on top of that. Two separate security concerns, two separate layers. The spec authors thought about this.'
-    },
-    {
-      id: 'sec_11',
-      type: 'mcq',
-      question: 'When using OPC UA SecurityMode: Sign (without encryption), what is protected and what is NOT?',
-      options: [
-        'Neither integrity nor confidentiality is protected',
-        'Message integrity is protected (signatures); message content is NOT encrypted (not confidential)',
-        'Message content is encrypted but not signed',
-        'Both integrity and confidentiality are protected'
-      ],
-      answer: 1,
-      explanation: 'Sign mode adds cryptographic signatures so tampering is detectable — but the message payload is still sent in the clear. Anyone who can capture the traffic can read it. Good for environments where confidentiality isn\'t a concern but you want to know if someone\'s playing MITM. On an air-gapped network. Maybe.'
-    },
-    {
-      id: 'sec_12',
-      type: 'fill',
-      question: 'The three OPC UA user authentication token types are: Anonymous, Username/Password, and ___.',
-      answer: 'X.509 user certificate',
-      hint: 'The strongest option, using a client-side PKI certificate for the user identity',
-      explanation: 'X.509 user certificates provide the strongest user authentication — the user proves identity via a certificate rather than a password that can be guessed, phished, or written on a sticky note taped to the monitor. Most industrial environments still use Username/Password because certificate management is hard.'
-    },
-  ],
+  security: {
+    level1: [
+      { id:'sec_l1_1', type:'mcq', q:'What are the three OPC UA Security Modes?', options:['None, Sign, SignAndEncrypt','None, Encrypt, SignAndEncrypt','Plain, Signed, Encrypted','Open, Closed, Secure'], answer:'None, Sign, SignAndEncrypt', explanation:'None=no security; Sign=message signing only; SignAndEncrypt=signing plus encryption.' },
+      { id:'sec_l1_2', type:'tf', q:'OPC UA SecurityMode=None means no authentication is required.', answer:'False', explanation:'SecurityMode=None disables message-level security (signing/encryption), but session-level user authentication can still be required.' },
+      { id:'sec_l1_3', type:'mcq', q:'What technology does OPC UA use for application-level certificates?', options:['X.509','SHA-256 only','RSA raw keys','PKCS#7 only'], answer:'X.509', explanation:'OPC UA uses X.509 v3 digital certificates for both client and server application authentication.' },
+      { id:'sec_l1_4', type:'mcq', q:'Which OPC UA SecurityPolicy uses AES-256 with SHA-256?', options:['Basic256Sha256','Basic128Rsa15','Aes128_Sha256_RsaOaep','None'], answer:'Basic256Sha256', explanation:'Basic256Sha256 uses AES-256-CBC for encryption, SHA-256 for message authentication, and RSA-OAEP for key exchange.' },
+      { id:'sec_l1_5', type:'tf', q:'OPC UA client certificates must be manually trusted by the server administrator before connecting.', answer:'True', explanation:'By default, OPC UA servers require explicit trust of client certificates in the server\'s trust store.' },
+      { id:'sec_l1_6', type:'mcq', q:'Which OPC UA user identity token uses a username and password?', options:['UserNameIdentityToken','AnonymousIdentityToken','X509IdentityToken','IssuedIdentityToken'], answer:'UserNameIdentityToken', explanation:'UserNameIdentityToken carries a username and encrypted password for user authentication.' },
+      { id:'sec_l1_7', type:'fill', q:'The OPC UA component that protects the transport channel with encryption and signing is called a _____.', answer:'SecureChannel', explanation:'SecureChannel is established before sessions and provides message-level security for all subsequent communication.' },
+      { id:'sec_l1_8', type:'tf', q:'OPC UA AnonymousIdentityToken allows any client to access the server without credentials.', answer:'True', explanation:'AnonymousIdentityToken provides no user identity; servers may allow or restrict anonymous access.' },
+      { id:'sec_l1_9', type:'mcq', q:'The security mode that provides BOTH integrity protection AND confidentiality is:', options:['SignAndEncrypt','Sign','None','Authenticate'], answer:'SignAndEncrypt', explanation:'SignAndEncrypt provides both message signing (integrity) and encryption (confidentiality).' },
+      { id:'sec_l1_10', type:'mcq', q:'What does a server check in an OPC UA client certificate during connection?', options:['Validity period, trust chain, revocation status, and application URI','Only the expiry date','Only the issuer','The client\'s IP address'], answer:'Validity period, trust chain, revocation status, and application URI', explanation:'OPC UA certificate validation includes temporal validity, PKI chain trust, CRL/OCSP revocation, and ApplicationUri matching.' },
+      { id:'sec_l1_11', type:'tf', q:'OPC UA supports certificate revocation via Certificate Revocation Lists (CRLs).', answer:'True', explanation:'OPC UA Part 2 mandates CRL checking; servers should reject certificates listed as revoked.' },
+      { id:'sec_l1_12', type:'mcq', q:'Which OPC UA security feature prevents a third party from reading captured OPC UA traffic?', options:['Encryption in SignAndEncrypt mode','Message signing only','Anonymous authentication','Discovery over HTTP'], answer:'Encryption in SignAndEncrypt mode', explanation:'Encryption in SignAndEncrypt mode ensures that captured traffic cannot be read without the symmetric session keys.' },
+      { id:'sec_l1_13', type:'fill', q:'The minimum recommended OPC UA security policy for production SCADA systems is _____.', answer:'Basic256Sha256', explanation:'Basic256Sha256 is the current minimum recommended; Aes256_Sha256_RsaPss is even stronger for new deployments.' },
+      { id:'sec_l1_14', type:'mcq', q:'An OPC UA certificate with "Digital Signature" and "Key Encipherment" Key Usage is appropriate for:', options:['OPC UA application certificate use','SSL/TLS web server only','Code signing','Email encryption'], answer:'OPC UA application certificate use', explanation:'OPC UA application certificates require Digital Signature, Non-Repudiation, Key Encipherment, Data Encipherment.' },
+      { id:'sec_l1_15', type:'tf', q:'OPC UA supports certificate-based user authentication (X509IdentityToken).', answer:'True', explanation:'X509IdentityToken allows user authentication via a user-level X.509 certificate, separate from the application certificate.' },
+      { id:'sec_l1_16', type:'mcq', q:'The OPC UA "RejectedList" in the server trust store contains:', options:['Certificates that were presented but not yet trusted','Trusted CA certificates','Revoked certificates','The server\'s own certificate'], answer:'Certificates that were presented but not yet trusted', explanation:'The RejectedList holds certificates seen from clients/servers that have not been trusted — admin can review and move to TrustList.' },
+      { id:'sec_l1_17', type:'mcq', q:'Which OPC UA feature limits what operations a specific user can perform?', options:['Role-based access control (RolePermissions on nodes)','SecurityMode setting','Certificate key length','SessionTimeout value'], answer:'Role-based access control (RolePermissions on nodes)', explanation:'OPC UA Part 3 defines RolePermissions on nodes, allowing fine-grained access control per user role.' },
+      { id:'sec_l1_18', type:'tf', q:'OPC UA Basic128Rsa15 security policy is recommended for new deployments.', answer:'False', explanation:'Basic128Rsa15 uses deprecated RSA-PKCS#1 v1.5 padding which has known vulnerabilities; Basic256Sha256 or newer is recommended.' },
+      { id:'sec_l1_19', type:'fill', q:'The OPC UA mechanism for automatically distributing certificates to applications is called _____.', answer:'Global Discovery Server (GDS)', explanation:'GDS (OPC UA Part 12) provides certificate management, push distribution, and application registration.' },
+      { id:'sec_l1_20', type:'mcq', q:'What does "EndpointDescription.SecurityLevel" indicate?', options:['A server-assigned number indicating the relative security strength of this endpoint','The OSI security layer','The number of active sessions','The encryption key length'], answer:'A server-assigned number indicating the relative security strength of this endpoint', explanation:'SecurityLevel allows clients to select the most secure supported endpoint when multiple are available.' },
+    ],
+    level2: [
+      { id:'sec_l2_1', type:'mcq', q:'An OPC UA SecureChannel expires after TokenLifetime. What must the client do?', options:['Call OpenSecureChannel with RequestType=Renew before expiry to get a new SecurityToken','Create a new session','Reconnect the TCP connection','Re-authenticate the user'], answer:'Call OpenSecureChannel with RequestType=Renew before expiry to get a new SecurityToken', explanation:'OPC UA SecureChannel security tokens expire; clients must renew them via OpenSecureChannel(Renew) to maintain security continuity.' },
+      { id:'sec_l2_2', type:'tf', q:'OPC UA mandates that servers must support all three SecurityModes simultaneously.', answer:'False', explanation:'Servers expose endpoints for the security modes they support; a server may choose to not expose None or Sign-only endpoints.' },
+      { id:'sec_l2_3', type:'mcq', q:'A security scan finds OPC UA port 4840 open with SecurityMode=None. The correct remediation is:', options:['Disable the None endpoint or restrict access via firewall and configure SignAndEncrypt endpoints','Change the port number to obscure it','Use a VPN instead of fixing OPC UA security','Add user authentication only, keeping None mode'], answer:'Disable the None endpoint or restrict access via firewall and configure SignAndEncrypt endpoints', explanation:'SecurityMode=None endpoints should be disabled in production or isolated to trusted network segments only.' },
+      { id:'sec_l2_4', type:'mcq', q:'OPC UA certificate SAN (Subject Alternative Name) must contain which field?', options:['The Application URI matching the server\'s ApplicationDescription.ApplicationUri','The server\'s IP address only','The CA authority name','The OPC Foundation registration number'], answer:'The Application URI matching the server\'s ApplicationDescription.ApplicationUri', explanation:'OPC UA validates that the certificate\'s SAN URI extension matches the ApplicationUri; mismatch causes connection rejection.' },
+      { id:'sec_l2_5', type:'fill', q:'The OPC UA nonce exchanged during CreateSession/ActivateSession is used to prevent _____ attacks.', answer:'man-in-the-middle', explanation:'The nonces are signed and validated to ensure the client and server are communicating directly, not through an interceptor.' },
+      { id:'sec_l2_6', type:'mcq', q:'A plant\'s OPC UA certificates expire on Friday. Operations on Monday find all connections rejected. What was missing?', options:['Certificate lifecycle monitoring and automated renewal process','Firewall rules','Redundant servers','DNS configuration'], answer:'Certificate lifecycle monitoring and automated renewal process', explanation:'Certificate expiry causes all OPC UA secure connections to fail; monitoring and renewal procedures are critical.' },
+      { id:'sec_l2_7', type:'tf', q:'OPC UA role-based access control allows different users to have Read access to some nodes and Write access to others.', answer:'True', explanation:'RolePermissions on each node independently controls Browse, Read, Write, ReadHistory, Call, etc. per role.' },
+      { id:'sec_l2_8', type:'mcq', q:'An OPC UA server uses a self-signed certificate. A client receives "Bad_CertificateUntrusted". The correct action is:', options:['Administrator manually adds the certificate to the client\'s trust store','Disable security on the client','Use a different OPC UA server','Generate a new RSA key pair'], answer:'Administrator manually adds the certificate to the client\'s trust store', explanation:'Self-signed certificates require explicit trust by adding them to each client\'s trust store — no automatic trust chain exists.' },
+      { id:'sec_l2_9', type:'mcq', q:'OPC UA Aes256_Sha256_RsaPss security policy is preferred over Basic256Sha256 because:', options:['RSA-PSS padding is more secure than OAEP; both use AES-256 but PSS has stronger signature scheme','It uses longer keys','It is faster','It is required by IEC 62541'], answer:'RSA-PSS padding is more secure than OAEP; both use AES-256 but PSS has stronger signature scheme', explanation:'Aes256_Sha256_RsaPss uses RSA-PSS (Probabilistic Signature Scheme) which is more secure than PKCS#1 OAEP.' },
+      { id:'sec_l2_10', type:'fill', q:'The OPC UA security parameter that specifies the lifetime of each symmetric security token in milliseconds is called _____.', answer:'RequestedLifetime', explanation:'OpenSecureChannel RequestedLifetime sets the desired token lifetime; server returns RevisedLifetime within policy bounds.' },
+      { id:'sec_l2_11', type:'tf', q:'OPC UA audit log events are always sent to external syslog servers.', answer:'False', explanation:'OPC UA audit events are exposed as OPC UA event notifications within the address space; integration with syslog requires external tooling.' },
+      { id:'sec_l2_12', type:'mcq', q:'A client connects using X509IdentityToken. What does the server verify during ActivateSession?', options:['The user certificate chain, validity, revocation, and that it is in the server\'s user trust store','Only that the certificate is not expired','That the certificate was issued by the same CA as the application certificate','The certificate\'s key length only'], answer:'The user certificate chain, validity, revocation, and that it is in the server\'s user trust store', explanation:'X509IdentityToken user certificates undergo full PKI validation including the user trust store.' },
+      { id:'sec_l2_13', type:'mcq', q:'An OPC UA Global Discovery Server (GDS) "Pull" model means:', options:['Applications request certificates from GDS on demand','GDS pushes certificates to applications without their request','GDS is installed on each application server','Applications generate their own self-signed certs and send to GDS'], answer:'Applications request certificates from GDS on demand', explanation:'Pull model: applications call GDS to request signed certificates. Push model: GDS initiates certificate distribution.' },
+      { id:'sec_l2_14', type:'tf', q:'OPC UA IssuedIdentityToken supports OAuth2 tokens and SAML assertions for federated identity.', answer:'True', explanation:'IssuedIdentityToken is a generic token container supporting JWT, SAML, and other federation tokens for enterprise identity integration.' },
+      { id:'sec_l2_15', type:'mcq', q:'A NERC CIP compliant substation requires OPC UA logging of all write operations. The OPC UA mechanism is:', options:['AuditWriteUpdateEventType events with BeforeWriteTime, OldValue, NewValue, and user identity','Session-level write counters in diagnostics','External network capture only','OPC UA does not support write auditing'], answer:'AuditWriteUpdateEventType events with BeforeWriteTime, OldValue, NewValue, and user identity', explanation:'AuditWriteUpdateEventType captures before/after values, timestamp, and user identity for write operations.' },
+      { id:'sec_l2_16', type:'mcq', q:'OPC UA certificate revocation checking via OCSP is preferable to CRL because:', options:['OCSP provides real-time revocation status; CRLs may be outdated between update cycles','OCSP uses smaller files','CRLs require internet access; OCSP does not','OPC UA Part 2 mandates OCSP only'], answer:'OCSP provides real-time revocation status; CRLs may be outdated between update cycles', explanation:'CRL update intervals (hours/days) mean recently revoked certificates may still appear valid; OCSP provides online, real-time status.' },
+      { id:'sec_l2_17', type:'fill', q:'The OPC UA NodeId of the server\'s certificate node for diagnostic purposes is under the _____ server object.', answer:'ServerDiagnostics', explanation:'Server certificates and security settings are accessible under the Server\\ServerDiagnostics subtree for monitoring.' },
+      { id:'sec_l2_18', type:'tf', q:'OPC UA permits different security policies on different endpoints of the same server.', answer:'True', explanation:'A server can expose multiple endpoints — e.g., one with Basic256Sha256/SignAndEncrypt for external clients and one with None for local monitoring.' },
+      { id:'sec_l2_19', type:'mcq', q:'An OPC UA server behind a NAT firewall has external IP 203.0.113.1 but certificate SAN contains 192.168.1.10. External clients receive certificate errors. The fix is:', options:['Include the external IP/DNS name in the certificate SAN, or use DNS names in SAN','Disable certificate validation on clients','Use HTTP instead of TCP','Increase token lifetime'], answer:'Include the external IP/DNS name in the certificate SAN, or use DNS names in SAN', explanation:'Certificate SAN must include all names/IPs by which the server is reachable; NAT traversal requires external addresses in SAN.' },
+      { id:'sec_l2_20', type:'mcq', q:'Which OPC UA security feature prevents a legitimate client session from being hijacked by an attacker?', options:['SecureChannel binding to the session via channel ID and server nonce validation','Username/password authentication alone','VLAN segmentation','Session timeout set to 30 seconds'], answer:'SecureChannel binding to the session via channel ID and server nonce validation', explanation:'Sessions are cryptographically bound to their SecureChannel; an attacker cannot reuse a captured session token on a different channel.' },
+    ],
+    level3: [
+      { id:'sec_l3_1', type:'mcq', q:'An OPC UA server receives OpenSecureChannel with a client nonce of only 8 bytes (spec requires 32+ bytes). What should the server do?', options:['Reject with Bad_NonceInvalid to enforce security requirements','Accept it for backward compatibility','Pad the nonce to 32 bytes','Use the client nonce as-is for key derivation'], answer:'Reject with Bad_NonceInvalid to enforce security requirements', explanation:'OPC UA Part 6 specifies minimum nonce length requirements; servers must enforce them to prevent weak key derivation.' },
+      { id:'sec_l3_2', type:'tf', q:'OPC UA\'s Aes128_Sha256_RsaOaep security policy uses different key sizes for signing vs. encryption.', answer:'True', explanation:'Aes128_Sha256_RsaOaep uses AES-128 (symmetric) for encryption and SHA-256/RSA-OAEP for asymmetric operations — different key sizes.' },
+      { id:'sec_l3_3', type:'mcq', q:'An OPC UA Pub/Sub deployment uses SecurityMode=SignAndEncrypt with a SecurityGroup. What is the SecurityGroup\'s role?', options:['It defines the security keys shared among publishers and subscribers for a group of datasets','It replaces X.509 certificates in Pub/Sub','It sets the multicast group address','It controls subscription QueueSize'], answer:'It defines the security keys shared among publishers and subscribers for a group of datasets', explanation:'SecurityGroups in Pub/Sub define symmetric keys distributed by a Key Distribution Service (KDS) to authorized publishers and subscribers.' },
+      { id:'sec_l3_4', type:'mcq', q:'The OPC UA "SecurityTokenRequestType.Issue" vs "Renew" distinction matters because:', options:['Issue creates new channel with full handshake; Renew refreshes existing channel keys without full negotiation','Renew requires a new TCP connection; Issue does not','Issue uses symmetric keys; Renew uses asymmetric','They are functionally identical'], answer:'Issue creates new channel with full handshake; Renew refreshes existing channel keys without full negotiation', explanation:'OpenSecureChannel(Issue) establishes a new SecureChannel (heavy); OpenSecureChannel(Renew) refreshes the security token on an existing channel (lighter).' },
+      { id:'sec_l3_5', type:'fill', q:'The OPC UA user token type that supports federated identity providers like Azure AD via token issuance is called _____.', answer:'IssuedIdentityToken', explanation:'IssuedIdentityToken carries tokens from external IDPs (OAuth2 JWT, SAML), enabling enterprise SSO integration.' },
+      { id:'sec_l3_6', type:'mcq', q:'A security researcher discovers an OPC UA server reveals detailed error messages in Bad_IdentityTokenRejected responses (e.g., "user not in group X"). What is the security risk?', options:['Information disclosure enabling targeted user enumeration and group structure mapping','No risk — detailed errors aid debugging','Risk is limited to session layer only','Only relevant if SecurityMode=None'], answer:'Information disclosure enabling targeted user enumeration and group structure mapping', explanation:'Overly verbose authentication errors leak internal structure; compliant servers should use generic rejection messages.' },
+      { id:'sec_l3_7', type:'tf', q:'OPC UA specifies that application certificates must have a minimum RSA key length of 2048 bits.', answer:'True', explanation:'OPC UA Part 6 mandates minimum 2048-bit RSA keys for application certificates; 4096-bit is recommended for new deployments.' },
+      { id:'sec_l3_8', type:'mcq', q:'Implementing defense-in-depth for OPC UA, which combination provides the strongest protection?', options:['Network segmentation + Basic256Sha256/SignAndEncrypt + GDS certificate management + role-based access + audit logging','SecurityMode=None on isolated VLAN','Username/password + self-signed certs + no audit','Firewall blocking all OPC UA ports'], answer:'Network segmentation + Basic256Sha256/SignAndEncrypt + GDS certificate management + role-based access + audit logging', explanation:'Defense-in-depth combines network controls, strong OPC UA security policy, PKI management, RBAC, and comprehensive auditing.' },
+      { id:'sec_l3_9', type:'mcq', q:'An OPC UA client developer discovers the server accepts certificates with SHA-1 signatures. What is the risk and remediation?', options:['SHA-1 is cryptographically broken; server should be upgraded to require SHA-256 minimum per OPC UA 1.04 guidance','SHA-1 is fine for OPC UA applications','Only TLS uses SHA-1; OPC UA uses its own hash','The risk is only in the key exchange, not the certificate itself'], answer:'SHA-1 is cryptographically broken; server should be upgraded to require SHA-256 minimum per OPC UA 1.04 guidance', explanation:'SHA-1 collision attacks are feasible; OPC UA 1.04 deprecated Basic128Rsa15 (which used SHA-1) and requires SHA-256+.' },
+      { id:'sec_l3_10', type:'fill', q:'The OPC UA specification part that defines the security model including SecureChannel, certificates, and trust lists is Part _____.', answer:'2', explanation:'OPC UA Part 2 (Security Model) defines the security architecture, certificate requirements, and threat model.' },
+      { id:'sec_l3_11', type:'tf', q:'OPC UA allows servers to refuse certificate-based user authentication even if the certificate is trusted, based on role assignments.', answer:'True', explanation:'Certificate trust and user authorization are separate; a trusted X.509 user certificate may still be denied if the user has no roles granting access.' },
+      { id:'sec_l3_12', type:'mcq', q:'An ICS security team wants to ensure no OPC UA client can access historical data. How should they configure this per OPC UA spec?', options:['Remove HistoryRead permission from all roles in RolePermissions on historized nodes','Set SecurityMode=None to block history','Delete all HistoricalAccess endpoints','Disable the historian service globally'], answer:'Remove HistoryRead permission from all roles in RolePermissions on historized nodes', explanation:'RolePermissions.HistoryRead bit controls per-node historical data access; removing it from all roles effectively blocks history access.' },
+      { id:'sec_l3_13', type:'mcq', q:'OPC UA Pub/Sub Key Distribution Service (KDS) uses which mechanism to provide publishers and subscribers with the same symmetric keys?', options:['OPC UA Pull model where participants call GetSecurityKeys on the KDS using their client-server session','Broadcast key distribution','Diffie-Hellman inline in each Pub/Sub message','Each participant generates the same key using a shared seed'], answer:'OPC UA Pull model where participants call GetSecurityKeys on the KDS using their client-server session', explanation:'KDS is an OPC UA server; publishers/subscribers authenticate to it via client-server OPC UA and call GetSecurityKeys to retrieve current group keys.' },
+      { id:'sec_l3_14', type:'tf', q:'OPC UA does not protect against Denial-of-Service attacks through protocol mechanisms.', answer:'True', explanation:'OPC UA is an application protocol; DoS protection requires network-level controls (firewalls, rate limiting) — OPC UA itself has no anti-DoS mechanisms.' },
+      { id:'sec_l3_15', type:'mcq', q:'A pen tester finds an OPC UA server with a valid certificate but expired CRL. What vulnerability exists?', options:['Revoked certificates could be used since revocation cannot be checked','The session is immediately terminated','All reads return Bad_SecurityChecksFailed','The server falls back to SecurityMode=None'], answer:'Revoked certificates could be used since revocation cannot be checked', explanation:'Expired CRL means the server cannot check for recently revoked certificates, allowing compromised credentials to authenticate.' },
+      { id:'sec_l3_16', type:'mcq', q:'OPC UA WellKnownRoles include "Engineer" and "Operator" roles. What is the key principle behind this predefined role structure?', options:['Provide standard baseline roles for interoperability across OPC UA servers without custom role definition','Lock all servers to only two permission levels','Replace certificate-based auth with role-only auth','Automatically configure firewalls based on roles'], answer:'Provide standard baseline roles for interoperability across OPC UA servers without custom role definition', explanation:'WellKnownRoles (Anonymous, AuthenticatedUser, Observer, Operator, Engineer, Supervisor, etc.) create standard RBAC semantics across OPC UA products.' },
+      { id:'sec_l3_17', type:'fill', q:'OPC UA Part 2 describes the "Threat Model" which categorizes threats as Message Flooding, Eavesdropping, Message Spoofing, Message Alteration, Message Replay, and _____.', answer:'Malformed Message', explanation:'The 6 threat categories in OPC UA\'s threat model; each is addressed by specific SecureChannel mechanisms.' },
+      { id:'sec_l3_18', type:'tf', q:'OPC UA security token renewal must occur on the same TCP connection as the original OpenSecureChannel.', answer:'True', explanation:'OpenSecureChannel(Renew) references an existing ChannelId and must use the same TCP connection to refresh it.' },
+      { id:'sec_l3_19', type:'mcq', q:'An OPC UA server\'s SessionDiagnosticsArray shows repeated CreateSession failures with no successful ActivateSession. This pattern likely indicates:', options:['A misconfigured client failing certificate validation, or a scanning tool probing the server','Normal reconnection behavior','A subscription timeout issue','A database connection failure'], answer:'A misconfigured client failing certificate validation, or a scanning tool probing the server', explanation:'CreateSession succeeds before certificate exchange; ActivateSession failure indicates certificate trust issues or automated scanning.' },
+      { id:'sec_l3_20', type:'mcq', q:'Which OPC UA mechanism prevents an attacker from reusing captured encrypted messages (replay attack)?', options:['SequenceNumber monotonic increment within each SecureChannel with duplicate detection','Message timestamps only','Session-level nonce rotation','SecureChannel TTL expiry'], answer:'SequenceNumber monotonic increment within each SecureChannel with duplicate detection', explanation:'OPC UA binary messages include monotonically increasing SequenceNumbers per SecureChannel; servers reject out-of-order or duplicate sequence numbers.' },
+    ],
+  },
 
-  subscriptions: [
-    {
-      id: 'sub_1',
-      type: 'mcq',
-      question: 'In OPC UA, what does the PublishingInterval control?',
-      options: [
-        'How often the server samples the underlying data source',
-        'How often the server sends batched subscription notifications to the client',
-        'How long before the subscription expires',
-        'The maximum number of monitored items in the subscription'
-      ],
-      answer: 1,
-      explanation: 'PublishingInterval is how often the server collects queued changes and sends a publish response. SamplingInterval (per MonitoredItem) is how often the underlying data is checked. You can sample every 100ms but only publish every 1000ms — server batches it up. Efficient.'
-    },
-    {
-      id: 'sub_2',
-      type: 'mcq',
-      question: 'What is the SamplingInterval in OPC UA subscriptions?',
-      options: [
-        'How often the server sends updates to the client',
-        'How often the server samples the monitored variable\'s underlying data source',
-        'How often the client sends Publish requests',
-        'The expiration timer for the subscription'
-      ],
-      answer: 1,
-      explanation: 'SamplingInterval is set per MonitoredItem and controls how frequently the server checks the underlying source for changes. It\'s the "how often do you look at the PLC register" setting. SamplingInterval ≤ PublishingInterval makes sense; publishing faster than you sample is just expensive nothing.'
-    },
-    {
-      id: 'sub_3',
-      type: 'mcq',
-      question: 'What happens when a MonitoredItem\'s QueueSize is exceeded before a Publish cycle?',
-      options: [
-        'The subscription is automatically deleted',
-        'The oldest notification in the queue is discarded (by default)',
-        'The server blocks until the client acknowledges',
-        'The server increases the QueueSize automatically'
-      ],
-      answer: 1,
-      explanation: 'By default, when the queue is full, the oldest notification is dropped to make room for the new one (DiscardOldest=true). You can set DiscardOldest=false to drop the newest instead. Either way, data is lost when the queue overflows — size your queues appropriately or increase your publishing rate.'
-    },
-    {
-      id: 'sub_4',
-      type: 'mcq',
-      question: 'What does the KeepAlive mechanism in OPC UA subscriptions do?',
-      options: [
-        'Keeps the TCP connection alive with heartbeat packets',
-        'If no data changes occur, the server sends a keepalive publish response after KeepAliveCount * PublishingInterval',
-        'The client sends periodic pings to prevent session timeout',
-        'Resets the subscription timer when the client is idle'
-      ],
-      answer: 1,
-      explanation: 'KeepAlive prevents the client from thinking the server died when data just isn\'t changing. After KeepAliveCount publishing intervals with no notifications, the server sends an empty keepalive publish response. The client knows the connection is alive and the server\'s just bored. Silence, not death.'
-    },
-    {
-      id: 'sub_5',
-      type: 'mcq',
-      question: 'A subscription\'s Lifetime is defined as LifetimeCount * PublishingInterval. What triggers subscription expiration?',
-      options: [
-        'The server not sending data for LifetimeCount cycles',
-        'The client not sending Publish requests for LifetimeCount * PublishingInterval milliseconds',
-        'The client failing to acknowledge notifications',
-        'The connection being idle for LifetimeCount seconds'
-      ],
-      answer: 1,
-      explanation: 'The server expects the client to keep sending Publish requests. If the client goes quiet for Lifetime milliseconds (LifetimeCount × PublishingInterval), the server declares the subscription dead and cleans it up. This is the server\'s way of saying "if you\'re not going to pick up your mail, I\'m canceling delivery."'
-    },
-    {
-      id: 'sub_6',
-      type: 'mcq',
-      question: 'What is the DataChange filter trigger "StatusValueTimestamp" in OPC UA?',
-      options: [
-        'Trigger on status code change only',
-        'Trigger when Status, Value, OR Timestamp changes',
-        'Trigger only when Value changes with a good status',
-        'Trigger only when the server timestamp changes'
-      ],
-      answer: 1,
-      explanation: 'StatusValueTimestamp triggers a notification if any of the three change: the status code, the value itself, or the source/server timestamp. It\'s the most sensitive trigger — great for audit-grade monitoring. Status alone or Value alone are also options if you want to reduce notification chatter.'
-    },
-    {
-      id: 'sub_7',
-      type: 'mcq',
-      question: 'What does an Absolute deadband filter of 5.0 do for a MonitoredItem?',
-      options: [
-        'Notifications are sent every 5 seconds',
-        'Only send a notification if the value has changed by more than 5.0 units since the last notification',
-        'Suppress all notifications if the value is within 5.0% of the setpoint',
-        'Queue up to 5.0 seconds worth of changes before publishing'
-      ],
-      answer: 1,
-      explanation: 'Absolute deadband: suppress notifications unless the new value differs from the last reported value by more than 5.0 (in the variable\'s engineering units). Extremely useful for noisy analog signals — without it, a signal hovering at 50.001, 49.999, 50.002 would generate thousands of notifications per hour.'
-    },
-    {
-      id: 'sub_8',
-      type: 'fill',
-      question: 'The two types of deadband available for OPC UA DataChange filters are Absolute and ___.',
-      answer: 'Percent',
-      hint: 'The other type is relative to the variable\'s full range, expressed as a percentage',
-      explanation: 'Percent deadband triggers only if the change exceeds X% of the variable\'s EU Range. So a 5% deadband on a 0-100 PSI sensor means changes less than 5 PSI are ignored. More flexible than Absolute for sensors with varying ranges — but requires EURange to be properly configured.'
-    },
-    {
-      id: 'sub_9',
-      type: 'mcq',
-      question: 'When creating a MonitoredItem, which parameters are specified? (select the most complete answer)',
-      options: [
-        'NodeId only',
-        'NodeId + AttributeId + SamplingInterval + QueueSize + filter',
-        'NodeId + SecurityMode + PublishingInterval',
-        'NodeId + DataType + AccessLevel'
-      ],
-      answer: 1,
-      explanation: 'Each MonitoredItem is specified with: NodeId (what to watch), AttributeId (which attribute — usually Value), SamplingInterval (how often to check), QueueSize (how many changes to buffer), and optionally a filter (deadband, event filter). The combination gives you precise control over what gets reported and how.'
-    },
-    {
-      id: 'sub_10',
-      type: 'mcq',
-      question: 'How many subscriptions can a single OPC UA session have?',
-      options: [
-        'Exactly one',
-        'Up to 10',
-        'Multiple — each with its own PublishingInterval, MonitoredItems, and KeepAlive settings',
-        'Unlimited, but only one can be active at a time'
-      ],
-      answer: 2,
-      explanation: 'A session can have multiple subscriptions simultaneously, each with its own settings. You might have one subscription publishing every 100ms for critical values and another publishing every 10 seconds for trending data. Each subscription manages its own set of MonitoredItems and its own Publish lifecycle.'
-    },
-  ],
+  subscriptions: {
+    level1: [
+      { id:'sub_l1_1', type:'mcq', q:'What is an OPC UA Subscription?', options:['A server-side mechanism that monitors items and notifies clients of changes','A TCP socket connection','A database query subscription','A certificate renewal request'], answer:'A server-side mechanism that monitors items and notifies clients of changes', explanation:'Subscriptions collect notifications from MonitoredItems and deliver them to clients via the Publish service.' },
+      { id:'sub_l1_2', type:'mcq', q:'What is the relationship between a Subscription and MonitoredItems?', options:['A Subscription contains one or more MonitoredItems','MonitoredItems contain Subscriptions','They are independent services','One MonitoredItem can span multiple Subscriptions'], answer:'A Subscription contains one or more MonitoredItems', explanation:'MonitoredItems are added to a Subscription; the Subscription batches their notifications for delivery.' },
+      { id:'sub_l1_3', type:'tf', q:'OPC UA Publish service is initiated by the server to push data to clients.', answer:'False', explanation:'Publish is called by the client; the server responds with pending notifications or a keepalive.' },
+      { id:'sub_l1_4', type:'mcq', q:'What parameter defines how often a Subscription delivers notifications to the client?', options:['PublishingInterval','SamplingInterval','QueueSize','LifetimeCount'], answer:'PublishingInterval', explanation:'PublishingInterval (in ms) defines the rate at which the subscription sends collected notifications to the client.' },
+      { id:'sub_l1_5', type:'mcq', q:'What does "MonitoringMode=Reporting" mean?', options:['The server both samples and sends notifications to the client','The server samples but does not send notifications','The server does not sample the item','The item is write-only'], answer:'The server both samples and sends notifications to the client', explanation:'Reporting = actively sampling and queuing notifications for delivery. Sampling = collecting but not delivering. Disabled = neither.' },
+      { id:'sub_l1_6', type:'tf', q:'A MonitoredItem\'s SamplingInterval can be faster than the Subscription\'s PublishingInterval.', answer:'True', explanation:'Items are sampled at SamplingInterval; the subscription batches and delivers them at PublishingInterval.' },
+      { id:'sub_l1_7', type:'fill', q:'The parameter that determines how many PublishingIntervals a subscription can go without a Publish request before being deleted is called _____.', answer:'LifetimeCount', explanation:'LifetimeCount × PublishingInterval = maximum idle time; the server auto-deletes subscriptions after this period.' },
+      { id:'sub_l1_8', type:'mcq', q:'Which MonitoredItem filter prevents notifications when a value changes by less than 2%?', options:['DataChangeFilter with DeadbandType=Percent and DeadbandValue=2','SamplingInterval=2000','QueueSize=2','TriggeringItem'], answer:'DataChangeFilter with DeadbandType=Percent and DeadbandValue=2', explanation:'Percent deadband suppresses notifications when analog changes are within the specified percentage of EURange.' },
+      { id:'sub_l1_9', type:'mcq', q:'What is the "KeepAliveCount" parameter in a Subscription?', options:['Number of PublishingIntervals between keepalive messages when no data changes occur','Maximum number of reconnection attempts','Number of notifications per Publish response','Session inactivity timeout multiplier'], answer:'Number of PublishingIntervals between keepalive messages when no data changes occur', explanation:'When no monitored items change, the server sends empty keepalive responses every KeepAliveCount × PublishingInterval to confirm the subscription is alive.' },
+      { id:'sub_l1_10', type:'tf', q:'A subscription can contain MonitoredItems monitoring both data changes and events.', answer:'True', explanation:'A single subscription can contain both DataChange MonitoredItems (Variable values) and Event MonitoredItems (events from Objects).' },
+      { id:'sub_l1_11', type:'mcq', q:'The MonitoredItem QueueSize parameter determines:', options:['How many notifications are buffered between PublishingIntervals','The maximum subscription duration','The maximum number of monitored items','The sampling rate'], answer:'How many notifications are buffered between PublishingIntervals', explanation:'QueueSize buffers notifications; important for fast-sampling items where multiple changes may occur per PublishingInterval.' },
+      { id:'sub_l1_12', type:'mcq', q:'Which MonitoringMode means the server samples the value but does NOT send it to the client?', options:['Sampling','Reporting','Disabled','Buffering'], answer:'Sampling', explanation:'MonitoringMode=Sampling collects data into the queue but does not deliver it; useful for triggering items.' },
+      { id:'sub_l1_13', type:'fill', q:'The default notification trigger for a DataChange MonitoredItem is _____.', answer:'StatusValue (status or value change)', explanation:'DataChangeTrigger defaults to StatusValue — notifications sent when either the value OR the quality status changes.' },
+      { id:'sub_l1_14', type:'tf', q:'OPC UA subscriptions are automatically re-created when a client reconnects.', answer:'False', explanation:'Subscriptions are not auto-recreated; clients must explicitly recreate them or use TransferSubscriptions to restore existing ones.' },
+      { id:'sub_l1_15', type:'mcq', q:'What happens when a MonitoredItem\'s queue is full and DiscardOldest=True?', options:['The oldest queued notification is discarded to make room for the new one','The newest value is discarded','Sampling stops until the queue is drained','An error is returned to the client'], answer:'The oldest queued notification is discarded to make room for the new one', explanation:'DiscardOldest=True prioritizes most recent data; DiscardOldest=False preserves older entries and drops new ones.' },
+      { id:'sub_l1_16', type:'mcq', q:'Which DataChangeTrigger value sends notifications ONLY when the value changes, ignoring status changes?', options:['Value','Status','StatusValue','Timestamp'], answer:'Value', explanation:'DataChangeTrigger=Value notifies only on value changes; StatusValue (default) also notifies on status changes.' },
+      { id:'sub_l1_17', type:'tf', q:'Subscriptions belong to a specific session and are deleted when the session closes (unless DeleteSubscriptions=False).', answer:'True', explanation:'Subscriptions are session-scoped by default; CloseSession with DeleteSubscriptions=False preserves them for potential transfer.' },
+      { id:'sub_l1_18', type:'mcq', q:'What is an "Event MonitoredItem"?', options:['A MonitoredItem monitoring an Object node for events with an EventFilter','A monitored item that triggers on errors only','A monitored item for Method call results','A historical replay subscription'], answer:'A MonitoredItem monitoring an Object node for events with an EventFilter', explanation:'Event MonitoredItems use an EventFilter to select which events from an Object (or the Server node) are reported.' },
+      { id:'sub_l1_19', type:'fill', q:'The OPC UA service that removes monitored items from a subscription is called _____.', answer:'DeleteMonitoredItems', explanation:'DeleteMonitoredItems removes specified MonitoredItem IDs from the subscription.' },
+      { id:'sub_l1_20', type:'mcq', q:'Priority in CreateSubscription affects:', options:['Which subscription the server processes first when multiple subscriptions have pending notifications','The security level of the subscription','The QueueSize automatically','The sampling interval of all monitored items'], answer:'Which subscription the server processes first when multiple subscriptions have pending notifications', explanation:'Higher Priority subscriptions receive Publish responses before lower priority ones when multiple subscriptions are ready.' },
+    ],
+    level2: [
+      { id:'sub_l2_1', type:'mcq', q:'A client monitors 5000 temperature tags at 1Hz. Tags change slowly (every few minutes). How should the deadband be configured?', options:['Absolute deadband matching the sensor resolution to suppress noise-induced notifications','No deadband — report every 1Hz sample','Percent deadband of 0.001%','Time-based deadband of 60 seconds'], answer:'Absolute deadband matching the sensor resolution to suppress noise-induced notifications', explanation:'Absolute deadband matching sensor resolution prevents noise from generating excessive notifications while capturing real changes.' },
+      { id:'sub_l2_2', type:'tf', q:'An Event MonitoredItem added to a session\'s Server node will receive all events generated by the server.', answer:'True', explanation:'Monitoring the Server node (ns=0;i=2253) with MonitoringMode=Reporting and EventFilter captures all server-generated events.' },
+      { id:'sub_l2_3', type:'mcq', q:'A client needs immediate notification when a discrete bit changes. Which subscription configuration is optimal?', options:['QueueSize=1, DiscardOldest=True, DataChangeTrigger=StatusValue, short SamplingInterval','PublishingInterval=3600s for batching','DeadbandValue=50% to filter small changes','MonitoringMode=Sampling without Reporting'], answer:'QueueSize=1, DiscardOldest=True, DataChangeTrigger=StatusValue, short SamplingInterval', explanation:'Discrete signals change infrequently — queue=1 is sufficient, and StatusValue trigger captures state changes including quality.' },
+      { id:'sub_l2_4', type:'mcq', q:'SetMonitoringMode with MonitoringMode=Disabled on an alarm MonitoredItem means:', options:['The server stops sampling; existing queued notifications are held but no new ones added','The server deletes the MonitoredItem','The subscription is paused','Events are still queued but not delivered'], answer:'The server stops sampling; existing queued notifications are held but no new ones added', explanation:'Disabled stops sampling and queuing; queued notifications remain until the item is re-enabled or deleted.' },
+      { id:'sub_l2_5', type:'fill', q:'The OPC UA subscription parameter that limits the total number of notifications per Publish response is called _____.', answer:'MaxNotificationsPerPublish', explanation:'MaxNotificationsPerPublish prevents oversized Publish responses that could overwhelm clients or exceed message size limits.' },
+      { id:'sub_l2_6', type:'mcq', q:'A triggering item relationship (AddItem with triggeringItem) causes:', options:['A Sampling-mode item to report its current value whenever the triggering item generates a notification','A cascading subscription deletion','Simultaneous sampling of all items','A cross-subscription event'], answer:'A Sampling-mode item to report its current value whenever the triggering item generates a notification', explanation:'Triggered items (in Sampling mode) report their queued values when their trigger fires, enabling conditional reporting.' },
+      { id:'sub_l2_7', type:'tf', q:'OPC UA allows a client to add MonitoredItems to a subscription while the subscription is actively publishing.', answer:'True', explanation:'CreateMonitoredItems can be called on an active subscription; new items begin reporting on the next PublishingInterval.' },
+      { id:'sub_l2_8', type:'mcq', q:'A server\'s subscription has PublishingInterval=1000ms and KeepAliveCount=10. How long until a keepalive is sent with no changes?', options:['10 seconds (10 × 1000ms)','1 second','10ms','100 seconds'], answer:'10 seconds (10 × 1000ms)', explanation:'Keepalive interval = KeepAliveCount × PublishingInterval = 10 × 1000ms = 10,000ms = 10 seconds.' },
+      { id:'sub_l2_9', type:'mcq', q:'Why is it important for a client to call Publish quickly after receiving a notification?', options:['To free the server\'s retransmission queue and confirm receipt via SubscriptionAcknowledgements','To prevent the session from timing out','To update the client\'s local cache','To re-enable monitoring of disabled items'], answer:'To free the server\'s retransmission queue and confirm receipt via SubscriptionAcknowledgements', explanation:'Clients must acknowledge received sequence numbers in Publish requests; unacknowledged messages are retained in the retransmission queue.' },
+      { id:'sub_l2_10', type:'tf', q:'OPC UA allows a MonitoredItem to monitor a Method node for call result notifications.', answer:'False', explanation:'MonitoredItems monitor Variable nodes (data changes) or Object/View nodes (events); Method results are returned synchronously via Call service.' },
+      { id:'sub_l2_11', type:'mcq', q:'An OPC UA historian client needs to capture every value change, even fast bursts. The correct configuration is:', options:['QueueSize=large value, SamplingInterval fast, DiscardOldest=False','QueueSize=1, SamplingInterval=slow','DeadbandValue=high to reduce notifications','MonitoringMode=Sampling only'], answer:'QueueSize=large value, SamplingInterval fast, DiscardOldest=False', explanation:'Large queues with DiscardOldest=False preserve all changes in fast bursts; the historian processes queued values at each Publish.' },
+      { id:'sub_l2_12', type:'fill', q:'The OPC UA notification that carries the monitored variable\'s current value, status, and timestamps is called _____.', answer:'MonitoredItemNotification', explanation:'MonitoredItemNotification contains the DataValue (Value + StatusCode + SourceTimestamp + ServerTimestamp) for each changed item.' },
+      { id:'sub_l2_13', type:'mcq', q:'A subscription with PriorityLevel=100 and one with PriorityLevel=0 both have pending notifications. The server processes:', options:['PriorityLevel=100 first in the same Publish cycle','Both simultaneously in parallel','PriorityLevel=0 first since it was created first','They share equal time regardless of priority'], answer:'PriorityLevel=100 first in the same Publish cycle', explanation:'Higher priority subscriptions get Publish responses before lower priority ones when multiple are ready, enabling critical alarm prioritization.' },
+      { id:'sub_l2_14', type:'tf', q:'OPC UA DataChange notifications always include the source timestamp.', answer:'False', explanation:'SourceTimestamp inclusion depends on the TimestampsToReturn setting in CreateMonitoredItems; it may be None, Source, Server, or Both.' },
+      { id:'sub_l2_15', type:'mcq', q:'A plant operator wants a 30-minute trend of 100 process tags. Each tag changes ~10 times/minute. Required QueueSize per monitored item to avoid data loss:', options:['300 (10 changes/min × 30 min)','10','1','100'], answer:'300 (10 changes/min × 30 min)', explanation:'QueueSize must accommodate all changes during the trend period: 10/min × 30min = 300 per tag.' },
+      { id:'sub_l2_16', type:'mcq', q:'EventFilter in a MonitoredItem\'s filter specifies:', options:['Which event types to capture and which event fields to include in notifications','The sampling rate for events','The security level for event delivery','The maximum event severity'], answer:'Which event types to capture and which event fields to include in notifications', explanation:'EventFilter has a WhereClause (filter expression) and SelectClauses (which EventFields to return per notification).' },
+      { id:'sub_l2_17', type:'fill', q:'The OPC UA service that retrieves a specific previously delivered notification by sequence number is called _____.', answer:'Republish', explanation:'Republish allows clients to recover missed notifications using sequence numbers from the server\'s retransmission buffer.' },
+      { id:'sub_l2_18', type:'tf', q:'ModifySubscription allows changing the PublishingInterval of an existing subscription without losing monitored items.', answer:'True', explanation:'ModifySubscription adjusts PublishingInterval, LifetimeCount, MaxKeepAliveCount, Priority, and MaxNotificationsPerPublish in-place.' },
+      { id:'sub_l2_19', type:'mcq', q:'An OPC UA client receives a notification with "StatusCode=Bad_MonitoredItemIdInvalid" in a Publish response. What does this indicate?', options:['A MonitoredItem was deleted while the notification was queued','The subscription ID is invalid','The session expired','The value type changed'], answer:'A MonitoredItem was deleted while the notification was queued', explanation:'Bad_MonitoredItemIdInvalid in a notification indicates the item was removed during the period between sampling and delivery.' },
+      { id:'sub_l2_20', type:'mcq', q:'Which Subscription parameter determines how many times the server can send keepalives before the subscription is deleted without a Publish request?', options:['LifetimeCount determines deletion; KeepAliveCount determines keepalive frequency','KeepAliveCount determines both','MaxKeepAliveCount determines deletion','LifetimeCount determines keepalive frequency only'], answer:'LifetimeCount determines deletion; KeepAliveCount determines keepalive frequency', explanation:'LifetimeCount × PublishingInterval = deletion timeout; KeepAliveCount × PublishingInterval = keepalive interval. These are independent parameters.' },
+    ],
+    level3: [
+      { id:'sub_l3_1', type:'mcq', q:'An OPC UA server supports 1000 concurrent subscriptions each with 500 monitored items. An engineer wants to add 10,000 more items to an existing subscription. What constraint applies?', options:['Server capability MaxMonitoredItemsPerSubscription and MaxMonitoredItems global limit','No OPC UA limit — add unlimited items','SecurityMode restricts item count','Session timeout prevents this'], answer:'Server capability MaxMonitoredItemsPerSubscription and MaxMonitoredItems global limit', explanation:'ServerCapabilities.MaxMonitoredItemsPerSubscription and MaxMonitoredItems are server limits clients must query before assuming capacity.' },
+      { id:'sub_l3_2', type:'tf', q:'OPC UA event MonitoredItems can use ContentFilter with OfType operator to filter by event type hierarchy.', answer:'True', explanation:'OfType operator in EventFilter WhereClause matches events by type inheritance — e.g., OfType(AlarmConditionType) captures all alarm subtypes.' },
+      { id:'sub_l3_3', type:'mcq', q:'A client implements subscription transfer across redundant servers. Server B does not support TransferSubscriptions. The client must:', options:['Delete all subscriptions on A and recreate them on B, accepting potential data loss','Use Republish on server B to replay A\'s notifications','Copy A\'s subscription database to B','Use OPC DA instead'], answer:'Delete all subscriptions on A and recreate them on B, accepting potential data loss', explanation:'TransferSubscriptions is optional; if unsupported, clients must recreate subscriptions and accept gaps during failover.' },
+      { id:'sub_l3_4', type:'mcq', q:'A fast control system needs sub-millisecond OPC UA notifications. The engineer configures PublishingInterval=0.5ms. What actually happens?', options:['Server revises to its minimum supported PublishingInterval (typically 5-100ms on PC servers)','The server delivers 0.5ms notifications as requested','The subscription is rejected','Only the first notification uses 0.5ms; subsequent ones are 1000ms'], answer:'Server revises to its minimum supported PublishingInterval (typically 5-100ms on PC servers)', explanation:'RevisedPublishingInterval is the server\'s actual minimum; OPC UA is not designed for sub-millisecond control loops.' },
+      { id:'sub_l3_5', type:'fill', q:'The OPC UA subscription notification type for sampling mode items that triggered via a triggering item is called _____.', answer:'MonitoredItemNotification (same as regular, but triggered by linked item)', explanation:'Triggered items use the same MonitoredItemNotification format; the distinction is in how the notification was initiated (by trigger, not by deadline).' },
+      { id:'sub_l3_6', type:'mcq', q:'An analyst observes that a subscription\'s "NotificationsCount" diagnostic is orders of magnitude higher than "PublishRequestCount". What does this indicate?', options:['Notifications are queuing faster than they\'re being delivered — potential client performance issue','Normal subscription operation','The subscription is in Disabled mode','A memory leak in the server'], answer:'Notifications are queuing faster than they\'re being delivered — potential client performance issue', explanation:'Notification backlog means the client isn\'t calling Publish fast enough; this can lead to queue overflow and data loss.' },
+      { id:'sub_l3_7', type:'tf', q:'OPC UA mandates that servers maintain the full retransmission queue for all delivered notifications indefinitely.', answer:'False', explanation:'The retransmission queue is bounded; acknowledged messages (via SubscriptionAcknowledgements in Publish) are freed, and unacknowledged ones eventually expire.' },
+      { id:'sub_l3_8', type:'mcq', q:'Implementing a redundant OPC UA client that uses TransferSubscriptions to Server B, the client discovers some MonitoredItems were dropped. This occurs because:', options:['Server B may not support all SamplingIntervals or item references from Server A\'s subscriptions','TransferSubscriptions is always lossless','Dropped items must be in Disabled mode on Server A','The session token expired during transfer'], answer:'Server B may not support all SamplingIntervals or item references from Server A\'s subscriptions', explanation:'TransferSubscriptions returns per-item results; items the target server cannot recreate are reported with error StatusCodes.' },
+      { id:'sub_l3_9', type:'mcq', q:'An EventFilter\'s WhereClause uses "GreaterThanOrEqual" operator on the "Severity" operand. A severity-500 alarm fires. What does the filter return?', options:['The alarm event, if the threshold value is <= 500','Nothing — EventFilters cannot filter on Severity','An error — Severity is not a filterable field','The alarm only if Severity exactly equals the filter value'], answer:'The alarm event, if the threshold value is <= 500', explanation:'ContentFilter operators like GreaterThanOrEqual compare the live event field value against the literal operand; severity 500 passes if threshold ≤ 500.' },
+      { id:'sub_l3_10', type:'fill', q:'The OPC UA mechanism for detecting duplicate notification delivery (when SequenceNumber wraps) uses the _____ field.', answer:'SequenceNumber (plus SubscriptionId for uniqueness)', explanation:'SequenceNumber is a UInt32 that wraps; implementations track (SubscriptionId, SequenceNumber) pairs to detect duplicates after wrap.' },
+      { id:'sub_l3_11', type:'mcq', q:'A client has 50 subscriptions each consuming 100ms PublishingInterval. How many concurrent Publish requests should be outstanding for optimal operation?', options:['~50-55 (one per subscription, plus a few extra for round-trip latency)','1 (the server serializes all subscriptions)','5000 (10× per subscription)','It depends only on MaxNotificationsPerPublish'], answer:'~50-55 (one per subscription, plus a few extra for round-trip latency)', explanation:'Rule of thumb: outstanding Publish requests ≈ number of active subscriptions + RTT/publishingInterval to keep the pipeline full.' },
+      { id:'sub_l3_12', type:'tf', q:'OPC UA subscriptions support "condition refresh" to get current alarm states without waiting for the next change notification.', answer:'True', explanation:'ConditionRefresh Method on the Server or ConditionType triggers the server to re-publish all current condition states for the subscription.' },
+      { id:'sub_l3_13', type:'mcq', q:'A Historian uses OPC UA subscriptions with QueueSize=1000. After 30 seconds of network outage, which data is preserved?', options:['Up to 1000 most recent changes per monitored item (with DiscardOldest=True), or first 1000 (DiscardOldest=False)','All changes during the outage, unlimited','No data — subscriptions are deleted after network outage','Only the last value per item'], answer:'Up to 1000 most recent changes per monitored item (with DiscardOldest=True), or first 1000 (DiscardOldest=False)', explanation:'QueueSize is per-item; with 30-second outage and fast sampling, queues may overflow — choose QueueSize based on outage tolerance.' },
+      { id:'sub_l3_14', type:'mcq', q:'Server diagnostics show MonitoredItemCount rising and never decreasing over days. What is the likely root cause?', options:['Clients creating MonitoredItems but not deleting them — MonitoredItem leak','Normal operation for active systems','Server auto-creates items on Browse','Subscription Priority escalation'], answer:'Clients creating MonitoredItems but not deleting them — MonitoredItem leak', explanation:'Well-behaved clients delete MonitoredItems they no longer need; leaks exhaust server capacity and require server restart.' },
+      { id:'sub_l3_15', type:'tf', q:'EventFilter SelectClauses allow retrieving nested event fields using SimpleAttributeOperand with BrowsePath.', answer:'True', explanation:'SimpleAttributeOperand supports a BrowsePath (sequence of QualifiedNames) to navigate to nested event properties.' },
+      { id:'sub_l3_16', type:'mcq', q:'Subscription diagnostics show "LatePublishRequestCount" increasing. What does this metric indicate?', options:['The client is sending Publish requests late — after the server needed them, causing delayed notifications','The server is generating too many notifications','Network latency exceeds PublishingInterval','The KeepAliveCount is too large'], answer:'The client is sending Publish requests late — after the server needed them, causing delayed notifications', explanation:'LatePublishRequestCount counts how often the server had notifications ready but no outstanding Publish request was available — client is too slow.' },
+      { id:'sub_l3_17', type:'fill', q:'In OPC UA, the subscription parameter that specifies the maximum number of times the server can keep the subscription alive (sending keepalives) without receiving a Publish is called _____.', answer:'MaxKeepAliveCount', explanation:'MaxKeepAliveCount × PublishingInterval = maximum keepalive duration; after this, the server deletes the subscription.' },
+      { id:'sub_l3_18', type:'mcq', q:'An engineer wants audit trail for all OPC UA WriteValue operations on setpoints. The most OPC UA-native approach is:', options:['Subscribe to AuditWriteUpdateEventType events on the Server node','Enable SecurityMode=Sign and capture network traffic','Use session diagnostics counters','Log Write requests at the firewall'], answer:'Subscribe to AuditWriteUpdateEventType events on the Server node', explanation:'AuditWriteUpdateEventType events expose who wrote what value on which node, with old and new values — OPC UA native audit trail.' },
+      { id:'sub_l3_19', type:'tf', q:'OPC UA allows multiple clients to share a single subscription (collaborative subscriptions).', answer:'False', explanation:'Subscriptions belong to one session/client; there is no subscription sharing across clients in standard OPC UA.' },
+      { id:'sub_l3_20', type:'mcq', q:'A SCADA vendor implements OPC UA sampling by polling the PLC at the configured SamplingInterval. A client sets SamplingInterval=10ms on 5000 items. What is the likely result?', options:['Server reports RevisedSamplingInterval much higher due to PLC communication limits; the server cannot poll 5000 items at 10ms','All 5000 items are polled at exactly 10ms','The server rejects the request','Only 100 items can be monitored at 10ms maximum'], answer:'Server reports RevisedSamplingInterval much higher due to PLC communication limits; the server cannot poll 5000 items at 10ms', explanation:'Servers revise SamplingInterval based on available bandwidth to the device; realistic PLC polling limits constrain achievable rates.' },
+    ],
+  },
 
-  transport: [
-    {
-      id: 'trans_1',
-      type: 'mcq',
-      question: 'Which OPC UA transport mapping is most commonly used in industrial deployments and is the most efficient?',
-      options: ['OPC UA HTTPS', 'OPC UA WebSocket', 'OPC UA Binary over TCP (UA-TCP)', 'OPC UA via MQTT'],
-      answer: 2,
-      explanation: 'UA-TCP — OPC UA Binary encoding over raw TCP on port 4840. It\'s compact, efficient, and stateful. HTTPS is used for web-friendly stateless access. WebSocket is for browser clients. UA-TCP is what your PLC, Ignition, and RTAC are almost certainly using.'
-    },
-    {
-      id: 'trans_2',
-      type: 'mcq',
-      question: 'What is the purpose of the HEL/ACK exchange in OPC UA binary transport?',
-      options: [
-        'User authentication handshake',
-        'Certificate exchange for the Secure Channel',
-        'Transport-level handshake that negotiates buffer sizes and max message size',
-        'Session parameter negotiation'
-      ],
-      answer: 2,
-      explanation: 'HEL (Hello) and ACK (Acknowledge) are the first messages exchanged on a new TCP connection. The client sends HEL with its buffer/message size limits; the server responds with ACK confirming what it will support. This happens before any security or session work begins. Get the buffer sizes wrong and chunking goes sideways.'
-    },
-    {
-      id: 'trans_3',
-      type: 'mcq',
-      question: 'What is message "chunking" in OPC UA?',
-      options: [
-        'Batching multiple service requests into one message',
-        'Splitting a large message into multiple smaller chunks that fit within the negotiated max chunk size',
-        'Compressing message data to reduce bandwidth',
-        'Encrypting messages in segments for added security'
-      ],
-      answer: 1,
-      explanation: 'If a message exceeds the negotiated MaxChunkSize, OPC UA splits it into multiple chunks sent sequentially. Each chunk has a header indicating whether it\'s an intermediate chunk or the final one. The receiver reassembles them. Large Browse responses and big write operations commonly get chunked.'
-    },
-    {
-      id: 'trans_4',
-      type: 'mcq',
-      question: 'Which OPC UA transport uses port 443 and supports stateless, web-friendly access?',
-      options: ['UA-TCP (Binary)', 'UA-WebSocket', 'UA-HTTPS', 'UA-MQTT'],
-      answer: 2,
-      explanation: 'UA-HTTPS uses HTTP/HTTPS on port 443. It\'s stateless (each request is independent), supports XML and JSON encoding, and is firewall-friendly since port 443 is almost always open. Less efficient than UA-TCP for high-frequency data, but great for cloud integrations and REST-like access patterns.'
-    },
-    {
-      id: 'trans_5',
-      type: 'mcq',
-      question: 'In OPC UA binary encoding, what is a Variant?',
-      options: [
-        'A node that can change its DataType over time',
-        'A container type that can hold any OPC UA built-in data type, with a type indicator',
-        'An alternative encoding for floating-point values',
-        'A type used only for method input/output arguments'
-      ],
-      answer: 1,
-      explanation: 'A Variant is OPC UA\'s union type — it carries a type identifier and the encoded value, allowing a single field to hold any built-in type (Boolean, Int32, Float, String, DateTime, etc.). Read responses return Values as Variants because the server doesn\'t know at design time what type each client will ask for.'
-    },
-    {
-      id: 'trans_6',
-      type: 'mcq',
-      question: 'What is an ExtensionObject in OPC UA binary encoding?',
-      options: [
-        'An optional field added to standard messages',
-        'A wrapper for encoding complex or vendor-specific structures not defined in the standard type system',
-        'An extension to the standard OPC UA service set',
-        'A security extension for encrypted payloads'
-      ],
-      answer: 1,
-      explanation: 'ExtensionObject wraps any complex or proprietary structure — it includes a TypeId and the encoded data (binary or XML). If you see an ExtensionObject in a response, the server is telling you "there\'s structured data here, look up the TypeId to know how to decode it." Vendor-specific structures are commonly ExtensionObjects.'
-    },
-    {
-      id: 'trans_7',
-      type: 'fill',
-      question: 'The OPC UA binary message type used for standard service requests and responses (after the channel is open) is ___.',
-      answer: 'MSG',
-      hint: 'It\'s a three-letter code — the standard message type after OPN',
-      explanation: 'MSG is the message type for all standard OPC UA service calls — Read, Write, Browse, Publish, etc. OPN opens the secure channel, CLO closes it, HEL/ACK are the transport handshake. MSG is the workhorse. In a Wireshark capture, most packets will be MSG type.'
-    },
-    {
-      id: 'trans_8',
-      type: 'mcq',
-      question: 'Which OPC UA transport is specifically designed for browser-based clients?',
-      options: ['UA-TCP', 'UA-HTTPS', 'UA-WebSocket', 'UA-MQTT'],
-      answer: 2,
-      explanation: 'UA-WebSocket allows OPC UA communication over WebSocket connections, which browsers support natively. This enables pure browser-based OPC UA clients without plugins or native code. It\'s the transport that lets your web app talk directly to an OPC UA server — though browser security policies will still try to ruin your day.'
-    },
-  ],
+  transport: {
+    level1: [
+      { id:'trn_l1_1', type:'mcq', q:'What is the default OPC UA transport protocol?', options:['UA Binary over TCP','UA XML over HTTP','UA JSON over WebSocket','UDP multicast'], answer:'UA Binary over TCP', explanation:'OPC UA Binary encoding over TCP (opc.tcp://) is the standard and most widely used transport.' },
+      { id:'trn_l1_2', type:'mcq', q:'What TCP port does OPC UA use by default?', options:['4840','502','44818','102'], answer:'4840', explanation:'IANA assigned port 4840 to OPC UA; port 4843 is for HTTPS transport.' },
+      { id:'trn_l1_3', type:'tf', q:'OPC UA messages can be split across multiple network packets (chunks).', answer:'True', explanation:'OPC UA supports message chunking; large messages are split into MessageChunks and reassembled at the receiver.' },
+      { id:'trn_l1_4', type:'mcq', q:'Which OPC UA transport is best suited for web browser clients?', options:['UA over WebSockets (opc.wss)','UA Binary over TCP','UA XML over HTTP/1.0','UDP broadcast'], answer:'UA over WebSockets (opc.wss)', explanation:'WebSocket transport (opc.wss or opc.ws) is supported by browsers, enabling JavaScript-based OPC UA clients.' },
+      { id:'trn_l1_5', type:'fill', q:'The OPC UA message type identifier "HEL" represents the _____ message, the first message sent when establishing a connection.', answer:'Hello', explanation:'The Hello message (MessageType="HEL") is the first message sent by a TCP-connecting OPC UA client.' },
+      { id:'trn_l1_6', type:'tf', q:'OPC UA Binary messages always start with a 4-byte message type identifier.', answer:'True', explanation:'OPC UA Binary message header starts with a 3-character MessageType (e.g., "HEL", "ACK", "OPN", "MSG", "CLO") plus IsFinal byte.' },
+      { id:'trn_l1_7', type:'mcq', q:'In OPC UA chunking, an "F" in the IsFinal byte means:', options:['This is the final (and possibly only) chunk of the message','This is the first chunk','This is a forward-error correction chunk','Fragment follows'], answer:'This is the final (and possibly only) chunk of the message', explanation:'IsFinal: F=Final chunk (complete message or last chunk), C=Continuation chunk (more follow), A=Abort chunk.' },
+      { id:'trn_l1_8', type:'mcq', q:'Which OPC UA encoding format produces the smallest messages?', options:['UA Binary','UA XML','UA JSON','SOAP XML'], answer:'UA Binary', explanation:'UA Binary is compact binary encoding; XML and JSON are human-readable but significantly larger.' },
+      { id:'trn_l1_9', type:'tf', q:'OPC UA can be secured using TLS on top of the WebSocket transport.', answer:'True', explanation:'opc.wss uses WebSocket over TLS (WSS); this is the secure variant of the WebSocket OPC UA transport.' },
+      { id:'trn_l1_10', type:'mcq', q:'What does the "MaxMessageSize" parameter in the Hello message specify?', options:['The maximum message size this endpoint can receive','The maximum number of messages per second','The maximum session count','The maximum number of chunks'], answer:'The maximum message size this endpoint can receive', explanation:'MaxMessageSize in Hello/Acknowledge negotiates the maximum reassembled message size both sides can handle.' },
+      { id:'trn_l1_11', type:'mcq', q:'OPC UA Pub/Sub using MQTT differs from client-server in that:', options:['Publishers send to a broker; subscribers receive from the broker without direct connection to the publisher','Publishers poll subscribers directly','The address space is replicated to all subscribers','Security tokens are shared between all subscribers'], answer:'Publishers send to a broker; subscribers receive from the broker without direct connection to the publisher', explanation:'MQTT-based Pub/Sub uses a message broker as an intermediary; publishers and subscribers never communicate directly.' },
+      { id:'trn_l1_12', type:'tf', q:'OPC UA Pub/Sub is defined in a different specification part than OPC UA Client-Server.', answer:'True', explanation:'OPC UA Pub/Sub is defined in Part 14; client-server communication is defined in Parts 4 and 6.' },
+      { id:'trn_l1_13', type:'fill', q:'The OPC UA message encoding used for HTTPS transport is called _____.', answer:'UA Binary (or UA XML)', explanation:'UA over HTTPS uses UA Binary encoding by default; UA XML is also supported as an alternative.' },
+      { id:'trn_l1_14', type:'mcq', q:'What MQTT QoS level should OPC UA Pub/Sub use for reliable delivery?', options:['QoS 1 (at least once) or QoS 2 (exactly once)','QoS 0 only (fire and forget)','QoS 3 (guaranteed)','QoS level is not configurable in OPC UA Pub/Sub'], answer:'QoS 1 (at least once) or QoS 2 (exactly once)', explanation:'QoS 0 provides no delivery guarantee; QoS 1 or 2 ensures messages reach the broker at least once or exactly once.' },
+      { id:'trn_l1_15', type:'tf', q:'OPC UA connection setup requires a TCP three-way handshake followed by an OPC UA Hello/Acknowledge exchange.', answer:'True', explanation:'TCP handshake establishes the transport; then OPC UA-level HEL/ACK negotiates connection parameters before the SecureChannel.' },
+      { id:'trn_l1_16', type:'mcq', q:'Which network layer does OPC UA Binary run on?', options:['Application layer (over TCP)','Transport layer (replacing TCP)','Network layer','Data link layer'], answer:'Application layer (over TCP)', explanation:'OPC UA is an application-layer protocol; it uses TCP as the transport and adds its own connection management on top.' },
+      { id:'trn_l1_17', type:'mcq', q:'OPC UA "UADP" encoding format is used in:', options:['Pub/Sub communication for both broker and brokerless transports','Client-server Binary messages only','HTTPS transport only','OPC UA for robotics only'], answer:'Pub/Sub communication for both broker and brokerless transports', explanation:'UADP (UA Data Protocol) is the binary encoding format for OPC UA Pub/Sub DataSet messages.' },
+      { id:'trn_l1_18', type:'tf', q:'OPC UA allows simultaneous TCP connections on the same port from multiple clients.', answer:'True', explanation:'A single OPC UA server port supports many concurrent TCP connections from different clients, each with its own SecureChannel.' },
+      { id:'trn_l1_19', type:'fill', q:'The OPC UA binary message type for a normal service request or response within a SecureChannel is _____.', answer:'MSG', explanation:'MessageType "MSG" indicates a normal Message containing an encoded service request or response.' },
+      { id:'trn_l1_20', type:'mcq', q:'OPC UA HTTPS transport provides which security mechanism beyond OPC UA Binary/TCP?', options:['TLS certificate validation at the transport layer in addition to OPC UA application-layer security','HTTPS is less secure than TCP','HTTPS disables OPC UA application security','HTTPS allows only anonymous connections'], answer:'TLS certificate validation at the transport layer in addition to OPC UA application-layer security', explanation:'HTTPS transport adds TLS, providing server authentication and encryption at the transport layer complementing OPC UA application security.' },
+    ],
+    level2: [
+      { id:'trn_l2_1', type:'mcq', q:'A Wireshark capture shows OPC UA "MSG" messages with IsAbort="A". What does this indicate?', options:['The sender aborted the message (e.g., due to an error during chunking)','A is an acknowledgement flag','The message was accepted','The client closed the session normally'], answer:'The sender aborted the message (e.g., due to an error during chunking)', explanation:'IsFinal="A" (Abort) means the sender detected an error during chunked message transmission and abandoned the message.' },
+      { id:'trn_l2_2', type:'tf', q:'OPC UA Binary transport messages include a sequence number in each chunk for ordering and loss detection.', answer:'True', explanation:'Each OPC UA Binary chunk contains a SequenceNumber in the security header enabling ordering and duplicate detection.' },
+      { id:'trn_l2_3', type:'mcq', q:'An OPC UA connection uses opc.tcp with SignAndEncrypt. A firewall DPI (deep packet inspection) block finds it cannot decode the message. Why?', options:['OPC UA binary messages are encrypted at the application layer, making DPI impossible','DPI doesn\'t support TCP','The firewall needs OPC UA signature to inspect','Binary encoding is proprietary'], answer:'OPC UA binary messages are encrypted at the application layer, making DPI impossible', explanation:'SignAndEncrypt mode encrypts the entire message payload; only the outer transport headers are visible to the network.' },
+      { id:'trn_l2_4', type:'mcq', q:'OPC UA Pub/Sub using UDP multicast has a key advantage over MQTT-based Pub/Sub for industrial floor networks:',  options:['Zero-broker architecture — no single point of failure or additional infrastructure needed','UDP is always more reliable than MQTT','UDP supports larger message sizes','UDP Pub/Sub provides message acknowledgment'], answer:'Zero-broker architecture — no single point of failure or additional infrastructure needed', explanation:'UDP multicast/broadcast Pub/Sub eliminates the broker as a SPOF, ideal for isolated industrial network segments.' },
+      { id:'trn_l2_5', type:'fill', q:'The maximum OPC UA TCP message size without chunking is configured via the _____ parameter in the Hello message.', answer:'MaxMessageSize', explanation:'MaxMessageSize in HEL/ACK negotiation sets the ceiling for reassembled message size; larger messages must be chunked.' },
+      { id:'trn_l2_6', type:'mcq', q:'A SCADA engineer configures OPC UA to use port 443 for HTTPS transport. The benefit is:', options:['Firewall traversal — port 443 is typically permitted for HTTPS traffic','Higher bandwidth than port 4840','Better encryption than port 4840','The OPC Foundation mandates port 443 for secure connections'], answer:'Firewall traversal — port 443 is typically permitted for HTTPS traffic', explanation:'Using port 443 for OPC UA HTTPS allows traffic to pass through firewalls that block port 4840, common in IT-OT boundary scenarios.' },
+      { id:'trn_l2_7', type:'tf', q:'OPC UA Pub/Sub DataSetMessages can contain data from multiple WriterGroups simultaneously.', answer:'False', explanation:'Each NetworkMessage contains DataSetMessages from one WriterGroup; different WriterGroups send separate NetworkMessages.' },
+      { id:'trn_l2_8', type:'mcq', q:'An OPC UA client connects and immediately sends OpenSecureChannel without Hello/Acknowledge first. What happens?', options:['The server rejects the connection — HEL/ACK must precede OpenSecureChannel on TCP','The server accepts and adjusts automatically','The connection defaults to SecurityMode=None','OpenSecureChannel is the first message in OPC UA'], answer:'The server rejects the connection — HEL/ACK must precede OpenSecureChannel on TCP', explanation:'OPC UA TCP transport mandates the HEL/ACK handshake before the SecureChannel is opened; violating this causes server rejection.' },
+      { id:'trn_l2_9', type:'mcq', q:'OPC UA Pub/Sub UADP NetworkMessage header includes a PublisherId. What is its purpose?', options:['Identifies the source publisher for subscribers to filter messages','Identifies the MQTT broker','Indicates the message priority','Specifies the security group'], answer:'Identifies the source publisher for subscribers to filter messages', explanation:'PublisherId uniquely identifies the publisher within the Pub/Sub system, allowing subscribers to filter by source.' },
+      { id:'trn_l2_10', type:'tf', q:'OPC UA over AMQP uses the same UADP binary encoding as UDP Pub/Sub.', answer:'True', explanation:'UADP encoding is transport-agnostic; the same binary format is used over UDP, MQTT, and AMQP transports.' },
+      { id:'trn_l2_11', type:'mcq', q:'The OPC UA "EndpointUrl" in the Hello message must match which server configuration?', options:['The URL configured in the server\'s endpoint descriptions','The server\'s hostname only','The client\'s certificate SAN','The discovery server URL'], answer:'The URL configured in the server\'s endpoint descriptions', explanation:'If the client\'s EndpointUrl in HEL doesn\'t match a known server endpoint URL, the server may reject with Bad_TcpEndpointUrlInvalid.' },
+      { id:'trn_l2_12', type:'fill', q:'The OPC UA transport encoding that uses JSON instead of binary for message payload is called _____.', answer:'UA JSON', explanation:'OPC UA Part 6 defines UA JSON encoding; Part 14 also defines JSON encoding for Pub/Sub DataSetMessages.' },
+      { id:'trn_l2_13', type:'mcq', q:'A network shows OPC UA chunks interleaved with other protocol traffic, causing reassembly delays. The best mitigation is:', options:['QoS classification of OPC UA traffic with dedicated queuing','Increasing the chunk size','Using UDP instead of TCP','Disabling chunking by setting MaxChunkCount=1'], answer:'QoS classification of OPC UA traffic with dedicated queuing', explanation:'Network QoS (DSCP marking, priority queuing) ensures OPC UA traffic is not delayed by other protocols, reducing reassembly latency.' },
+      { id:'trn_l2_14', type:'tf', q:'OPC UA Pub/Sub WriterGroup MessageRepeatCount allows publishers to resend the same NetworkMessage multiple times for reliability.', answer:'True', explanation:'MessageRepeatCount (and MessageRepeatDelay) enables redundant transmission of NetworkMessages to compensate for packet loss on UDP.' },
+      { id:'trn_l2_15', type:'mcq', q:'OPC UA connection "ACK" message purpose is:', options:['Server confirms connection parameters (MaxChunkCount, MaxMessageSize, ReceiveBufferSize) in response to HEL','Acknowledge a service request','Confirm a SecureChannel renewal','Accept a session transfer'], answer:'Server confirms connection parameters (MaxChunkCount, MaxMessageSize, ReceiveBufferSize) in response to HEL', explanation:'The server sends ACK after receiving HEL, confirming the negotiated connection parameters for the session.' },
+      { id:'trn_l2_16', type:'mcq', q:'In OPC UA Pub/Sub, a "ReaderGroup" on the subscriber side configures:', options:['Which NetworkMessages/DataSets to receive and how to decode them','The MQTT topic to publish to','The server endpoint for subscription creation','The security certificates to use'], answer:'Which NetworkMessages/DataSets to receive and how to decode them', explanation:'ReaderGroup and DataSetReader configurations define what the subscriber listens to, including topic/address, security, and field mapping.' },
+      { id:'trn_l2_17', type:'fill', q:'The maximum number of OPC UA chunks per message is negotiated via the _____ parameter in Hello/Acknowledge.', answer:'MaxChunkCount', explanation:'MaxChunkCount in HEL/ACK limits how many chunks a single message can be split into.' },
+      { id:'trn_l2_18', type:'tf', q:'OPC UA Pub/Sub over MQTT requires the MQTT broker to understand OPC UA encoding.', answer:'False', explanation:'MQTT brokers are transport-agnostic; they route binary payloads without parsing OPC UA UADP content.' },
+      { id:'trn_l2_19', type:'mcq', q:'A DMZ firewall must allow OPC UA traffic. Which ports need to be opened minimum for standard OPC UA Binary?', options:['TCP 4840 inbound to the OPC UA server','UDP 4840 bidirectional','TCP 502 and 4840','TCP 4840 and UDP 4841'], answer:'TCP 4840 inbound to the OPC UA server', explanation:'Standard OPC UA Binary requires TCP 4840 only; connections are client-initiated so only inbound to server is needed.' },
+      { id:'trn_l2_20', type:'mcq', q:'An OPC UA server reports "Bad_ConnectionClosed" to a client that tries to read. The most likely cause is:', options:['The TCP connection was closed (by either party) before the service could complete','The node does not exist','The certificate expired mid-read','The session timeout fired'], answer:'The TCP connection was closed (by either party) before the service could complete', explanation:'Bad_ConnectionClosed indicates the underlying TCP connection dropped, interrupting the service request.' },
+    ],
+    level3: [
+      { id:'trn_l3_1', type:'mcq', q:'OPC UA Binary uses symmetric encryption for MSG chunks but asymmetric for OPN (OpenSecureChannel) chunks. Why this difference?', options:['Asymmetric (RSA) is too slow for bulk data — OPN uses it to securely exchange symmetric keys used for subsequent MSG chunks','Asymmetric is more secure than symmetric','Symmetric keys are public knowledge, so MSG doesn\'t need asymmetric','OPN uses no encryption; only MSG is encrypted'], answer:'Asymmetric (RSA) is too slow for bulk data — OPN uses it to securely exchange symmetric keys used for subsequent MSG chunks', explanation:'This is standard TLS-style key exchange: asymmetric crypto (expensive) bootstraps symmetric session keys (fast) for message encryption.' },
+      { id:'trn_l3_2', type:'tf', q:'OPC UA chunk padding allows attackers to infer plaintext length from ciphertext if fixed padding is used.', answer:'True', explanation:'Fixed padding reveals plaintext length; OPC UA uses random padding bytes to prevent length-based traffic analysis.' },
+      { id:'trn_l3_3', type:'mcq', q:'An OPC UA Pub/Sub deployment uses JSON encoding over MQTT. A subscriber receives a message and cannot decode field "Temperature" because the type is unknown. What OPC UA mechanism resolves this?', options:['DataSetMetaData message providing field types and names, published separately by the publisher','Querying the server\'s address space','Reading DataType from the MQTT topic name','Using OPC UA Binary instead of JSON'], answer:'DataSetMetaData message providing field types and names, published separately by the publisher', explanation:'Publishers send DataSetMetaData (or embed it in NetworkMessages) so subscribers can decode field types without server access.' },
+      { id:'trn_l3_4', type:'mcq', q:'OPC UA Pub/Sub "KeyFrameCount" parameter in WriterGroup specifies:', options:['How often a complete DataSet value snapshot is sent (vs. delta messages with only changes)','The MQTT QoS level','The number of security key rotations per hour','The UDP packet TTL'], answer:'How often a complete DataSet value snapshot is sent (vs. delta messages with only changes)', explanation:'KeyFrame=1 means every message is a complete snapshot; KeyFrame=10 means a full update every 10 messages with deltas in between.' },
+      { id:'trn_l3_5', type:'fill', q:'The OPC UA Pub/Sub field that uniquely identifies the specific DataSet being published within a WriterGroup is called _____.', answer:'DataSetWriterId', explanation:'DataSetWriterId (UInt16) uniquely identifies each DataSetWriter within a WriterGroup, allowing subscribers to identify the source dataset.' },
+      { id:'trn_l3_6', type:'mcq', q:'An OPC UA TCP server receives a Hello message with ReceiveBufferSize=32768 and sends ACK with ReceiveBufferSize=65536. Which value is used?', options:['The minimum of both: 32768 (client\'s smaller buffer dictates)','65536 always (server decides)','32768 from client perspective, 65536 from server perspective','They are independent — no negotiation occurs'], answer:'The minimum of both: 32768 (client\'s smaller buffer dictates)', explanation:'OPC UA transport negotiates by taking the minimum; each side\'s ReceiveBufferSize limits what the other can send.' },
+      { id:'trn_l3_7', type:'tf', q:'OPC UA Pub/Sub NetworkMessages can be signed without encryption (Sign mode only).', answer:'True', explanation:'Pub/Sub supports SecurityMode=Sign (MAC only, no encryption) and SignAndEncrypt; Sign-only provides integrity without confidentiality.' },
+      { id:'trn_l3_8', type:'mcq', q:'A plant implements OPC UA over a WAN with 100ms RTT. The PublishingInterval is 500ms. What is the minimum number of outstanding Publish requests to avoid gaps?', options:['At least 1-2 (RTT/PublishingInterval ≈ 0.2, round up to 1-2 for safety)','10 (standard recommendation)','0 (server pushes without requests)','RTT/2 = 50 requests'], answer:'At least 1-2 (RTT/PublishingInterval ≈ 0.2, round up to 1-2 for safety)', explanation:'Outstanding requests needed ≈ ceil(RTT/PublishingInterval); 100ms/500ms = 0.2, so 1 request is sufficient with 1 spare for safety.' },
+      { id:'trn_l3_9', type:'mcq', q:'OPC UA Pub/Sub "Sequence Number" in NetworkMessage header serves what purpose compared to client-server SequenceNumber?', options:['Both detect gaps, but Pub/Sub lacks retransmission — subscribers can only detect loss, not recover it','Pub/Sub SequenceNumber allows retransmission from the broker','They are identical in function and recovery capability','Pub/Sub does not use sequence numbers'], answer:'Both detect gaps, but Pub/Sub lacks retransmission — subscribers can only detect loss, not recover it', explanation:'Pub/Sub is publish-and-forget; sequence numbers enable gap detection but there is no Republish equivalent for recovery.' },
+      { id:'trn_l3_10', type:'fill', q:'The OPC UA mechanism allowing subscribers to discover DataSet metadata from the Pub/Sub infrastructure without a direct OPC UA server connection is called _____.', answer:'Metadata Broker (or Broker-based MetaData distribution)', explanation:'In MQTT-based Pub/Sub, metadata can be published to dedicated MQTT topics allowing subscribers to decode DataSets without server access.' },
+      { id:'trn_l3_11', type:'mcq', q:'An OPC UA server behind a reverse proxy must handle a client connecting to the proxy\'s URL (opc.tcp://proxy.example.com:4840) while the server\'s own URL is different. The key configuration requirement is:', options:['The server\'s EndpointDescription must include the proxy\'s external URL, not just the server\'s local URL','The proxy must rewrite all message bodies','The client must know the server\'s internal IP','Certificate SAN must only contain the server\'s internal hostname'], answer:'The server\'s EndpointDescription must include the proxy\'s external URL, not just the server\'s local URL', explanation:'GetEndpoints returns EndpointDescriptions; clients must receive the URL they can actually connect to (proxy URL), not the internal server URL.' },
+      { id:'trn_l3_12', type:'tf', q:'OPC UA Binary transport can be tunneled over DTLS for UDP-based transports.', answer:'True', explanation:'OPC UA Part 14 defines UADP over UDP with optional DTLS security, providing datagram-level encryption for Pub/Sub.' },
+      { id:'trn_l3_13', type:'mcq', q:'A plant uses OPC UA Pub/Sub over TSN (Time-Sensitive Networking). What does TSN add to the transport?', options:['Deterministic, bounded latency guarantees at the Ethernet layer for time-critical control applications','TSN adds OPC UA message compression','TSN provides OPC UA broker functionality','TSN replaces OPC UA binary encoding with proprietary format'], answer:'Deterministic, bounded latency guarantees at the Ethernet layer for time-critical control applications', explanation:'TSN (IEEE 802.1Q extensions) provides time-aware scheduling and preemption at L2, enabling OPC UA Pub/Sub for hard real-time control.' },
+      { id:'trn_l3_14', type:'mcq', q:'OPC UA MessageSecurityMode in OpenSecureChannel uses asymmetric algorithms. The requestHeader in subsequent MSG chunks uses symmetric algorithms derived from:', options:['The security token negotiated during OpenSecureChannel, using client and server nonces for key derivation','A fixed pre-shared key configured by the administrator','The server certificate\'s public key directly','A randomly generated key per message'], answer:'The security token negotiated during OpenSecureChannel, using client and server nonces for key derivation', explanation:'OPC UA derives symmetric keys from the SecureChannel\'s security token using HMAC-based key derivation with both nonces.' },
+      { id:'trn_l3_15', type:'tf', q:'OPC UA Pub/Sub allows publishers to define multiple WriterGroups with different publishing intervals within one PubSubConnection.', answer:'True', explanation:'Multiple WriterGroups with different PublishingIntervals can coexist in a single PubSubConnection, enabling mixed-rate publishing.' },
+      { id:'trn_l3_16', type:'mcq', q:'An OPC UA binary capture shows chunks with SecurityChannelId=0 and TokenId=0. What message type is this?', options:['OPN (OpenSecureChannel) message using asymmetric security','An error message','A Hello/Acknowledge message','A session-level message'], answer:'OPN (OpenSecureChannel) message using asymmetric security', explanation:'OPN messages use ChannelId=0 and TokenId=0 initially (before the channel is established); they carry asymmetric keys.' },
+      { id:'trn_l3_17', type:'fill', q:'In OPC UA Pub/Sub, the component that manages PubSubConnections and WriterGroups is called the _____.', answer:'PubSubManager (or PubSub Configuration)', explanation:'PubSubManager is the OPC UA node exposed by servers implementing Pub/Sub, containing all PubSubConnection and WriterGroup configurations.' },
+      { id:'trn_l3_18', type:'mcq', q:'OPC UA Pub/Sub DataSetMessage with StatusCode=BadShutdown indicates:', options:['The publisher is shutting down and this may be the last message for this dataset','The data quality is bad','The broker rejected the message','The subscriber should unsubscribe'], answer:'The publisher is shutting down and this may be the last message for this dataset', explanation:'Publishers send StatusCode=BadShutdown in their final DataSetMessage to signal graceful shutdown to subscribers.' },
+      { id:'trn_l3_19', type:'tf', q:'OPC UA over AMQP supports durable subscriptions where the broker stores messages for offline subscribers.', answer:'True', explanation:'AMQP supports persistent queues/topics; offline OPC UA subscribers receive missed messages when they reconnect, unlike MQTT QoS 0.' },
+      { id:'trn_l3_20', type:'mcq', q:'A security scan finds OPC UA port 4840 responding to non-OPC UA TCP connections with a standard OPC UA error. What attack does this enable?', options:['Port fingerprinting and service identification enabling targeted OPC UA exploitation','SQL injection','Man-in-the-middle','Denial of service via Hello flood'], answer:'Port fingerprinting and service identification enabling targeted OPC UA exploitation', explanation:'Responding to arbitrary connections reveals the OPC UA service; hardened implementations should use allowlists or connection rate limiting.' },
+    ],
+  },
 
-  ignition: [
-    {
-      id: 'ign_1',
-      type: 'mcq',
-      question: 'What is the default port for Ignition\'s built-in OPC UA server?',
-      options: ['4840', '502', '62541', '44818'],
-      answer: 2,
-      explanation: '62541 — Ignition uses this to avoid conflicts with other OPC UA servers that might be running on the same machine using the standard port 4840. If you\'re connecting an external client to Ignition\'s OPC UA server, this is the port. Don\'t send it to 4840 and then wonder why it won\'t connect.'
-    },
-    {
-      id: 'ign_2',
-      type: 'mcq',
-      question: 'After adding an OPC UA device connection in Ignition, the connection shows "Connecting" but never goes "Connected." The most likely cause is:',
-      options: [
-        'Wrong PublishingInterval configured',
-        'Certificate trust not established on one or both sides',
-        'Incorrect subscription QueueSize',
-        'Wrong DataType mapping'
-      ],
-      answer: 1,
-      explanation: 'Stuck on "Connecting" almost always means certificates. Either Ignition hasn\'t trusted the device\'s cert, the device hasn\'t trusted Ignition\'s cert, or both. Check Ignition Gateway → Config → OPC UA → Certificates and look for the pending certificate from the device. Then do the same on the device side.'
-    },
-    {
-      id: 'ign_3',
-      type: 'mcq',
-      question: 'In Ignition, where do you go to approve/trust a pending OPC UA device certificate?',
-      options: [
-        'Designer → Tag Browser → OPC Browser',
-        'Gateway → Config → OPC UA → Certificates',
-        'Gateway → Config → Tags → Tag Providers',
-        'Gateway → Status → Connections'
-      ],
-      answer: 1,
-      explanation: 'Gateway Web UI → Config → OPC UA → Certificates. Certificates waiting for trust appear in the "Quarantined" section. Move them to "Trusted" to allow the connection. This is step one when an OPC UA connection won\'t establish. It\'s almost always this.'
-    },
-    {
-      id: 'ign_4',
-      type: 'mcq',
-      question: 'Ignition exposes its tags as OPC UA nodes. How are tag names typically mapped to OPC UA NodeIds?',
-      options: [
-        'Tags are assigned random numeric NodeIds at startup',
-        'Tag paths in Ignition become string-based NodeIds in Ignition\'s OPC UA namespace',
-        'Tags are only accessible via Modbus, not OPC UA',
-        'Tag NodeIds must be manually configured in the OPC UA module'
-      ],
-      answer: 1,
-      explanation: 'Ignition maps tag folder/name paths to string-based NodeIds in its OPC UA server namespace. A tag at [default]Folder/Temperature becomes a browsable node with a NodeId reflecting that path. External OPC UA clients can browse and subscribe to Ignition tags just like any other OPC UA server.'
-    },
-    {
-      id: 'ign_5',
-      type: 'mcq',
-      question: 'What must happen on BOTH Ignition AND the external device for a mutual-trust OPC UA connection to succeed?',
-      options: [
-        'Both must use the same Security Policy',
-        'Both must trust the other\'s Application Instance Certificate',
-        'Both must be on the same subnet',
-        'Both must use the same username and password'
-      ],
-      answer: 1,
-      explanation: 'OPC UA uses mutual certificate trust. Ignition must trust the device\'s cert AND the device must trust Ignition\'s cert. Trusting one side but not the other is the #1 "I\'ve been staring at this for three hours" mistake in OPC UA integration. Check both sides. Always.'
-    },
-    {
-      id: 'ign_6',
-      type: 'mcq',
-      question: 'How do you connect Ignition to an SEL RTAC\'s OPC UA server?',
-      options: [
-        'Use the Modbus TCP driver in Ignition',
-        'Use the Ignition OPC UA Client module to create a new OPC UA connection pointing to the RTAC\'s IP on port 4840',
-        'Use DNP3 driver with OPC UA gateway translation',
-        'The RTAC does not support OPC UA'
-      ],
-      answer: 1,
-      explanation: 'Ignition\'s OPC UA Client module lets you add an OPC UA connection to any OPC UA server — including the SEL RTAC\'s server (enabled via ACSELERATOR, runs on port 4840). Once connected and certs are trusted, you browse the RTAC\'s address space and create Ignition tags from its nodes.'
-    },
-    {
-      id: 'ign_7',
-      type: 'fill',
-      question: 'After connecting Ignition to an external OPC UA server, you browse the server\'s address space in Ignition Designer using the ___ browser.',
-      answer: 'OPC Browser',
-      hint: 'It\'s in the Designer and it specifically shows OPC connections',
-      explanation: 'The OPC Browser in Ignition Designer shows all connected OPC UA servers and their address spaces. You navigate the hierarchy, select nodes, and drag them into the Tag Browser to create tags. If you can\'t browse, check your connection status in the Gateway first — Designer reflects what the Gateway sees.'
-    },
-    {
-      id: 'ign_8',
-      type: 'mcq',
-      question: 'Before the SEL RTAC\'s OPC UA server can be used, what must be done on the RTAC side?',
-      options: [
-        'Install the Ignition OPC UA module on the RTAC',
-        'Enable the OPC UA server via ACSELERATOR and configure it',
-        'Flash a firmware update to add OPC UA support',
-        'OPC UA is enabled by default on all RTACs — no configuration required'
-      ],
-      answer: 1,
-      explanation: 'The OPC UA server on an SEL RTAC must be explicitly enabled and configured in ACSELERATOR RTAC (SEL\'s configuration software). It\'s not on by default. Once enabled, it runs on port 4840 and exposes the RTAC\'s configured data points as OPC UA nodes. Then Ignition can connect to it.'
-    },
-    {
-      id: 'ign_9',
-      type: 'mcq',
-      question: 'A common certificate trust mistake when connecting Ignition to a PLC or RTAC is:',
-      options: [
-        'Trusting the certificate in Ignition but forgetting to add Ignition\'s certificate to the device\'s trust store',
-        'Using the wrong port number',
-        'Selecting the wrong tag type in the OPC Browser',
-        'Forgetting to restart Ignition after adding the connection'
-      ],
-      answer: 0,
-      explanation: 'The classic mistake: you trust the device cert in Ignition\'s certificate manager, connection still fails, you scratch your head. The device also has a trust store and Ignition\'s certificate needs to be added there too. Both sides. Mutual. Always. This gets everyone at least once.'
-    },
-    {
-      id: 'ign_10',
-      type: 'mcq',
-      question: 'What Ignition module is required to connect Ignition as an OPC UA client to external OPC UA servers?',
-      options: [
-        'OPC UA Server Module',
-        'OPC UA Client Module (also called the "OPC-UA" driver)',
-        'Tag Historian Module',
-        'Allen-Bradley Drivers Module'
-      ],
-      answer: 1,
-      explanation: 'The OPC UA Client module (listed in Ignition\'s module manager as "OPC-UA") enables Ignition to initiate connections to external OPC UA servers. Without it, Ignition can only serve its own tags as OPC UA — it can\'t pull from external OPC UA sources. The module ships with Ignition but must be licensed.'
-    },
-  ],
+  ignition: {
+    level1: [
+      { id:'ign_l1_1', type:'mcq', q:'Which Ignition module provides an OPC UA server built into the Gateway?', options:['Ignition OPC UA Module (built-in)','Ignition Perspective Module','Kepware OPC Server','Third-party OPC DA bridge'], answer:'Ignition OPC UA Module (built-in)', explanation:'Ignition includes a built-in OPC UA server allowing direct OPC UA connections without additional gateway software.' },
+      { id:'ign_l1_2', type:'mcq', q:'What is the default OPC UA port for Ignition\'s built-in OPC UA server?', options:['62541','4840','502','44818'], answer:'62541', explanation:'Ignition\'s built-in OPC UA server defaults to port 62541 (not 4840, which is the IANA standard).' },
+      { id:'ign_l1_3', type:'tf', q:'Ignition can connect to third-party OPC UA servers as an OPC UA client.', answer:'True', explanation:'Ignition\'s OPC UA connection type allows it to act as a client connecting to any compliant OPC UA server.' },
+      { id:'ign_l1_4', type:'mcq', q:'In Ignition, OPC UA tags can be created by:', options:['Browsing the OPC UA server address space and dragging nodes to a tag folder','Writing SQL queries only','Using REST API calls only','Manual XML import only'], answer:'Browsing the OPC UA server address space and dragging nodes to a tag folder', explanation:'Ignition Designer\'s OPC browser lets users browse and drag OPC nodes to create tags automatically.' },
+      { id:'ign_l1_5', type:'tf', q:'Ignition\'s built-in OPC UA server exposes Ignition tags as OPC UA nodes.', answer:'True', explanation:'The Ignition OPC UA server mirrors configured tags as OPC UA Variable nodes, accessible to external OPC UA clients.' },
+      { id:'ign_l1_6', type:'mcq', q:'What Ignition connection type is used to connect to a third-party OPC UA server?', options:['OPC UA Connection','Modbus TCP Driver','SQL Bridge','Tag Historian'], answer:'OPC UA Connection', explanation:'Ignition\'s OPC UA Connection configuration (Gateway → OPC Connections → OPC UA) connects to external OPC UA servers.' },
+      { id:'ign_l1_7', type:'fill', q:'Ignition tags that read from OPC UA are called _____ tags.', answer:'OPC', explanation:'OPC tags in Ignition have an OPC Item Path pointing to the OPC/OPC UA server address space path.' },
+      { id:'ign_l1_8', type:'mcq', q:'The Ignition Gateway page for managing OPC UA connections is found under:', options:['Config → OPC Client → OPC-UA Connections','Tools → Database → OPC UA','Design → Tags → OPC','Status → Modules → OPC'], answer:'Config → OPC Client → OPC-UA Connections', explanation:'OPC UA connection management is in the Gateway\'s Config section under OPC Client settings.' },
+      { id:'ign_l1_9', type:'tf', q:'Ignition supports OPC UA SecurityMode=None for connecting to unprotected test servers.', answer:'True', explanation:'Ignition OPC UA connections support all security modes including None for testing or isolated environments.' },
+      { id:'ign_l1_10', type:'mcq', q:'What does "OPC Quality" indicate in an Ignition OPC tag?', options:['The data quality from the OPC UA server (Good, Uncertain, or Bad)','The tag\'s database connection quality','The Ignition Gateway health score','The network packet loss rate'], answer:'The data quality from the OPC UA server (Good, Uncertain, or Bad)', explanation:'OPC Quality mirrors the OPC UA StatusCode quality: Good, Uncertain, or Bad, displayed in Ignition tags.' },
+      { id:'ign_l1_11', type:'mcq', q:'Ignition\'s "Tag Groups" in the context of OPC scanning determine:', options:['How frequently OPC tags are scanned/polled from the OPC server','Which users can view the tags','How tags are stored in the database','The network route to the OPC server'], answer:'How frequently OPC tags are scanned/polled from the OPC server', explanation:'Tag Groups define scan rates; tags belong to a group that determines their polling/subscription rate.' },
+      { id:'ign_l1_12', type:'tf', q:'Kepware can be integrated with Ignition via OPC UA.', answer:'True', explanation:'Kepware is an OPC UA server; Ignition can connect to it via an OPC UA Connection to access its device data.' },
+      { id:'ign_l1_13', type:'fill', q:'The Ignition tag path format for an OPC UA tag is [OPC-Connection-Name]Path/To/Node/_____.', answer:'Item', explanation:'OPC tag paths follow the pattern [ServerName]ns=2;s=TagName or [ServerName]Path/To/OPC/Item.' },
+      { id:'ign_l1_14', type:'mcq', q:'Which Ignition feature allows the built-in OPC UA server certificate to be replaced with a CA-signed certificate?', options:['Gateway Config → OPC UA Server → Security → Certificate Management','Perspective Module certificate settings','Tag Provider security settings','SQL Bridge certificate store'], answer:'Gateway Config → OPC UA Server → Security → Certificate Management', explanation:'Ignition\'s built-in OPC UA server certificate management allows replacing the self-signed certificate with a CA-signed one.' },
+      { id:'ign_l1_15', type:'tf', q:'Ignition automatically trusts all OPC UA server certificates without administrator approval.', answer:'False', explanation:'Ignition requires administrator approval of OPC UA server certificates in the Gateway\'s certificate trust store.' },
+      { id:'ign_l1_16', type:'mcq', q:'What Ignition tag type would you use to write a setpoint to an OPC UA server?', options:['OPC tag with Write access','Memory tag','Expression tag','Query tag'], answer:'OPC tag with Write access', explanation:'OPC tags in Ignition support bidirectional access; writing to the tag issues an OPC UA Write service call to the server.' },
+      { id:'ign_l1_17', type:'mcq', q:'Ignition\'s built-in OPC UA server can expose which Ignition entities as OPC UA nodes?', options:['Tags from any Ignition Tag Provider','Database tables as array nodes','Perspective views as method nodes','Python scripts as executable nodes'], answer:'Tags from any Ignition Tag Provider', explanation:'The built-in OPC UA server exposes Ignition tags, making them accessible to any OPC UA-capable client (historian, SCADA, etc.).' },
+      { id:'ign_l1_18', type:'tf', q:'Ignition can use OPC UA subscriptions (not just polling) when connecting to OPC UA servers.', answer:'True', explanation:'Ignition\'s OPC UA client uses subscriptions for efficient change-based notifications, not just poll-based reads.' },
+      { id:'ign_l1_19', type:'fill', q:'Ignition\'s OPC UA connection authentication method that uses a certificate instead of username/password is called _____.', answer:'Certificate (X.509 identity)', explanation:'Ignition supports X509IdentityToken for user authentication to OPC UA servers, in addition to username/password.' },
+      { id:'ign_l1_20', type:'mcq', q:'To browse an external OPC UA server\'s address space in Ignition, you use:', options:['Designer → OPC Browser panel','Gateway → Tags → Browse','Gateway Config → Devices → Scan','Perspective → Component browser'], answer:'Designer → OPC Browser panel', explanation:'Ignition Designer includes an OPC Browser panel for connecting to and browsing OPC UA (and OPC-COM) server address spaces.' },
+    ],
+    level2: [
+      { id:'ign_l2_1', type:'mcq', q:'An Ignition OPC UA connection shows "Faulted" status after server certificate change. The resolution is:', options:['Delete the old server certificate from Ignition\'s trust store and approve the new one','Restart Ignition Gateway','Change the OPC UA port','Reinstall the OPC UA module'], answer:'Delete the old server certificate from Ignition\'s trust store and approve the new one', explanation:'Certificate changes break trusted connections; the admin must remove the old cert and approve the new server certificate.' },
+      { id:'ign_l2_2', type:'tf', q:'Ignition\'s Tag Groups can be configured to use OPC UA subscriptions with specific publishing intervals.', answer:'True', explanation:'Tag Groups in Ignition map to OPC UA subscription PublishingInterval; different groups have different rates.' },
+      { id:'ign_l2_3', type:'mcq', q:'A plant needs Ignition to connect to Siemens S7-1500 PLCs via OPC UA. Which approach is most direct?', options:['Configure Siemens S7-1500 built-in OPC UA server, connect Ignition via OPC UA Connection','Use Kepware as intermediate','Use Modbus TCP instead','S7 PLCs do not support OPC UA'], answer:'Configure Siemens S7-1500 built-in OPC UA server, connect Ignition via OPC UA Connection', explanation:'S7-1500 PLCs have a built-in OPC UA server; Ignition connects directly without additional middleware.' },
+      { id:'ign_l2_4', type:'mcq', q:'An Ignition OPC tag shows quality "Bad_Timeout". The most likely cause is:', options:['The OPC UA server did not respond within the configured timeout period','The tag value is out of range','The Ignition license expired','The tag path is incorrect'], answer:'The OPC UA server did not respond within the configured timeout period', explanation:'Bad_Timeout indicates the OPC UA server failed to respond within the configured session or request timeout.' },
+      { id:'ign_l2_5', type:'fill', q:'The Ignition Gateway feature that stores OPC tag values in a database over time is the Tag _____.', answer:'Historian', explanation:'Ignition Tag Historian stores tag value history in a database (MySQL, MS SQL, etc.) for trending and reporting.' },
+      { id:'ign_l2_6', type:'mcq', q:'An engineer wants Ignition to serve 200 OPC UA tags to an external SCADA via Ignition\'s built-in OPC UA server. What must be configured?', options:['Verify tags are in a Tag Provider exposed by the OPC UA server, and approve client certificates','Install Kepware on the Ignition server','Configure Modbus TCP bridge','Purchase the Historian module'], answer:'Verify tags are in a Tag Provider exposed by the OPC UA server, and approve client certificates', explanation:'Tags must be in an exposed provider; the external client\'s certificate must be trusted by Ignition\'s OPC UA server.' },
+      { id:'ign_l2_7', type:'tf', q:'Ignition supports OPC UA over WebSocket for browser-based OPC UA client access.', answer:'False', explanation:'Ignition\'s built-in OPC UA server uses opc.tcp transport, not WebSockets; browser access uses Perspective, not OPC UA directly.' },
+      { id:'ign_l2_8', type:'mcq', q:'A security review finds Ignition\'s built-in OPC UA server using self-signed certificates. The recommended security improvement is:', options:['Replace with CA-signed certificates and configure Basic256Sha256/SignAndEncrypt on all connections','Use SecurityMode=None for performance','Disable the built-in OPC UA server','Use only anonymous authentication'], answer:'Replace with CA-signed certificates and configure Basic256Sha256/SignAndEncrypt on all connections', explanation:'CA-signed certificates with strong security policy improves both authentication reliability and encryption strength.' },
+      { id:'ign_l2_9', type:'mcq', q:'Ignition\'s OPC UA connection "Redundancy" feature uses:', options:['Primary/Secondary server failover with automatic reconnection','RAID storage for OPC cache','Dual network adapters','Load balancing across multiple Ignition instances'], answer:'Primary/Secondary server failover with automatic reconnection', explanation:'Ignition OPC UA connections support primary/secondary redundancy, automatically switching to the secondary if the primary fails.' },
+      { id:'ign_l2_10', type:'tf', q:'Ignition can expose UDTs (User-Defined Types) as structured OPC UA nodes to external clients.', answer:'False', explanation:'Ignition\'s OPC UA server exposes individual tag variables; UDT structure is not preserved as OPC UA ObjectType instances.' },
+      { id:'ign_l2_11', type:'mcq', q:'An Ignition system administrator notices the OPC connection shows "Connecting" indefinitely. The diagnostic step is:', options:['Check Gateway Diagnostics → OPC Connections for certificate errors or endpoint URL mismatch','Increase the Tag Group scan rate','Check Perspective session count','Update the Ignition version'], answer:'Check Gateway Diagnostics → OPC Connections for certificate errors or endpoint URL mismatch', explanation:'Gateway Diagnostics shows detailed OPC connection error messages including certificate rejection, invalid URL, and connection refused.' },
+      { id:'ign_l2_12', type:'fill', q:'Ignition\'s OPC UA connection property that specifies the security algorithm set (e.g., Basic256Sha256) is called _____.', answer:'Security Policy', explanation:'Security Policy in Ignition OPC UA Connection settings maps directly to the OPC UA SecurityPolicy URI.' },
+      { id:'ign_l2_13', type:'mcq', q:'A tag in Ignition shows "Bad_NodeIdUnknown" quality. The root cause is:', options:['The OPC UA server cannot find the NodeId/item path in its address space','Network connectivity is lost','The Ignition license expired','The database is offline'], answer:'The OPC UA server cannot find the NodeId/item path in its address space', explanation:'Bad_NodeIdUnknown means the OPC UA server returned this code for the configured tag path — typically a misconfigured or deleted OPC item path.' },
+      { id:'ign_l2_14', type:'tf', q:'Ignition supports OPC UA method calls from Ignition scripts using the OPC UA connection.', answer:'False', explanation:'Ignition\'s OPC UA client primarily supports reading and writing Variable nodes; OPC UA Method calls are not natively exposed in Ignition scripting as of standard releases.' },
+      { id:'ign_l2_15', type:'mcq', q:'Ignition Tag Historian stores data from OPC tags. The data pipeline is:', options:['OPC UA server → Ignition OPC tag → Tag Historian engine → Database','Database → OPC UA server → Historian','OPC UA → MQTT → Historian → Database','Direct PLC → Database without OPC'], answer:'OPC UA server → Ignition OPC tag → Tag Historian engine → Database', explanation:'OPC tags receive values from the OPC UA server; Historian captures changes and stores them in the configured database.' },
+      { id:'ign_l2_16', type:'mcq', q:'When configuring Ignition to use OPC UA with username/password to an external server, the password is:', options:['Stored encrypted in the Ignition Gateway configuration database','Stored in plaintext in config.xml','Transmitted in plaintext over the OPC UA connection','Not stored — entered each Gateway restart'], answer:'Stored encrypted in the Ignition Gateway configuration database', explanation:'Ignition encrypts stored credentials in its internal database; they are transmitted per OPC UA UA Binary encryption during connection.' },
+      { id:'ign_l2_17', type:'fill', q:'The Ignition OPC UA diagnostics metric that shows the number of items currently subscribed from an external OPC UA server is the _____ count.', answer:'Subscribed Item (or Monitored Item)', explanation:'Ignition diagnostics shows how many OPC items are actively subscribed from each OPC connection.' },
+      { id:'ign_l2_18', type:'tf', q:'Ignition\'s built-in OPC UA server supports multiple user accounts with different access levels.', answer:'True', explanation:'Ignition\'s OPC UA server integrates with Ignition\'s user management; different roles can have read-only vs. read-write OPC UA access.' },
+      { id:'ign_l2_19', type:'mcq', q:'An OPC UA client external to Ignition writes a value to an Ignition OPC UA tag. The value appears in which Ignition systems?', options:['The Ignition Tag Provider — Perspective bindings and scripts reading the tag see the new value','Only in the OPC browser, not in tags','Only in the Tag Historian, not in current value','Only in the database'], answer:'The Ignition Tag Provider — Perspective bindings and scripts reading the tag see the new value', explanation:'External writes via OPC UA update the tag in Ignition\'s Tag Provider, making the new value visible to all Ignition consumers.' },
+      { id:'ign_l2_20', type:'mcq', q:'Ignition OPC UA "Browse Timeout" setting affects:', options:['How long Ignition waits for the OPC UA server to respond to a browse request in the OPC browser','The Tag Group scan rate','The database connection timeout','The Perspective session timeout'], answer:'How long Ignition waits for the OPC UA server to respond to a browse request in the OPC browser', explanation:'Browse Timeout limits how long the OPC browser waits for browse results; large address spaces may require increasing this.' },
+    ],
+    level3: [
+      { id:'ign_l3_1', type:'mcq', q:'An architect needs Ignition to publish OPC UA data to an MQTT broker for cloud analytics. What is the recommended approach?', options:['Use MQTT Transmission Module from Inductive Automation or MQTT Engine Module to publish tag data','Directly configure OPC UA Pub/Sub in Ignition\'s built-in OPC UA server','Use SQL Bridge to pipe data to MQTT','This is not possible without custom scripting'], answer:'Use MQTT Transmission Module from Inductive Automation or MQTT Engine Module to publish tag data', explanation:'Inductive Automation offers MQTT Transmission/Engine modules for Sparkplug B-compliant MQTT publishing from Ignition tags.' },
+      { id:'ign_l3_2', type:'tf', q:'Ignition\'s Sparkplug B implementation over MQTT uses OPC UA binary encoding for tag payloads.', answer:'False', explanation:'Sparkplug B uses Google Protocol Buffers (protobuf) encoding, not OPC UA binary, for its MQTT payloads.' },
+      { id:'ign_l3_3', type:'mcq', q:'A plant has 500,000 OPC tags in Ignition. The OPC UA server browse performance degrades for external clients. The best remediation is:', options:['Create OPC UA Views in the Ignition address space to limit browse scope for external clients','Increase Gateway RAM','Decrease tag scan rates','Disable the OPC UA server for large deployments'], answer:'Create OPC UA Views in the Ignition address space to limit browse scope for external clients', explanation:'Scoped Views reduce browse result set sizes for external clients; combined with client-side caching of address space structure.' },
+      { id:'ign_l3_4', type:'mcq', q:'In a Ignition redundancy configuration, both primary and secondary Gateways have OPC UA connections. When failover occurs, external OPC UA clients connecting to Ignition\'s built-in OPC UA server must:', options:['Reconnect to the secondary Gateway\'s OPC UA server endpoint — there is no transparent failover for external OPC clients','Automatically migrate sessions to the secondary','Use the same session without interruption','Reconnect to a virtual IP managed by Ignition'], answer:'Reconnect to the secondary Gateway\'s OPC UA server endpoint — there is no transparent failover for external OPC clients', explanation:'Ignition Gateway redundancy handles internal Ignition client failover, but external OPC UA clients must reconnect to the secondary endpoint.' },
+      { id:'ign_l3_5', type:'fill', q:'The Ignition module that enables Ignition to act as a DNP3 or IEC 61850 master, in addition to OPC UA client, is called the _____ module.', answer:'DNP3 / IEC 61850 (Driver module)', explanation:'Ignition\'s driver modules (available from Inductive Automation or third parties) add protocol support beyond OPC UA.' },
+      { id:'ign_l3_6', type:'mcq', q:'An Ignition administrator configures OPC UA connection security to Basic256Sha256/SignAndEncrypt but the external server only supports Basic128Rsa15. What happens?', options:['Connection fails — Ignition and server cannot agree on a compatible security policy','Ignition automatically downgrades to Basic128Rsa15','Ignition uses SignOnly mode as a compromise','Basic256Sha256 is backward-compatible with Basic128Rsa15'], answer:'Connection fails — Ignition and server cannot agree on a compatible security policy', explanation:'OPC UA security policy must be mutually supported; mismatched policies prevent SecureChannel establishment.' },
+      { id:'ign_l3_7', type:'tf', q:'Ignition\'s built-in OPC UA server supports custom namespace URIs for vendor-specific node organization.', answer:'True', explanation:'The Ignition OPC UA server uses a custom namespace URI for Ignition-specific tags, separate from OPC UA standard namespace 0.' },
+      { id:'ign_l3_8', type:'mcq', q:'A Ignition system with 50 OPC UA connections each polling 1000 tags at 100ms is experiencing CPU overload. The most impactful optimization is:', options:['Switch from polling to OPC UA subscriptions and consolidate tags into fewer connections with longer scan rates where possible','Add more CPU cores to the server','Reduce SCADA screen refresh rate','Disable tag history'], answer:'Switch from polling to OPC UA subscriptions and consolidate tags into fewer connections with longer scan rates where possible', explanation:'OPC UA subscriptions dramatically reduce server-side and network load vs. polling; subscription change notification is push-based.' },
+      { id:'ign_l3_9', type:'mcq', q:'Ignition Python scripting can interact with OPC UA data through which method?', options:['system.opc.readValue() and system.opc.writeValue() — Ignition scripting functions for OPC access','Direct OPC UA SDK calls in Jython','OPC UA REST API calls','JDBC connection to OPC UA namespace'], answer:'system.opc.readValue() and system.opc.writeValue() — Ignition scripting functions for OPC access', explanation:'Ignition\'s system.opc scripting functions provide Python/Jython access to OPC-connected tags and direct OPC item reads/writes.' },
+      { id:'ign_l3_10', type:'tf', q:'Ignition\'s OPC UA Alarms module maps OPC UA Alarms & Conditions events to Ignition\'s alarm system.', answer:'False', explanation:'Ignition does not natively consume OPC UA A&C events; alarms in Ignition are defined on Ignition tags, not received from OPC UA alarm events.' },
+      { id:'ign_l3_11', type:'mcq', q:'An external OPC UA historian connects to Ignition\'s built-in OPC UA server to historically retrieve Ignition tag values. This requires:', options:['Ignition\'s built-in OPC UA server does NOT support OPC UA HistoricalAccess — the external historian must use Ignition\'s own historian data store directly','Enabling HistoricalAccess in Gateway Config','Purchasing the History Module','Using Ignition Reporting module'], answer:'Ignition\'s built-in OPC UA server does NOT support OPC UA HistoricalAccess — the external historian must use Ignition\'s own historian data store directly', explanation:'Ignition\'s built-in OPC UA server only exposes current tag values via OPC UA, not historical data; history requires Ignition\'s native APIs.' },
+      { id:'ign_l3_12', type:'mcq', q:'When Ignition connects to an OPC UA server with self-signed certificate, and auto-trust is disabled, the administrator must:', options:['Manually approve the server certificate in Gateway → Security → SSL/TLS (OPC Certificate Store)','Regenerate Ignition\'s own certificate','Disable OPC UA security module','Import the certificate via REST API only'], answer:'Manually approve the server certificate in Gateway → Security → SSL/TLS (OPC Certificate Store)', explanation:'Ignition provides a certificate management UI where pending/rejected certificates can be reviewed and trusted.' },
+      { id:'ign_l3_13', type:'fill', q:'The Ignition Gateway diagnostic log that captures OPC UA connection lifecycle events including certificate rejections is the _____ log.', answer:'OPC UA (or Gateway) wrapper log', explanation:'Ignition\'s Gateway logs (Config → Diagnostics → Logs → select "opc" or "ua") capture OPC UA specific connection, security, and session events.' },
+      { id:'ign_l3_14', type:'mcq', q:'An Ignition project requires reading 10,000 OPC tags from a Kepware OPC UA server. The most scalable architecture is:', options:['Configure Ignition Tag Groups with appropriate scan rates matching OPC UA subscriptions, grouped by rate','Create 10,000 individual Ignition OPC connections','Use Ignition OPC polling instead of subscriptions for all tags','Deploy 10 Ignition Gateways each handling 1,000 tags'], answer:'Configure Ignition Tag Groups with appropriate scan rates matching OPC UA subscriptions, grouped by rate', explanation:'Tag Groups align with OPC UA subscription groups; grouping by update rate minimizes subscription count and optimizes Kepware load.' },
+      { id:'ign_l3_15', type:'tf', q:'Ignition\'s OPC UA connection supports Mutual Certificate Authentication where both Ignition and the OPC server validate each other\'s X.509 certificates.', answer:'True', explanation:'OPC UA inherently uses mutual authentication; both Ignition (client) and server exchange and validate X.509 certificates during SecureChannel setup.' },
+      { id:'ign_l3_16', type:'mcq', q:'A customer reports that after upgrading Ignition from v7 to v8, all OPC UA connections fail. The most likely cause is:', options:['OPC UA module was not included in the v8 installation, or certificates need regeneration for the new instance','OPC UA is deprecated in Ignition 8','The module requires v9 now','OPC UA only works on Windows Server in v8'], answer:'OPC UA module was not included in the v8 installation, or certificates need regeneration for the new instance', explanation:'Ignition upgrades may require reinstalling modules; new instances generate new certificates requiring trust re-establishment on connected OPC servers.' },
+      { id:'ign_l3_17', type:'fill', q:'The Ignition feature that allows OPC tags to be organized in folders mirroring the OPC UA address space hierarchy is called _____.', answer:'Tag Structure (or auto-tag creation via OPC browser)', explanation:'Ignition\'s OPC browser allows creating tags in folder hierarchies matching the OPC UA address space, maintaining logical organization.' },
+      { id:'ign_l3_18', type:'mcq', q:'An OPC UA client connected to Ignition\'s built-in OPC UA server reports that tag update rates are inconsistent. The root cause investigation should focus on:', options:['Ignition Tag Group scan rates, Gateway CPU load, and OPC UA subscription RevisedPublishingInterval','OPC UA message chunking configuration','Database connection pool size','Perspective session count'], answer:'Ignition Tag Group scan rates, Gateway CPU load, and OPC UA subscription RevisedPublishingInterval', explanation:'Ignition\'s OPC UA server delivers updates at Tag Group scan intervals; high Gateway CPU load delays scan completion, causing inconsistent update rates.' },
+      { id:'ign_l3_19', type:'tf', q:'Ignition\'s Tag Provider can be configured to expose only specific tag folders via the built-in OPC UA server, restricting visibility.', answer:'True', explanation:'The OPC UA server configuration allows selecting which Tag Providers and folders are exposed as OPC UA nodes.' },
+      { id:'ign_l3_20', type:'mcq', q:'An integrator needs Ignition to receive real-time OPC UA events (not just data values) from a SCADA system for alarm forwarding. What is the correct approach?', options:['Use Ignition\'s scripting (system.tag.subscribe or Gateway event scripts) monitoring tag quality changes, as Ignition does not natively consume OPC UA A&C events','Subscribe directly to OPC UA EventType nodes via Ignition OPC connection','Use the Ignition Alarm module OPC UA event bridge','Configure an OPC UA event MonitoredItem via Ignition tag browser'], answer:'Use Ignition\'s scripting (system.tag.subscribe or Gateway event scripts) monitoring tag quality changes, as Ignition does not natively consume OPC UA A&C events', explanation:'Ignition lacks native OPC UA A&C event subscription; workarounds include polling alarm status tags or using custom modules.' },
+    ],
+  },
 
-  troubleshoot: [
-    {
-      id: 'ts_1',
-      type: 'mcq',
-      question: 'An OPC UA connection returns error "BadCertificateUntrusted." What is the fix?',
-      options: [
-        'Regenerate both certificates and restart',
-        'Add the peer\'s certificate to your application\'s trust store',
-        'Switch to SecurityMode: None',
-        'Increase the session timeout'
-      ],
-      answer: 1,
-      explanation: 'BadCertificateUntrusted means the certificate presented by the peer is not in your trust store. Fix: find the certificate (usually in a "rejected" or "quarantined" folder), review it, and move/copy it to the trusted folder. On Ignition, this is in Gateway → Config → OPC UA → Certificates.'
-    },
-    {
-      id: 'ts_2',
-      type: 'mcq',
-      question: 'What does the error "BadSecureChannelClosed" typically indicate?',
-      options: [
-        'User authentication failed',
-        'The NodeId does not exist on the server',
-        'Network interruption, firewall drop, or session timeout closed the secure channel',
-        'The security policy is not supported'
-      ],
-      answer: 2,
-      explanation: 'BadSecureChannelClosed means the secure channel was terminated unexpectedly. Common causes: firewall dropping idle connections, network hiccup, server-side timeout, or the server restarting. The client needs to re-establish: open new secure channel, create session, activate session. Intermittent? Check your firewall idle-timeout settings.'
-    },
-    {
-      id: 'ts_3',
-      type: 'mcq',
-      question: 'A Read request returns "BadNodeIdUnknown." What does this mean?',
-      options: [
-        'The NodeId format is invalid',
-        'The NodeId does not exist in the server\'s Address Space',
-        'The user doesn\'t have permission to read this node',
-        'The node\'s value is currently unavailable'
-      ],
-      answer: 1,
-      explanation: 'BadNodeIdUnknown: the server searched its Address Space and found nothing with that NodeId. Either the NodeId is wrong (typo, wrong namespace index), the server address space changed, or that node never existed. Browse the server to confirm the NodeId. Don\'t trust documentation you didn\'t write yourself.'
-    },
-    {
-      id: 'ts_4',
-      type: 'mcq',
-      question: 'What does "BadUserAccessDenied" indicate in an OPC UA Write response?',
-      options: [
-        'The certificate is expired',
-        'The user\'s credentials are incorrect or the user lacks write permission for this node',
-        'The node\'s AccessLevel attribute does not permit writes',
-        'B or C — either credentials are wrong or AccessLevel prohibits it'
-      ],
-      answer: 3,
-      explanation: 'BadUserAccessDenied covers both cases: wrong/insufficient credentials OR the node\'s AccessLevel (or UserAccessLevel) attribute doesn\'t allow writes for this user. Check that you\'re authenticated correctly, then check the node\'s AccessLevel attribute. The error doesn\'t tell you which problem it is — because that would be too easy.'
-    },
-    {
-      id: 'ts_5',
-      type: 'mcq',
-      question: 'After an unexpected session disconnect and reconnect, a Publish request returns "BadSubscriptionIdInvalid." Why?',
-      options: [
-        'The subscription\'s LifetimeCount was exceeded while the session was disconnected',
-        'The QueueSize was exceeded',
-        'The wrong PublishingInterval was used',
-        'The server restarted and forgot the subscription'
-      ],
-      answer: 0,
-      explanation: 'When a session is lost, subscriptions are tied to that session. When the client reconnects with a new session, the old subscription IDs are gone. BadSubscriptionIdInvalid means the client is trying to use a subscription that no longer exists. Reconnect the session AND recreate the subscriptions. Both.'
-    },
-    {
-      id: 'ts_6',
-      type: 'mcq',
-      question: 'What free tool is widely used for OPC UA diagnostics, browsing, and manual testing?',
-      options: ['Wireshark', 'UA Expert', 'Modbus Poll', 'OPC Router'],
-      answer: 1,
-      explanation: 'UA Expert by Unified Automation — the Swiss Army knife of OPC UA troubleshooting. Connect to any server, browse the address space, read/write values, create subscriptions, view data changes in real time. It\'s free (registration required). Every OPC UA troubleshooter should have it installed.'
-    },
-    {
-      id: 'ts_7',
-      type: 'fill',
-      question: 'To capture and analyze OPC UA binary TCP traffic in Wireshark, use the display filter ___.',
-      answer: 'opcua',
-      hint: 'Wireshark has a built-in OPC UA dissector — just type the protocol name',
-      explanation: 'The Wireshark display filter "opcua" activates the OPC UA dissector, which decodes and displays OPC UA binary messages (HEL, ACK, OPN, MSG, CLO). You can also filter by "tcp.port==4840" to see the raw traffic. The dissector can decode unencrypted messages; SecurityMode: None makes troubleshooting much easier in a lab environment.'
-    },
-    {
-      id: 'ts_8',
-      type: 'mcq',
-      question: 'What does "BadTooManyPublishRequests" mean?',
-      options: [
-        'The subscription\'s PublishingInterval is too short',
-        'The client has queued more Publish requests than the server is willing to accept simultaneously',
-        'The server is overloaded and cannot process any more subscriptions',
-        'The client is sending data to the server too quickly'
-      ],
-      answer: 1,
-      explanation: 'Servers limit how many outstanding Publish requests they\'ll accept from a client simultaneously. If your client pipeline-sends too many, the server rejects the extras with BadTooManyPublishRequests. The fix is to reduce the number of simultaneous outstanding Publish requests — typically one or two is plenty per subscription.'
-    },
-    {
-      id: 'ts_9',
-      type: 'mcq',
-      question: 'An OPC UA Variable shows a value with status code "Bad_NoCommunication." What does this indicate?',
-      options: [
-        'The OPC UA session is not established',
-        'The server cannot communicate with the underlying data source (e.g., PLC) for this value',
-        'The client\'s subscription is expired',
-        'The node does not support the Read service'
-      ],
-      answer: 1,
-      explanation: 'Bad_NoCommunication means the OPC UA server itself is running fine, but it can\'t reach the underlying device (PLC, field device) to get the current value. The server-to-client connection is working; the server-to-source connection is broken. Check the device communication status on the server side, not the OPC UA session.'
-    },
-    {
-      id: 'ts_10',
-      type: 'mcq',
-      question: 'When troubleshooting an OPC UA connection from Ignition to a PLC, what is the recommended first diagnostic step?',
-      options: [
-        'Restart the Ignition Gateway',
-        'Check the connection status in Gateway → OPC Connections and review the error message or pending certificates',
-        'Re-install the OPC UA module',
-        'Run a Wireshark capture immediately'
-      ],
-      answer: 1,
-      explanation: 'Gateway → OPC Connections shows connection status with descriptive error messages. It\'s your first window into what\'s actually wrong. Is it "Connecting" (certificate issue)? "Faulted" (network or wrong port)? "Connected" but bad tag quality (wrong NodeId)? Start here before reaching for Wireshark or the restart button.'
-    },
-  ],
+  troubleshoot: {
+    level1: [
+      { id:'trbl_l1_1', type:'mcq', q:'An OPC UA client receives "Bad_CertificateUntrusted". The most likely cause is:', options:['The server\'s certificate is not in the client\'s trust store','The session timed out','The node does not exist','The sampling rate is too fast'], answer:'The server\'s certificate is not in the client\'s trust store', explanation:'Bad_CertificateUntrusted means the presented certificate has no valid trust chain in the client\'s trust store.' },
+      { id:'trbl_l1_2', type:'mcq', q:'OPC UA connection refuses on port 4840. First diagnostic step is:', options:['Verify the server is running and listening on port 4840 with netstat or telnet','Delete client certificate and regenerate','Increase session timeout','Change to port 443'], answer:'Verify the server is running and listening on port 4840 with netstat or telnet', explanation:'Basic connectivity verification — confirm the port is open before investigating OPC UA-specific issues.' },
+      { id:'trbl_l1_3', type:'tf', q:'"Bad_SecurityChecksFailed" typically indicates a certificate or security policy mismatch.', answer:'True', explanation:'Bad_SecurityChecksFailed covers certificate validation failures, security policy mismatches, and signature verification errors.' },
+      { id:'trbl_l1_4', type:'mcq', q:'A subscription stops receiving notifications after 30 minutes. The most likely cause is:', options:['Session timeout — client stopped sending Publish requests and the session expired','Server ran out of memory','The OPC UA standard limits subscriptions to 30 minutes','Network packet loss'], answer:'Session timeout — client stopped sending Publish requests and the session expired', explanation:'Sessions expire if Publish requests stop; the server auto-deletes sessions and subscriptions after the SessionTimeout.' },
+      { id:'trbl_l1_5', type:'fill', q:'OPC UA data quality code "Bad_NoCommunication" indicates the server cannot communicate with the _____.', answer:'underlying device (field device)', explanation:'Bad_NoCommunication means the OPC UA server lost connection to the physical device it is proxying.' },
+      { id:'trbl_l1_6', type:'mcq', q:'All OPC UA reads return "Bad_UserAccessDenied". The cause is:', options:['The authenticated user does not have read permission on those nodes','Server CPU is overloaded','The session is using the wrong SecurityMode','The certificate is expired'], answer:'The authenticated user does not have read permission on those nodes', explanation:'Bad_UserAccessDenied is an authorization error — the user identity doesn\'t have the Browse/Read RolePermission on the nodes.' },
+      { id:'trbl_l1_7', type:'tf', q:'OPC UA Wireshark dissector can decode OPC UA Binary messages for troubleshooting.', answer:'True', explanation:'Wireshark includes an OPC UA Binary dissector (on port 4840 by default) that decodes OPC UA messages for analysis.' },
+      { id:'trbl_l1_8', type:'mcq', q:'Tags show "Uncertain_LastUsableValue". What happened?', options:['The current reading failed; the last valid value is being displayed','The tag was written with an uncertain value intentionally','The historian is offline','The tag is write-only'], answer:'The current reading failed; the last valid value is being displayed', explanation:'Uncertain_LastUsableValue means the current read attempt failed; the server is reporting the last known good value.' },
+      { id:'trbl_l1_9', type:'mcq', q:'OPC UA Browse returns 0 results for a folder known to have 100 children. First check is:', options:['Verify the NodeId is correct and the client has Browse permission','Increase MaxReferencesPerNode to 100','Enable chunking','Check database connection'], answer:'Verify the NodeId is correct and the client has Browse permission', explanation:'Empty Browse results can mean wrong NodeId, wrong ReferenceType filter, or missing Browse permission on the node.' },
+      { id:'trbl_l1_10', type:'tf', q:'"Bad_Timeout" in OPC UA means the server intentionally rejected the request.', answer:'False', explanation:'Bad_Timeout means the server did not respond within the configured timeout — it may be overloaded or the request was lost, not necessarily a rejection.' },
+      { id:'trbl_l1_11', type:'mcq', q:'An OPC UA server certificate expires today. What is the immediate impact on connected clients?', options:['Existing sessions may continue until session timeout, but new connections fail certificate validation','All sessions immediately disconnect','Existing sessions are unaffected — only new sessions fail','Certificates are renewed automatically'], answer:'Existing sessions may continue until session timeout, but new connections fail certificate validation', explanation:'Existing SecureChannels may continue using pre-exchanged keys, but new connections validate the certificate and fail if expired.' },
+      { id:'trbl_l1_12', type:'fill', q:'The OPC UA StatusCode for a node that exists but has never received a value from the device is _____.', answer:'Bad_WaitingForInitialData', explanation:'Bad_WaitingForInitialData indicates the server knows the node exists but has not yet received a first valid reading from the device.' },
+      { id:'trbl_l1_13', type:'mcq', q:'A client connects successfully but all method calls return "Bad_MethodInvalid". The cause is:', options:['The Method NodeId is wrong, or the node is not a Method','Methods require a special session type','The server certificate is expired','The session is in read-only mode'], answer:'The Method NodeId is wrong, or the node is not a Method', explanation:'Bad_MethodInvalid means the NodeId provided for the method call does not point to a valid, callable Method node.' },
+      { id:'trbl_l1_14', type:'tf', q:'OPC UA server logs are the first place to look when clients cannot connect.', answer:'True', explanation:'Server-side logs capture connection attempts, certificate validation results, and authentication errors — essential first diagnostic.' },
+      { id:'trbl_l1_15', type:'mcq', q:'A subscriptions delivers notifications but the values are 5 seconds delayed. The most likely cause is:', options:['PublishingInterval is set to 5000ms (5 seconds)','Network latency is 5 seconds','The server is batching 5 seconds of data','The historian is 5 seconds behind'], answer:'PublishingInterval is set to 5000ms (5 seconds)', explanation:'PublishingInterval directly controls notification delivery frequency; 5-second intervals explain the delay.' },
+      { id:'trbl_l1_16', type:'mcq', q:'OPC UA connection shows "Connecting" indefinitely. The most common causes are:', options:['Certificate not trusted, wrong endpoint URL, or firewall blocking port 4840','Wrong session timeout value','MaxMonitoredItems exceeded','PublishingInterval too short'], answer:'Certificate not trusted, wrong endpoint URL, or firewall blocking port 4840', explanation:'Stuck connection states usually involve transport (firewall, wrong URL) or security (certificate trust) issues.' },
+      { id:'trbl_l1_17', type:'tf', q:'Restarting the OPC UA server drops all active client sessions.', answer:'True', explanation:'Server restart invalidates all sessions and SecureChannels; clients must reconnect and re-authenticate.' },
+      { id:'trbl_l1_18', type:'fill', q:'The OPC UA tool for discovering servers on a local network using UDP broadcast is called the _____ mechanism.', answer:'Local Discovery Server (LDS) / multicast discovery', explanation:'OPC UA multicast discovery (LDS-ME) uses UDP multicast to find servers on local network segments.' },
+      { id:'trbl_l1_19', type:'mcq', q:'A SCADA screen shows tags with quality "Bad" after a network switch reboot. The correct action is:', options:['Wait for OPC UA sessions to reconnect and tags to update, or manually trigger reconnection','Restart the SCADA server','Delete and recreate all subscriptions','Replace the network switch'], answer:'Wait for OPC UA sessions to reconnect and tags to update, or manually trigger reconnection', explanation:'Brief network outages cause OPC UA reconnection; well-configured clients reconnect automatically within session timeout.' },
+      { id:'trbl_l1_20', type:'mcq', q:'OPC UA client logs show repeated "Bad_TooManyPublishRequests" errors. The fix is:', options:['Reduce the number of outstanding Publish requests — keep it at approximately (subscription count + 2)','Create more subscriptions','Increase MaxNotificationsPerPublish','Increase session timeout'], answer:'Reduce the number of outstanding Publish requests — keep it at approximately (subscription count + 2)', explanation:'Servers limit outstanding Publish requests to prevent resource exhaustion; clients should maintain a reasonable request pipeline depth.' },
+    ],
+    level2: [
+      { id:'trbl_l2_1', type:'mcq', q:'A Wireshark trace shows OPC UA OPN messages followed immediately by ERR messages. What does this indicate?', options:['SecureChannel establishment failed — the server returned an error in response to OpenSecureChannel','Normal keepalive exchange','Chunked message reassembly','A session expiry'], answer:'SecureChannel establishment failed — the server returned an error in response to OpenSecureChannel', explanation:'ERR (error) message type in OPC UA TCP transport indicates a fatal connection-level error, typically during SecureChannel negotiation.' },
+      { id:'trbl_l2_2', type:'tf', q:'OPC UA "Bad_CertificateRevoked" error means the certificate was found in a CRL checked by the server.', answer:'True', explanation:'Bad_CertificateRevoked is returned when certificate validation finds the certificate listed in a Certificate Revocation List.' },
+      { id:'trbl_l2_3', type:'mcq', q:'Client receives notifications but some sequence numbers are missing (e.g., 5, 7, 9 — gaps at 6, 8). Root cause is:', options:['Network packet loss causing some Publish responses to be dropped; use Republish to recover','Normal OPC UA behavior — sequence numbers can skip','The server resequenced for priority','Keepalive messages consumed those sequence numbers'], answer:'Network packet loss causing some Publish responses to be dropped; use Republish to recover', explanation:'Sequence number gaps in TCP should not occur (TCP is reliable); on lower-level transport or with application-level issues, gaps indicate lost messages.' },
+      { id:'trbl_l2_4', type:'mcq', q:'Server diagnostics show "SessionAbortCount" increasing rapidly. What is happening?', options:['Clients are disconnecting abnormally — possibly due to certificate issues, network instability, or client crashes','Normal session lifecycle','Session timeout set too low','Too many concurrent sessions'], answer:'Clients are disconnecting abnormally — possibly due to certificate issues, network instability, or client crashes', explanation:'SessionAbortCount tracks abnormal session terminations (not CloseSession); rising counts indicate connectivity or security problems.' },
+      { id:'trbl_l2_5', type:'fill', q:'When an OPC UA server reports "Bad_OutOfMemory" on CreateMonitoredItems, the resolution is to _____.', answer:'reduce the number of monitored items, increase server memory, or distribute load across multiple servers', explanation:'Out-of-memory errors in CreateMonitoredItems require reducing the monitoring load on the server.' },
+      { id:'trbl_l2_6', type:'mcq', q:'Tags read correctly via Read service but subscription notifications never arrive. The diagnostic process is:', options:['Verify subscription is active, Publish is being called, and MonitoringMode=Reporting; check for data quality filter masking changes','Check database connection','Verify firewall allows UDP','Increase session timeout'], answer:'Verify subscription is active, Publish is being called, and MonitoringMode=Reporting; check for data quality filter masking changes', explanation:'Silent subscriptions usually mean: Publish isn\'t being called, MonitoringMode is Disabled/Sampling, or deadband/filter suppresses all changes.' },
+      { id:'trbl_l2_7', type:'tf', q:'OPC UA TranslateBrowsePathsToNodeIds failure with Bad_BrowseNameInvalid suggests a namespace index mismatch in the browse path.', answer:'True', explanation:'BrowseName namespace index must match the node\'s actual namespace; a mismatch causes Bad_BrowseNameInvalid during path translation.' },
+      { id:'trbl_l2_8', type:'mcq', q:'A vendor\'s OPC UA server rejects Ignition\'s client certificate with "Bad_CertificateHostNameInvalid". The fix is:', options:['Regenerate Ignition\'s certificate with the correct SAN including the machine\'s hostname and IP','Change Ignition\'s hostname to match','Disable SAN validation on the OPC UA server','Use anonymous authentication'], answer:'Regenerate Ignition\'s certificate with the correct SAN including the machine\'s hostname and IP', explanation:'Bad_CertificateHostNameInvalid means the client certificate SAN doesn\'t match the connecting machine\'s hostname/IP.' },
+      { id:'trbl_l2_9', type:'mcq', q:'An OPC UA aggregating server shows "Bad_MaxConnectionsReached" for new clients. The resolution is:', options:['Increase MaxConnections in server config, or review existing connections for abandoned sessions','Add more RAM to the server','Switch to UDP transport','Reduce MonitoredItem count'], answer:'Increase MaxConnections in server config, or review existing connections for abandoned sessions', explanation:'MaxConnections limits simultaneous TCP connections; increase the limit or clean up abandoned connections (those with no activity).' },
+      { id:'trbl_l2_10', type:'tf', q:'OPC UA method calls always return synchronously within the same TCP round trip.', answer:'False', explanation:'OPC UA supports asynchronous method calls (using request/response handles); long-running methods may complete asynchronously.' },
+      { id:'trbl_l2_11', type:'mcq', q:'Wireshark shows OPC UA "MSG" chunks with IsEncrypted but no visible service data. What allows decryption for troubleshooting?', options:['Pre-Shared Key extraction and providing it to Wireshark\'s TLS/OPC UA key log','OPC UA Binary is always decryptable by Wireshark by default','Setting SecurityMode=None for capturing','Using OPC UA XML instead'], answer:'Pre-Shared Key extraction and providing it to Wireshark\'s TLS/OPC UA key log', explanation:'OPC UA encryption prevents Wireshark from decoding payload; key material must be extracted from the server/client for decryption.' },
+      { id:'trbl_l2_12', type:'fill', q:'The OPC UA error code returned when a client tries to write to a variable that only supports read access is _____.', answer:'Bad_NotWritable', explanation:'Bad_NotWritable is returned when a Write request targets a Variable whose AccessLevel does not include CurrentWrite.' },
+      { id:'trbl_l2_13', type:'mcq', q:'OPC UA historical read returns values but all with "Bad_NoData" StatusCode. The cause is:', options:['The historian has no data for the requested time range','The node does not exist','Historical access is disabled globally','The session lacks permissions'], answer:'The historian has no data for the requested time range', explanation:'Bad_NoData in HistoricalAccess means the historian contains no records for the specified time range.' },
+      { id:'trbl_l2_14', type:'tf', q:'OPC UA connection "Bad_ServerNotConnected" can appear on the server side when a downstream device connection fails.', answer:'True', explanation:'OPC UA servers use this code for items they cannot update because their connection to the underlying device is broken.' },
+      { id:'trbl_l2_15', type:'mcq', q:'A client reports OPC UA tags with mixed "Good" and "Bad_ConfigurationError" quality after server restart. The likely cause is:', options:['Server address space changed — some NodeIds no longer exist after restart; client subscriptions reference deleted nodes','The client certificate expired','Session timeout is too short','Database is offline'], answer:'Server address space changed — some NodeIds no longer exist after restart; client subscriptions reference deleted nodes', explanation:'If the server dynamically builds its address space and the structure changed, subscriptions referencing removed nodes report configuration errors.' },
+      { id:'trbl_l2_16', type:'mcq', q:'OPC UA audit trail shows AuthorizedUser="anonymous" for all write operations. The security concern and fix are:', options:['Anonymous write access is a major risk — configure UserNameIdentityToken or X509IdentityToken and remove AnonymousIdentityToken from write permission','Anonymous is acceptable for read-only operations, not writes — disable anonymous token for write-capable endpoints','Audit trails always show anonymous for performance reasons','The fix is to enable SignAndEncrypt mode'], answer:'Anonymous write access is a major risk — configure UserNameIdentityToken or X509IdentityToken and remove AnonymousIdentityToken from write permission', explanation:'Anonymous users cannot be traced; require authentication for write access and restrict RolePermissions for anonymous role.' },
+      { id:'trbl_l2_17', type:'fill', q:'The OPC UA StatusCode indicating a request was received but took too long to process server-side is _____.', answer:'Bad_Timeout (or Bad_RequestTimeout)', explanation:'The server returns Bad_Timeout if it cannot complete processing within the client\'s TimeoutHint in the request header.' },
+      { id:'trbl_l2_18', type:'tf', q:'OPC UA session reconnection after network outage preserves existing subscription state if done within SessionTimeout.', answer:'True', explanation:'If reconnection occurs within SessionTimeout, the client can create a new SecureChannel and use the existing session without losing subscriptions.' },
+      { id:'trbl_l2_19', type:'mcq', q:'Monitored items report values but all timestamps are identical, always matching the server time of the Publish call. The cause is:', options:['TimestampsToReturn=Server is set — all items report ServerTimestamp, which is set at Publish time','The OPC server has a clock synchronization issue','SourceTimestamp is the same for all devices','The SamplingInterval is set to 0'], answer:'TimestampsToReturn=Server is set — all items report ServerTimestamp, which is set at Publish time', explanation:'ServerTimestamp reflects when the server processed the notification; for device-accurate timestamps, use TimestampsToReturn=Source or Both.' },
+      { id:'trbl_l2_20', type:'mcq', q:'A high-frequency OPC UA subscription (10ms PublishingInterval) shows CPU at 100% on the client machine. The optimization is:', options:['Increase PublishingInterval or use filtering/deadband to reduce notification volume','Increase server CPU','Disable security to reduce overhead','Use UDP instead of TCP'], answer:'Increase PublishingInterval or use filtering/deadband to reduce notification volume', explanation:'High-frequency subscriptions with many items generate high processing load; increase interval or apply deadbands where precision allows.' },
+    ],
+    level3: [
+      { id:'trbl_l3_1', type:'mcq', q:'An OPC UA server intermittently returns "Bad_TcpInternalError" during high-load periods. This suggests:', options:['Server-side resource exhaustion (thread pool, socket buffer, or memory) causing transport-layer errors','A certificate expiry issue','DNS resolution failure','OPC UA version mismatch'], answer:'Server-side resource exhaustion (thread pool, socket buffer, or memory) causing transport-layer errors', explanation:'Internal TCP-layer errors during high load indicate the server\'s transport stack is resource-constrained — investigate thread pools and buffer limits.' },
+      { id:'trbl_l3_2', type:'tf', q:'OPC UA SecureChannel renewal failure (Bad_SecureChannelClosed) during active operation requires immediate session recreation.', answer:'False', explanation:'If SecureChannel renewal fails, the client should attempt OpenSecureChannel(Issue) on a new TCP connection while keeping the session alive if within SessionTimeout.' },
+      { id:'trbl_l3_3', type:'mcq', q:'A root cause analysis finds OPC UA subscription latency correlates with garbage collection pauses in the server JVM. The solution is:', options:['Tune JVM GC settings (G1GC with shorter pause targets), increase heap, or migrate to native implementation','Increase OPC UA PublishingInterval','Disable subscription encryption','Use UDP transport for lower GC impact'], answer:'Tune JVM GC settings (G1GC with shorter pause targets), increase heap, or migrate to native implementation', explanation:'JVM GC pauses directly cause OPC UA latency spikes; GC tuning or native server implementations (C++, .NET) eliminate this.' },
+      { id:'trbl_l3_4', type:'mcq', q:'OPC UA clients report periodic "Bad_SecureChannelIdInvalid" approximately every 10 minutes. The root cause is:', options:['SecurityToken lifetime is 10 minutes; the client is not renewing the SecureChannel before expiry','Session timeout is 10 minutes','The server restarts every 10 minutes','Certificate lifetime is 10 minutes'], answer:'SecurityToken lifetime is 10 minutes; the client is not renewing the SecureChannel before expiry', explanation:'Clients must renew the SecureChannel (OpenSecureChannel Renew) before TokenLifetime expires; failing to do so causes Bad_SecureChannelIdInvalid.' },
+      { id:'trbl_l3_5', type:'fill', q:'The OPC UA server diagnostic counter that tracks how many times a server exceeded its processing capacity and queued requests is called _____.', answer:'RejectedRequestsCount (or QueuedRequestCount)', explanation:'Server diagnostics include RejectedRequestsCount for capacity-exceeded rejections and various queue depth counters.' },
+      { id:'trbl_l3_6', type:'mcq', q:'A plant experiences OPC UA data loss during daily backup window (disk I/O peaks). The investigation shows subscription notifications queue up then overflow. The architectural fix is:', options:['Implement a durable message buffer (OPC UA aggregating server or MQTT bridge) between the OPC UA server and clients to absorb notification bursts','Pause backups permanently','Increase OPC UA session timeout to cover backup duration','Use polling instead of subscriptions during backup'], answer:'Implement a durable message buffer (OPC UA aggregating server or MQTT bridge) between the OPC UA server and clients to absorb notification bursts', explanation:'A durable buffer decouples production (OPC UA server) from consumption (SCADA/historian) ensuring no data loss during server resource peaks.' },
+      { id:'trbl_l3_7', type:'tf', q:'OPC UA "BadCertificateTimeInvalid" can occur due to clock skew between client and server, even if the certificate itself is not expired.', answer:'True', explanation:'Certificate validity is checked against the local clock; if client and server clocks are significantly different, one may perceive the cert as not-yet-valid or expired.' },
+      { id:'trbl_l3_8', type:'mcq', q:'An OPC UA security scanner finds that a server returns different error messages for "certificate not trusted" vs "certificate revoked" — allowing an attacker to distinguish trust store contents. The mitigation is:', options:['Return the same generic error code (Bad_CertificateInvalid) for all certificate validation failures to prevent oracle attacks','This is not a security issue — detailed errors aid debugging','Disable certificate validation on the client side','Use username/password instead of certificates'], answer:'Return the same generic error code (Bad_CertificateInvalid) for all certificate validation failures to prevent oracle attacks', explanation:'OPC UA Part 2 recommends generic error responses for certificate failures to prevent an attacker from probing trust store contents.' },
+      { id:'trbl_l3_9', type:'mcq', q:'Post-mortem analysis of a data integrity incident reveals OPC UA MonitoredItem QueueSize=1 with DiscardOldest=True caused loss of rapid setpoint changes. The prevention strategy is:', options:['Increase QueueSize to match the maximum expected burst rate; use DiscardOldest=False for critical setpoints','Switch from subscriptions to polling for setpoints','Increase PublishingInterval','Add a second subscription for setpoints'], answer:'Increase QueueSize to match the maximum expected burst rate; use DiscardOldest=False for critical setpoints', explanation:'QueueSize=1 guarantees data loss for rapid sequences; critical control setpoints should use QueueSize matching burst rate with DiscardOldest=False.' },
+      { id:'trbl_l3_10', type:'fill', q:'OPC UA sessions that accumulate on the server without corresponding active TCP connections are called _____ sessions.', answer:'Orphaned (or zombie)', explanation:'Orphaned sessions occur when TCP connections drop without CloseSession; they consume server resources until SessionTimeout.' },
+      { id:'trbl_l3_11', type:'mcq', q:'OPC UA server diagnostics show MaxSubscriptionCount reached but system memory is only 30% utilized. The fix is:', options:['Increase MaxSubscriptionCount in server configuration — this is a soft limit, not a memory-based constraint','Add more RAM','Reduce PublishingInterval','This is a license limit that cannot be changed'], answer:'Increase MaxSubscriptionCount in server configuration — this is a soft limit, not a memory-based constraint', explanation:'MaxSubscriptionCount is a configurable policy limit; if resources allow, increasing it accommodates more concurrent subscriptions.' },
+      { id:'trbl_l3_12', type:'tf', q:'OPC UA message replay attacks are possible on connections using SecurityMode=Sign (no encryption) because the payload is in plaintext.', answer:'True', explanation:'Sign mode authenticates messages but does not encrypt them; captured plaintext messages with valid signatures could theoretically be replayed if SequenceNumber replay detection is not properly implemented.' },
+      { id:'trbl_l3_13', type:'mcq', q:'A time-sensitive alarm system receives OPC UA alarm notifications delayed by up to 3 seconds. Network analysis shows no packet loss. The root cause is:', options:['Large KeepAliveCount on the subscription (e.g., 30 × 100ms = 3s) — alarm notifications are delayed until the keepalive fires if no other items changed','Alarm priority is set too low','Alarm filter is too restrictive','The historian is holding alarm notifications'], answer:'Large KeepAliveCount on the subscription (e.g., 30 × 100ms = 3s) — alarm notifications are delayed until the keepalive fires if no other items changed', explanation:'Alarm subscriptions with large KeepAliveCount may delay alarms if they coexist with data subscriptions and no other items changed since the last publish.' },
+      { id:'trbl_l3_14', type:'mcq', q:'An OPC UA Pub/Sub deployment loses ~0.1% of NetworkMessages over UDP. The engineer evaluates Message Repeat vs. switching to MQTT QoS 1. Which tradeoff is correct?', options:['MessageRepeatCount adds redundancy without guaranteed delivery (still fire-and-forget); MQTT QoS 1 guarantees delivery with acknowledgment overhead','MessageRepeatCount provides exactly-once delivery','MQTT QoS 1 has higher packet loss than UDP repeats','They are functionally equivalent'], answer:'MessageRepeatCount adds redundancy without guaranteed delivery (still fire-and-forget); MQTT QoS 1 guarantees delivery with acknowledgment overhead', explanation:'UDP repeats probabilistically reduce loss but cannot guarantee delivery; MQTT QoS 1 guarantees delivery to the broker at the cost of latency and bandwidth.' },
+      { id:'trbl_l3_15', type:'fill', q:'The OPC UA diagnostic node that shows how many Publish requests are currently queued in the server waiting for processing is called _____.', answer:'ServerDiagnostics/PublishRequestCount (or queued request counters)', explanation:'Server diagnostics expose various counters including queued/pending service requests for capacity analysis.' },
+      { id:'trbl_l3_16', type:'mcq', q:'An OPC UA historian shows identical SourceTimestamps for all values collected via subscription. Investigation reveals the field device controller generates a single timestamp for all variables each scan cycle. The data quality implication is:', options:['All values in the scan cycle share the scan timestamp, not individual measurement times — precision limited to scan cycle resolution','This indicates data corruption and requires data deletion','SourceTimestamps must be unique per OPC UA spec','This violates IEC 62541 and must be corrected with unique timestamps'], answer:'All values in the scan cycle share the scan timestamp, not individual measurement times — precision limited to scan cycle resolution', explanation:'Many PLCs use a scan-cycle timestamp for all values; historians must account for this when analyzing simultaneous events.' },
+      { id:'trbl_l3_17', type:'tf', q:'OPC UA connection failure with "Bad_TcpEndpointUrlInvalid" always indicates the server does not exist at the configured URL.', answer:'False', explanation:'Bad_TcpEndpointUrlInvalid is returned by an OPC UA server that IS reachable but finds the provided endpoint URL doesn\'t match its configured endpoint list — the server exists but doesn\'t recognize the URL.' },
+      { id:'trbl_l3_18', type:'mcq', q:'A cybersecurity incident identifies an attacker sending malformed OPC UA binary messages to a server. Best protection is:', options:['Input validation at the OPC UA stack level (reject malformed messages before application processing) plus network-level rate limiting','Increase session timeout','Use SecurityMode=None to avoid decryption overhead','Block all port 4840 traffic'], answer:'Input validation at the OPC UA stack level (reject malformed messages before application processing) plus network-level rate limiting', explanation:'Robust OPC UA implementations validate message structure before processing; rate limiting prevents flooding with malformed messages.' },
+      { id:'trbl_l3_19', type:'fill', q:'The OPC UA process of verifying both client and server exchange correct signatures during CreateSession/ActivateSession to prevent MITM is called _____.', answer:'mutual authentication (via nonce signing)', explanation:'Both parties sign the other\'s nonce with their private key during session establishment, providing cryptographic proof of identity without MITM.' },
+      { id:'trbl_l3_20', type:'mcq', q:'A production OPC UA system experiences "Bad_TooManyOperations" during peak hours when batch reports run simultaneously with real-time monitoring. The architectural solution is:', options:['Implement request throttling and separate historical read requests to off-peak hours or a dedicated historian OPC UA server instance','Increase CPU cores on the OPC UA server','Reduce the number of OPC UA clients','Switch to OPC DA for batch reports'], answer:'Implement request throttling and separate historical read requests to off-peak hours or a dedicated historian OPC UA server instance', explanation:'Historical reads compete with real-time monitoring for server resources; separating them onto dedicated instances or scheduling prevents resource starvation.' },
+    ],
+  },
 
-  lab: [
-    {
-      id: 'lab_1',
-      type: 'mcq',
-      question: 'What is UA Expert and who makes it?',
-      options: [
-        'A free OPC UA server simulator made by the OPC Foundation',
-        'A free OPC UA client application made by Unified Automation for diagnostics and testing',
-        'An Ignition module for OPC UA management',
-        'A paid OPC UA development SDK'
-      ],
-      answer: 1,
-      explanation: 'UA Expert is a free OPC UA client from Unified Automation — the go-to tool for connecting to any OPC UA server, browsing its address space, reading/writing values, and creating subscriptions. Free to download with registration. If you do OPC UA work and don\'t have UA Expert installed, you\'re making your life unnecessarily hard.'
-    },
-    {
-      id: 'lab_2',
-      type: 'mcq',
-      question: 'What does the Prosys OPC UA Simulation Server provide?',
-      options: [
-        'A paid industrial OPC UA server for production use',
-        'A free OPC UA server that generates simulated data for testing and learning without real hardware',
-        'An OPC UA to Modbus protocol converter',
-        'A cloud-hosted OPC UA server for remote testing'
-      ],
-      answer: 1,
-      explanation: 'Prosys OPC UA Simulation Server is a free tool that runs on your PC and exposes simulated OPC UA data — sine waves, counters, random values, ramps. Perfect for learning, testing clients, and demonstrating OPC UA without needing a PLC in the room. Essential for a lab environment.'
-    },
-    {
-      id: 'lab_3',
-      type: 'mcq',
-      question: 'What Python library is commonly used for OPC UA client and server development?',
-      options: ['pymodbus', 'opcua-asyncio', 'python-snap7', 'pyserial'],
-      answer: 1,
-      explanation: 'opcua-asyncio is the go-to Python OPC UA library — async-native, actively maintained, supports both client and server roles. Install with pip, write 10 lines of Python, and you have a working OPC UA client. Great for integration scripts, data collection, and proving that OPC UA is approachable programmatically.'
-    },
-    {
-      id: 'lab_4',
-      type: 'mcq',
-      question: 'In the suggested lab exercise, after connecting UA Expert to Ignition\'s built-in OPC UA server, what is the recommended next step?',
-      options: [
-        'Immediately write values to test tags',
-        'Browse the tag hierarchy and create a subscription to watch 5 tags update live',
-        'Configure security policies and regenerate certificates',
-        'Export the address space to a CSV file'
-      ],
-      answer: 1,
-      explanation: 'The point of the exercise: connect UA Expert to Ignition on port 62541, browse the tag tree, select 5 tags, subscribe to them, and watch the live values update. This demonstrates the full OPC UA flow — session establishment, address space browsing, MonitoredItem creation, and push notifications — in a concrete, visual way.'
-    },
-    {
-      id: 'lab_5',
-      type: 'mcq',
-      question: 'Node-RED can integrate with OPC UA using which node package?',
-      options: [
-        'node-red-contrib-modbus',
-        'node-red-contrib-opcua',
-        'node-red-dashboard-opc',
-        'node-red-industrial-io'
-      ],
-      answer: 1,
-      explanation: 'node-red-contrib-opcua adds OPC UA client and server nodes to Node-RED. You can read, write, browse, and subscribe to OPC UA data in a visual flow — no code required. Excellent for rapid prototyping, simple integrations, and impressing people who think IIoT is complicated.'
-    },
-    {
-      id: 'lab_6',
-      type: 'fill',
-      question: 'To connect UA Expert to Ignition\'s built-in OPC UA server running on the same machine, use the endpoint URL: opc.tcp://localhost:___',
-      answer: '62541',
-      hint: 'This is Ignition\'s non-standard OPC UA port',
-      explanation: 'opc.tcp://localhost:62541 — Ignition\'s built-in OPC UA server endpoint. The "opc.tcp://" prefix specifies UA-TCP transport. Change "localhost" to the Gateway IP when connecting remotely. When you first connect, UA Expert and Ignition will both reject each other\'s certificates until you trust them in both places. That\'s the tradition.'
-    },
-  ],
+  lab: {
+    level1: [
+      { id:'lab_l1_1', type:'mcq', q:'When connecting to an OPC UA server for the first time, what is the first step?', options:['Get the server\'s endpoint URL and call GetEndpoints to discover supported security policies','Subscribe to all available nodes','Write test values immediately','Check certificate revocation status'], answer:'Get the server\'s endpoint URL and call GetEndpoints to discover supported security policies', explanation:'GetEndpoints returns available endpoints, security modes, and security policies — essential for configuring a compliant connection.' },
+      { id:'lab_l1_2', type:'mcq', q:'To explore an unknown OPC UA server\'s address space, start by browsing from:', options:['Root node (i=84) or Objects folder (i=85)','Server node (i=2253)','A random NodeId','The session node'], answer:'Root node (i=84) or Objects folder (i=85)', explanation:'Root/Objects are the well-known entry points for browsing; starting from Root reveals the full hierarchy.' },
+      { id:'lab_l1_3', type:'tf', q:'The UA Expert tool (from Unified Automation) can browse OPC UA server address spaces and create subscriptions.', answer:'True', explanation:'UA Expert is a free OPC UA client tool commonly used for testing, browsing, and monitoring OPC UA servers.' },
+      { id:'lab_l1_4', type:'fill', q:'The command-line OPC UA client tool maintained by the OPC Foundation for testing is called _____.', answer:'OPC UA SDK samples / UANodesetViewer (or open62541 tools)', explanation:'Various open-source and vendor tools exist; open62541 provides command-line OPC UA client utilities for testing.' },
+      { id:'lab_l1_5', type:'mcq', q:'When testing a new OPC UA server, what security configuration is acceptable for initial lab testing?', options:['SecurityMode=None on an isolated test network — never in production','SecurityMode=None in production to simplify debugging','No security configuration is acceptable','Use only X509IdentityToken'], answer:'SecurityMode=None on an isolated test network — never in production', explanation:'None mode is acceptable for isolated lab testing but must never be used in production environments.' },
+      { id:'lab_l1_6', type:'mcq', q:'A lab exercise requires reading the server\'s current UTC time. Which standard OPC UA node provides this?', options:['Server/ServerStatus/CurrentTime (ns=0;i=2258)','Root/Time node','Server/Clock','Session/ServerTime'], answer:'Server/ServerStatus/CurrentTime (ns=0;i=2258)', explanation:'CurrentTime (i=2258) under ServerStatus exposes the server\'s current UTC time — useful for clock synchronization testing.' },
+      { id:'lab_l1_7', type:'tf', q:'Python\'s "asyncua" library can be used to create OPC UA clients and servers for lab exercises.', answer:'True', explanation:'asyncua (formerly opcua-asyncio) is a popular Python OPC UA library for building clients and servers in lab/development environments.' },
+      { id:'lab_l1_8', type:'mcq', q:'To create a minimal OPC UA server in a lab, the minimum configuration includes:', options:['Endpoint URL, application description, and at least one address space node','A Windows Server OS','A SQL database connection','A hardware security module'], answer:'Endpoint URL, application description, and at least one address space node', explanation:'A minimal OPC UA server needs an endpoint, application identity, and an address space (even with just the standard nodes).' },
+      { id:'lab_l1_9', type:'mcq', q:'In a lab subscription exercise, after CreateSubscription, which service must be called to receive notifications?', options:['CreateMonitoredItems (to add items) then Publish (repeatedly)','Subscribe automatically delivers without further calls','GetNotifications','PollServer'], answer:'CreateMonitoredItems (to add items) then Publish (repeatedly)', explanation:'Subscriptions need MonitoredItems added via CreateMonitoredItems; then Publish must be called to receive queued notifications.' },
+      { id:'lab_l1_10', type:'tf', q:'open62541 is an open-source OPC UA stack written in C that can run on embedded Linux.', answer:'True', explanation:'open62541 is a widely used open-source OPC UA SDK in C99, suitable for embedded Linux, bare-metal, and desktop applications.' },
+      { id:'lab_l1_11', type:'mcq', q:'For a lab exercise monitoring an OPC UA Variable with a float value, the appropriate DataChangeTrigger is:', options:['StatusValue (default) — notifies on value or quality change','Value only — to avoid false triggers','Status only — ignore value changes','Timestamp — for time-based filtering'], answer:'StatusValue (default) — notifies on value or quality change', explanation:'StatusValue is the default and appropriate choice for process variables where both quality and value changes are significant.' },
+      { id:'lab_l1_12', type:'fill', q:'The Python asyncua method to read a single OPC UA node value asynchronously is _____.', answer:'node.read_value() (or client.get_node(NodeId).read_value())', explanation:'asyncua provides async/await compatible methods; node.read_value() returns the raw value (not DataValue wrapper).' },
+      { id:'lab_l1_13', type:'mcq', q:'To write a value to an OPC UA node in UA Expert, you:', options:['Right-click the Variable node → Write → enter value','Left-click the node → press F2','Drag a value from the attributes pane','Use the Browse service with a value parameter'], answer:'Right-click the Variable node → Write → enter value', explanation:'UA Expert supports writing to nodes via the right-click context menu on Variable nodes in the address space view.' },
+      { id:'lab_l1_14', type:'mcq', q:'What Wireshark filter captures only OPC UA traffic on the default port?', options:['tcp.port == 4840','opcua','udp.port == 4840','tcp.dstport == 4840 and opc'], answer:'tcp.port == 4840', explanation:'Wireshark filter "tcp.port == 4840" captures TCP traffic on OPC UA\'s default port; Wireshark auto-identifies and dissects OPC UA Binary.' },
+      { id:'lab_l1_15', type:'tf', q:'In Python asyncua, you can create an OPC UA server with custom Variable nodes in a few lines of code.', answer:'True', explanation:'asyncua allows creating servers with custom nodes, data types, and methods in relatively short Python scripts.' },
+      { id:'lab_l1_16', type:'mcq', q:'A lab test with UA Expert shows nodes but their values never update. First check is:', options:['Verify MonitoringMode=Reporting and Publish is running; check if the server is actually changing values','Increase MaxChunkCount','Verify certificate expiry','Check network switch configuration'], answer:'Verify MonitoringMode=Reporting and Publish is running; check if the server is actually changing values', explanation:'Static values or Disabled monitoring mode explain non-updating subscriptions; also verify the underlying data source changes.' },
+      { id:'lab_l1_17', type:'fill', q:'The OPC UA namespace URI for the standard OPC UA namespace (namespace index 0) is _____.', answer:'http://opcfoundation.org/UA/', explanation:'Namespace 0 always has URI "http://opcfoundation.org/UA/" — this is fixed per the OPC UA specification.' },
+      { id:'lab_l1_18', type:'mcq', q:'To test OPC UA server certificate validation in a lab, you should:', options:['Try connecting with both a trusted and untrusted certificate and verify correct acceptance/rejection behavior','Only test with trusted certificates','Skip certificate testing in lab environments','Use anonymous authentication for all tests'], answer:'Try connecting with both a trusted and untrusted certificate and verify correct acceptance/rejection behavior', explanation:'Security testing requires verifying that the server correctly accepts trusted certs and rejects untrusted ones.' },
+      { id:'lab_l1_19', type:'tf', q:'The Python asyncua library supports both OPC UA Binary and OPC UA XML encoding.', answer:'False', explanation:'asyncua primarily implements UA Binary encoding; OPC UA XML encoding support is limited in most Python stacks.' },
+      { id:'lab_l1_20', type:'mcq', q:'What is the purpose of running a local OPC UA server simulator in a lab environment?', options:['Provide a safe test environment for client development without risking production systems','Replace production servers permanently','Bypass security requirements','Simulate network failures only'], answer:'Provide a safe test environment for client development without risking production systems', explanation:'Simulation servers allow developing and testing OPC UA clients safely without connecting to production infrastructure.' },
+    ],
+    level2: [
+      { id:'lab_l2_1', type:'mcq', q:'In a lab exercise, you create a MonitoredItem with SamplingInterval=100ms and observe the actual rate is 500ms. What does this indicate?', options:['The server revised the SamplingInterval to its minimum supported rate of 500ms — check RevisedSamplingInterval','Network latency adds 400ms','Your client code has a 400ms delay','The subscription is in Sampling mode instead of Reporting'], answer:'The server revised the SamplingInterval to its minimum supported rate of 500ms — check RevisedSamplingInterval', explanation:'Always check RevisedSamplingInterval in CreateMonitoredItems response — servers negotiate to their actual minimum.' },
+      { id:'lab_l2_2', type:'tf', q:'UA NodeSet files (XML) can be used to import OPC UA information model definitions into a server.', answer:'True', explanation:'UANodeSet XML files (OPC UA Part 6 format) define address space nodes and can be imported into many OPC UA servers and tools.' },
+      { id:'lab_l2_3', type:'mcq', q:'A lab Python script calls node.set_attribute() to add a custom OPC UA attribute. What happens?', options:['It may fail — only standard OPC UA attributes can be set; use supported node creation APIs','Custom attributes are automatically added to the namespace','set_attribute works for any arbitrary attribute','The server auto-creates new attribute types'], answer:'It may fail — only standard OPC UA attributes can be set; use supported node creation APIs', explanation:'OPC UA has a fixed set of attributes per node class; "custom attributes" must be modeled as Properties (child Variable nodes).' },
+      { id:'lab_l2_4', type:'mcq', q:'A lab tests OPC UA server redundancy by disconnecting the primary. The client observes a 15-second reconnection delay. To reduce this, you would:', options:['Reduce the OPC UA session timeout and adjust reconnection retry intervals in the client','Increase network bandwidth','Change to UDP transport','Add a second NIC to the server'], answer:'Reduce the OPC UA session timeout and adjust reconnection retry intervals in the client', explanation:'Reconnection speed depends on client retry intervals and session timeout; faster retries with lower timeouts reduce failover delay.' },
+      { id:'lab_l2_5', type:'fill', q:'The UA Modeler tool (from Unified Automation) is used to _____.', answer:'design and generate OPC UA information models (UANodeSet XML)', explanation:'UA Modeler is a graphical tool for designing OPC UA information models and exporting them as UANodeSet XML files.' },
+      { id:'lab_l2_6', type:'mcq', q:'In a lab security exercise, you configure OPC UA with SecurityPolicy=Aes256_Sha256_RsaPss but use a 1024-bit RSA certificate. What happens?', options:['Connection fails — Aes256_Sha256_RsaPss requires 2048-bit minimum RSA key','The policy auto-downgrades to Basic128Rsa15','The connection succeeds with reduced security','Certificates key length doesn\'t affect policy selection'], answer:'Connection fails — Aes256_Sha256_RsaPss requires 2048-bit minimum RSA key', explanation:'OPC UA security policies specify minimum key lengths; using under-length keys causes certificate validation failure.' },
+      { id:'lab_l2_7', type:'tf', q:'ProSys OPC UA Browser is an alternative to UA Expert for browsing OPC UA address spaces.', answer:'True', explanation:'Prosys OPC UA Browser is a Java-based OPC UA client tool offering similar functionality to UA Expert for address space exploration.' },
+      { id:'lab_l2_8', type:'mcq', q:'A lab exercise involves creating a custom OPC UA ObjectType for a temperature sensor. The steps are:', options:['Create ObjectType node with HasSubtype from BaseObjectType; add mandatory Property nodes (Value, Unit, Range) with HasProperty references','Create a Variable node with temperature name','Create a Method node for reading temperature','Import a standard sensor type from namespace 0'], answer:'Create ObjectType node with HasSubtype from BaseObjectType; add mandatory Property nodes (Value, Unit, Range) with HasProperty references', explanation:'Custom ObjectTypes subtype from BaseObjectType and define their structure with HasComponent/HasProperty references to components.' },
+      { id:'lab_l2_9', type:'mcq', q:'In a Python asyncua lab, to subscribe to an OPC UA event (not data change), you need to:', options:['Use node.subscribe_events() and implement an EventHandler class with event() callback','Call CreateMonitoredItems with EventFilter directly','Use subscribe_data_change() with EventFilter parameter','Events cannot be subscribed in asyncua'], answer:'Use node.subscribe_events() and implement an EventHandler class with event() callback', explanation:'asyncua provides subscribe_events() for event subscriptions; a SubHandler class with event() method processes incoming events.' },
+      { id:'lab_l2_10', type:'tf', q:'OPC UA Binary messages can be inspected using Python\'s struct module for manual parsing.', answer:'True', explanation:'OPC UA Binary format is documented in Part 6; Python struct module can parse fixed-format message fields for educational purposes.' },
+      { id:'lab_l2_11', type:'mcq', q:'A lab requires exposing a Python dictionary as OPC UA nodes. The recommended pattern is:', options:['Create Variable nodes for each key, with appropriate DataTypes for the values','Create a single String Variable with JSON-encoded dict','Use a custom non-standard OPC UA extension','Create a Method that returns the dict as a string'], answer:'Create Variable nodes for each key, with appropriate DataTypes for the values', explanation:'Each dictionary key/value pair becomes an OPC UA Variable node with appropriate DataType, organized under an Object node.' },
+      { id:'lab_l2_12', type:'fill', q:'The OPC UA Foundation tool for validating UANodeSet XML files against the OPC UA schema is called _____.', answer:'UANodeSet Validator (or ModelCompiler)', explanation:'The OPC Foundation\'s ModelCompiler validates and compiles UANodeSet XML; various vendor tools also validate NodeSet files.' },
+      { id:'lab_l2_13', type:'mcq', q:'In a lab simulation, you want to implement a "Bad_OutOfRange" quality for simulated values exceeding limits. In Python asyncua:', options:['Set the node\'s Value attribute with a DataValue containing StatusCode=Bad_OutOfRange','Set the node\'s DataType to OutOfRange','Call Subscribe with OutOfRange filter','OPC UA doesn\'t support quality injection in servers'], answer:'Set the node\'s Value attribute with a DataValue containing StatusCode=Bad_OutOfRange', explanation:'asyncua allows writing DataValue objects with specific StatusCodes to simulate quality conditions on server-side Variable nodes.' },
+      { id:'lab_l2_14', type:'tf', q:'In a lab OPC UA certificate exercise, the certificate SAN must include the machine\'s FQDN, not just the IP, for proper validation.', answer:'True', explanation:'Best practice: include both FQDN and IP in SAN; many OPC UA clients validate by hostname; using only IP fails DNS-based validation.' },
+      { id:'lab_l2_15', type:'mcq', q:'A lab benchmarks OPC UA Binary vs XML encoding for 1000 Variable reads. Expected result:', options:['Binary is typically 5-10× smaller and faster to encode/decode than XML','XML is faster due to UTF-8 streaming','They perform identically for numeric types','XML is only slower for string values'], answer:'Binary is typically 5-10× smaller and faster to encode/decode than XML', explanation:'OPC UA Binary encoding eliminates XML overhead (tags, escaping, whitespace); for numeric data, size difference is dramatic.' },
+      { id:'lab_l2_16', type:'mcq', q:'Running UA Expert in a lab, you add a Variable to a subscription and see "status: Bad_MonitoredItemIdInvalid" in the subscription. This means:', options:['The MonitoredItem was successfully created but the server reports it cannot sample the node','The subscription was deleted','UA Expert has a connection error','The node does not exist'], answer:'The MonitoredItem was successfully created but the server reports it cannot sample the node', explanation:'Bad_MonitoredItemIdInvalid in notification results (vs. StatusCode) may indicate server-side sampling issues for that specific node.' },
+      { id:'lab_l2_17', type:'fill', q:'The OPC UA SDK written in Java, maintained by the Eclipse Foundation, is called _____.', answer:'Eclipse Milo', explanation:'Eclipse Milo is the open-source Java OPC UA SDK used in many enterprise Java OPC UA implementations.' },
+      { id:'lab_l2_18', type:'tf', q:'In a lab, you can use Python asyncua to implement an OPC UA aggregating server that proxies another server\'s nodes.', answer:'True', explanation:'asyncua supports building servers that dynamically populate their address space from upstream OPC UA servers, implementing basic aggregation.' },
+      { id:'lab_l2_19', type:'mcq', q:'A lab exercise simulates a OPC UA server restart to test client reconnection. After restart, the client should:', options:['Detect SecureChannel/session invalidation → reconnect TCP → OpenSecureChannel → CreateSession → ActivateSession → recreate subscriptions','Reconnect automatically without any service calls','Wait for server to push reconnect notification','Only call ActivateSession without creating a new session'], answer:'Detect SecureChannel/session invalidation → reconnect TCP → OpenSecureChannel → CreateSession → ActivateSession → recreate subscriptions', explanation:'Server restart invalidates all state; complete reconnection requires all protocol phases from TCP through subscription recreation.' },
+      { id:'lab_l2_20', type:'mcq', q:'What is the correct order of OPC UA connection establishment?', options:['TCP connect → HEL/ACK → OpenSecureChannel → CreateSession → ActivateSession → service calls','TCP connect → CreateSession → OpenSecureChannel → HEL/ACK','OpenSecureChannel → TCP connect → CreateSession','CreateSession → TCP connect → OpenSecureChannel'], answer:'TCP connect → HEL/ACK → OpenSecureChannel → CreateSession → ActivateSession → service calls', explanation:'OPC UA connection is layered: transport negotiation first (HEL/ACK), then security (SecureChannel), then application (Session), then services.' },
+    ],
+    level3: [
+      { id:'lab_l3_1', type:'mcq', q:'In a lab implementing OPC UA role-based access control, you want different read/write permissions per tag based on user role. What must be configured on each node?', options:['RolePermissions attribute with PermissionType flags for each defined role','SecurityMode per node','User certificates on each node','AccessLevel only (no role mapping needed)'], answer:'RolePermissions attribute with PermissionType flags for each defined role', explanation:'RolePermissions on each node assigns PermissionType (Browse, Read, Write, Call, etc.) per role, enabling fine-grained RBAC.' },
+      { id:'lab_l3_2', type:'tf', q:'Python asyncua supports OPC UA Pub/Sub publisher implementation.', answer:'False', explanation:'As of most asyncua releases, Pub/Sub publisher/subscriber functionality is limited or not fully implemented — primarily supports client-server model.' },
+      { id:'lab_l3_3', type:'mcq', q:'In a lab, you implement an OPC UA server that dynamically adds/removes nodes based on external events. What must clients implement to handle this?', options:['Subscribe to GeneralModelChangeEventType events on the Server node to detect address space changes','Reload the address space every 5 seconds','Use TranslateBrowsePathsToNodeIds for all dynamic nodes','Disable client-side caching entirely'], answer:'Subscribe to GeneralModelChangeEventType events on the Server node to detect address space changes', explanation:'GeneralModelChangeEventType events notify clients when the address space changes; clients should invalidate their cached browse results.' },
+      { id:'lab_l3_4', type:'mcq', q:'A lab performance test measures OPC UA read throughput for 10,000 nodes using individual Read calls vs. a single Read with 10,000 ReadValueIds. Expected results:', options:['Bulk read is orders of magnitude faster due to single round-trip vs. 10,000 round-trips','They perform identically','Individual reads are faster due to smaller messages','Bulk reads fail above 1,000 ReadValueIds'], answer:'Bulk read is orders of magnitude faster due to single round-trip vs. 10,000 round-trips', explanation:'Each individual Read requires a full request/response round trip; bulk Read in one call processes all 10,000 in a single network round trip.' },
+      { id:'lab_l3_5', type:'fill', q:'The OPC UA open-source stack written in C# for .NET, maintained by the OPC Foundation, is called _____.', answer:'OPC UA .NET Standard Stack (UA-.NETStandard)', explanation:'The OPC Foundation\'s official C#/.NET implementation is at github.com/OPCFoundation/UA-.NETStandard.' },
+      { id:'lab_l3_6', type:'mcq', q:'In a lab implementing OPC UA Global Discovery Server (GDS), the administrator workflow for a new server is:', options:['Server calls RegisterApplication → admin approves → server calls RequestNewSignedCertificate → admin approves → server receives signed cert','Server auto-registers and receives cert without approval','Admin generates cert manually and copies to server','GDS cannot issue certificates — only tracks server locations'], answer:'Server calls RegisterApplication → admin approves → server calls RequestNewSignedCertificate → admin approves → server receives signed cert', explanation:'GDS requires explicit admin approval at registration and certificate issuance steps to prevent unauthorized certificate requests.' },
+      { id:'lab_l3_7', type:'tf', q:'OPC UA Part 14 Pub/Sub over UDP requires IP multicast to be enabled on all network switches between publishers and subscribers.', answer:'True', explanation:'UADP over UDP multicast requires network infrastructure support for multicast routing/forwarding; switches may need IGMP snooping configured.' },
+      { id:'lab_l3_8', type:'mcq', q:'A lab stress test submits 1,000 concurrent CreateMonitoredItems requests. The server begins returning "Bad_TooManyOperations". The test implementation fix is:', options:['Implement request batching — send multiple MonitoredItems in fewer CreateMonitoredItems calls instead of 1,000 individual requests','Reduce the number of monitored items to 100','Switch from subscriptions to polling','Increase session timeout'], answer:'Implement request batching — send multiple MonitoredItems in fewer CreateMonitoredItems calls instead of 1,000 individual requests', explanation:'CreateMonitoredItems accepts arrays of ItemsToCreate; batching 1,000 items into a few calls dramatically reduces service request load.' },
+      { id:'lab_l3_9', type:'mcq', q:'In a lab, you decode an OPC UA Binary chunk manually. The bytes at offset 0-3 are 4D 53 47 46 (ASCII). What is this message type?', options:['MSG message (Final chunk) — "MSG" + "F" for IsFinal','Hello message','Error message','OpenSecureChannel'], answer:'MSG message (Final chunk) — "MSG" + "F" for IsFinal', explanation:'OPC UA Binary header: bytes 0-2 = MessageType ("MSG"), byte 3 = IsFinal ("F"=Final, "C"=Continuation, "A"=Abort). 0x4D=M, 0x53=S, 0x47=G, 0x46=F.' },
+      { id:'lab_l3_10', type:'fill', q:'The OPC UA service that allows a lab server to notify all subscribers that its alarm conditions have been refreshed is _____.', answer:'ConditionRefresh (Method call on ConditionType or Server node)', explanation:'ConditionRefresh is a Method on ConditionType; calling it triggers the server to re-publish all active condition states to subscribed clients.' },
+      { id:'lab_l3_11', type:'mcq', q:'A lab implements a custom OPC UA server companion spec validation tool. It must check that all instances of a custom ObjectType comply with the type definition. The check is:', options:['Verify mandatory components exist (HasComponent/HasProperty) and match TypeDefinition\'s ModellingRule=Mandatory constraints','Check that instance names match TypeDefinition names exactly','Verify that instance namespace equals TypeDefinition namespace','Ensure all instances use the same NodeId pattern'], answer:'Verify mandatory components exist (HasComponent/HasProperty) and match TypeDefinition\'s ModellingRule=Mandatory constraints', explanation:'Type compliance requires all Mandatory-modelled components in the ObjectType to have corresponding instances in each Object.' },
+      { id:'lab_l3_12', type:'tf', q:'In a lab implementing OPC UA aggregation, the aggregating server must maintain separate sessions to each upstream server.', answer:'True', explanation:'An aggregating server acts as an OPC UA client to each upstream server, maintaining independent sessions (and SecureChannels) per upstream.' },
+      { id:'lab_l3_13', type:'mcq', q:'A lab exercises OPC UA key renewal under high load. The SecureChannel token expires while 500 Publish calls are queued. What should the client do?', options:['Renew the SecureChannel (OpenSecureChannel Renew) immediately; the server should continue processing queued requests under the new token','Wait for all 500 Publish calls to complete before renewing','Close the session and recreate everything','Cancel all 500 Publish calls first'], answer:'Renew the SecureChannel (OpenSecureChannel Renew) immediately; the server should continue processing queued requests under the new token', explanation:'SecureChannel renewal is designed to be transparent; existing queued requests continue under the new token.' },
+      { id:'lab_l3_14', type:'mcq', q:'A lab captures OPC UA traffic and observes the symmetric key changing every N minutes. This corresponds to:', options:['SecureChannel token renewal interval (TokenLifetime)','Session creation','Subscription keepalive interval','Certificate rotation period'], answer:'SecureChannel token renewal interval (TokenLifetime)', explanation:'Periodic key change in OPC UA traffic represents SecureChannel token renewal; TokenLifetime determines the renewal frequency.' },
+      { id:'lab_l3_15', type:'fill', q:'The OPC UA open-source stack for embedded systems, used in IoT devices with limited resources, is called _____.', answer:'open62541', explanation:'open62541 is the reference implementation for resource-constrained OPC UA servers; used in PLCs, edge gateways, and IoT devices.' },
+      { id:'lab_l3_16', type:'mcq', q:'In a lab testing companion spec compliance, a server claims support for "OPC 40001 (UA for Machinery)". The minimum structural verification is:', options:['Verify the server exposes MachineryItemState namespace (urn:...machinery) and instances include required Identification object with mandatory properties','Check that the server responds to Browse','Verify port 4840 is open','Check that the certificate SAN includes the companion spec URI'], answer:'Verify the server exposes MachineryItemState namespace (urn:...machinery) and instances include required Identification object with mandatory properties', explanation:'Companion spec verification requires checking for the required namespace, ObjectType instances, and mandatory components.' },
+      { id:'lab_l3_17', type:'tf', q:'In Python asyncua, server-side subscriptions (pushing data to clients) and client-side subscriptions (receiving data) use the same asyncua Subscription class.', answer:'False', explanation:'asyncua uses different patterns: client-side uses Client.create_subscription() and SubHandler; server-side uses server.get_node() and set_value() to push data to connected clients via their subscriptions.' },
+      { id:'lab_l3_18', type:'mcq', q:'A lab implements OPC UA-based remote firmware updates using Method nodes. The security concern and mitigation are:', options:['Unauthorized firmware write — require X509IdentityToken + Engineer role permission on the update Method + audit logging','Methods are inherently secure as they require a session','Firmware updates use WriteValue service, not Methods','Methods cannot receive binary data'], answer:'Unauthorized firmware write — require X509IdentityToken + Engineer role permission on the update Method + audit logging', explanation:'Critical operations like firmware update must require strong authentication (X.509 user cert), RBAC authorization, and audit trail.' },
+      { id:'lab_l3_19', type:'mcq', q:'A comprehensive lab test simulates a complete OPC UA Pub/Sub system with MQTT. The minimum components are:', options:['MQTT broker + OPC UA Publisher (with WriterGroup + DataSetWriter) + OPC UA Subscriber (with ReaderGroup + DataSetReader)','Just a publisher and subscriber without broker','An OPC UA client-server connection plus MQTT','MQTT broker only'], answer:'MQTT broker + OPC UA Publisher (with WriterGroup + DataSetWriter) + OPC UA Subscriber (with ReaderGroup + DataSetReader)', explanation:'OPC UA Pub/Sub over MQTT requires a broker as intermediary and both publisher and subscriber endpoints configured per Part 14.' },
+      { id:'lab_l3_20', type:'mcq', q:'The ultimate lab validation for an OPC UA server implementation is:', options:['OPC Foundation OPC UA Compliance Test Tool (CTT) certification testing','Manual browsing with UA Expert','Running 1000 concurrent sessions','Passing Wireshark capture analysis'], answer:'OPC Foundation OPC UA Compliance Test Tool (CTT) certification testing', explanation:'The OPC Foundation\'s CTT is the authoritative compliance test; passing it and submitting for certification confirms standard compliance.' },
+    ],
+  },
 
 }
