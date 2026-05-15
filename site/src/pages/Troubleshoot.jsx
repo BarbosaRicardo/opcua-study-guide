@@ -104,7 +104,7 @@ export default function Troubleshoot() {
             when: 'During CreateSubscription',
             cause: 'Server has a per-session or global limit on subscriptions and it\'s been reached.',
             fix: 'Check server config for subscription limits. Delete unused subscriptions. Some embedded devices have very low limits (e.g., 10 subscriptions per session).',
-            color: 'border-purple-300 bg-purple-50',
+            color: 'border-purple-300 bg-purple-500/10',
           },
         ].map(({ code, hex, when, cause, fix, color }) => (
           <div key={code} className={`p-5 rounded-xl border ${color}`}>

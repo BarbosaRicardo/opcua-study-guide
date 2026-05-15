@@ -106,9 +106,9 @@ export default function Services() {
       </p>
 
       <div className="grid grid-cols-2 gap-4 mt-4">
-        <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
-          <div className="font-bold text-red-800 mb-2">Read (Polling)</div>
-          <ul className="space-y-1 text-xs text-red-700">
+        <div className="p-4 rounded-xl" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+          <div className="font-bold text-red-300 mb-2">Read (Polling)</div>
+          <ul className="space-y-1 text-xs text-red-300">
             <li>• Client requests value every N milliseconds</li>
             <li>• Always gets current value</li>
             <li>• Network traffic proportional to poll rate × tag count</li>
@@ -116,9 +116,9 @@ export default function Services() {
             <li>• 500 tags at 500ms = 1000 requests/sec. This adds up.</li>
           </ul>
         </div>
-        <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
-          <div className="font-bold text-green-800 mb-2">Subscribe (Event-Driven)</div>
-          <ul className="space-y-1 text-xs text-green-700">
+        <div className="p-4 rounded-xl" style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
+          <div className="font-bold text-green-300 mb-2">Subscribe (Event-Driven)</div>
+          <ul className="space-y-1 text-xs text-green-300">
             <li>• Server samples at sampling interval</li>
             <li>• Sends notification only when value changes</li>
             <li>• Network traffic proportional to change rate</li>

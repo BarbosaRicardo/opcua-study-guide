@@ -38,22 +38,22 @@ export default function Security() {
         {[
           {
             mode: 'SecurityMode=None',
-            color: 'bg-red-50 border-red-300',
-            label: 'text-red-700',
+            color: 'bg-red-500/10 border-red-500/25',
+            label: 'text-red-400',
             desc: 'No security. Messages are not signed or encrypted. Any device on the network can read all traffic. No certificates required on either side.',
             useCase: 'Development, isolated test networks, legacy device compatibility. Never production.',
           },
           {
             mode: 'SecurityMode=Sign',
-            color: 'bg-amber-50 border-amber-300',
-            label: 'text-amber-700',
+            color: 'bg-amber-500/10 border-amber-500/25',
+            label: 'text-amber-400',
             desc: 'Messages are digitally signed. The receiver can verify message integrity and sender identity. Messages are NOT encrypted — content is readable.',
             useCase: 'When you need message integrity verification but can tolerate readable traffic (uncommon).',
           },
           {
             mode: 'SecurityMode=SignAndEncrypt',
-            color: 'bg-green-50 border-green-300',
-            label: 'text-green-700',
+            color: 'bg-green-500/10 border-green-500/25',
+            label: 'text-green-400',
             desc: 'Messages are both signed and encrypted. This is the correct mode for production systems. Requires valid certificates on both client and server.',
             useCase: 'All production deployments. This is the only acceptable mode on an accessible network.',
           },
@@ -144,10 +144,10 @@ export default function Security() {
           { type: 'Username/Password', desc: 'Classic credential pair. Transmitted over the Secure Channel — encrypted if SecurityMode=SignAndEncrypt, plaintext if None.', risk: 'Medium' },
           { type: 'X.509 Certificate', desc: 'User presents a certificate as identity. The most secure option. Requires per-user certificate management.', risk: 'Low' },
         ].map(({ type, desc, risk }) => (
-          <div key={type} className={`p-4 rounded-xl border ${risk === 'High' ? 'border-red-200 bg-red-50' : risk === 'Medium' ? 'border-amber-200 bg-amber-50' : 'border-green-200 bg-green-50'}`}>
+          <div key={type} className={`p-4 rounded-xl border ${risk === 'High' ? 'border-red-500/30 bg-red-500/10' : risk === 'Medium' ? 'border-amber-500/30 bg-amber-500/10' : 'border-green-500/30 bg-green-500/10'}`}>
             <div className="font-bold text-slate-200 text-sm mb-1">{type}</div>
-            <div className="text-xs text-slate-600 mb-2">{desc}</div>
-            <div className={`text-xs font-bold ${risk === 'High' ? 'text-red-600' : risk === 'Medium' ? 'text-amber-600' : 'text-green-600'}`}>Risk: {risk}</div>
+            <div className="text-xs text-slate-400 mb-2">{desc}</div>
+            <div className={`text-xs font-bold ${risk === 'High' ? 'text-red-400' : risk === 'Medium' ? 'text-amber-400' : 'text-green-400'}`}>Risk: {risk}</div>
           </div>
         ))}
       </div>

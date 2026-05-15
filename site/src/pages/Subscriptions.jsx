@@ -123,11 +123,11 @@ export default function Subscriptions() {
       </p>
 
       <div className="grid grid-cols-2 gap-4 mt-4">
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-          <div className="font-bold text-blue-800 mb-1 text-sm">Absolute Deadband</div>
-          <p className="text-xs text-blue-700">Suppress if |new - old| &lt; deadband value. Example: deadband=0.5, only notify if temperature changes by more than 0.5°C.</p>
+        <div className="p-4 rounded-xl" style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)' }}>
+          <div className="font-bold text-blue-300 mb-1 text-sm">Absolute Deadband</div>
+          <p className="text-xs text-blue-300">Suppress if |new - old| &lt; deadband value. Example: deadband=0.5, only notify if temperature changes by more than 0.5°C.</p>
         </div>
-        <div className="p-4 bg-purple-50 border border-purple-200 rounded-xl">
+        <div className="p-4 bg-purple-500/10 border border-purple-500/25 rounded-xl">
           <div className="font-bold text-purple-800 mb-1 text-sm">Percentage Deadband</div>
           <p className="text-xs text-purple-700">Suppress if change &lt; X% of the EURange (engineering units range). Requires EURange property on the Variable.</p>
         </div>

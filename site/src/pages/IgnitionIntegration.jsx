@@ -46,7 +46,7 @@ export default function IgnitionIntegration() {
           ['Security', 'Supports None, Sign, SignAndEncrypt. Default is often None in test installs.'],
           ['Address Space', 'Tag providers are browseable. Path: Ignition/[Provider]/[Tag path]'],
         ].map(([label, value]) => (
-          <div key={label} className="flex gap-3 p-3 bg-white/4 border border-slate-100 rounded-xl text-sm">
+          <div key={label} className="flex gap-3 p-3 bg-white/4 border border-white/6 rounded-xl text-sm">
             <span className="font-semibold text-slate-100 flex-shrink-0 w-32">{label}:</span>
             <span className="text-slate-400">{value}</span>
           </div>
