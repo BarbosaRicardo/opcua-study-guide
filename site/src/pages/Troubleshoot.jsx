@@ -25,7 +25,7 @@ export default function Troubleshoot() {
         failures you will actually encounter, in order of frequency.
       </p>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">The Diagnostic Ladder</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">The Diagnostic Ladder</h2>
       <p>Before diving into status codes, run through this sequence in order:</p>
 
       <div className="mt-4 space-y-2">
@@ -36,17 +36,17 @@ export default function Troubleshoot() {
           ['Can UA Expert connect with SecurityMode=None?', 'If yes: security/certificate issue. If no: server config or firewall.'],
           ['What is the exact error code?', 'UA Expert shows the StatusCode name. Google it if needed. The OPC Foundation publishes the full list.'],
         ].map(([q, action], i) => (
-          <div key={q} className="flex gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl">
+          <div key={q} className="flex gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex-shrink-0 w-6 h-6 bg-mblue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">{i + 1}</div>
             <div>
-              <div className="font-semibold text-slate-800 text-sm">{q}</div>
+              <div className="font-semibold text-slate-200 text-sm">{q}</div>
               <div className="text-xs text-slate-500">{action}</div>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Common Status Codes</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Common Status Codes</h2>
 
       <div className="space-y-4 mt-4">
         {[
@@ -96,7 +96,7 @@ export default function Troubleshoot() {
             when: 'Immediately on any request',
             cause: 'Client is not connected to the server. TCP connection dropped or never established.',
             fix: 'Reconnect. Check network connectivity first.',
-            color: 'border-slate-300 bg-slate-50',
+            color: 'border border-slate-700 bg-white/5/5',
           },
           {
             code: 'BadTooManySubscriptions',
@@ -109,17 +109,17 @@ export default function Troubleshoot() {
         ].map(({ code, hex, when, cause, fix, color }) => (
           <div key={code} className={`p-5 rounded-xl border ${color}`}>
             <div className="flex items-center gap-3 mb-3">
-              <code className="font-mono font-bold text-sm text-slate-800">{code}</code>
+              <code className="font-mono font-bold text-sm text-slate-200">{code}</code>
               <code className="font-mono text-xs text-slate-500">{hex}</code>
-              <span className="ml-auto text-xs text-slate-500 bg-white/70 px-2 py-0.5 rounded">When: {when}</span>
+              <span className="ml-auto text-xs text-slate-400 px-2 py-0.5 rounded" style={{ background: 'rgba(255,255,255,0.06)' }}>When: {when}</span>
             </div>
-            <div className="text-sm text-slate-700 mb-2"><span className="font-semibold">Cause:</span> {cause}</div>
-            <div className="text-sm text-slate-700"><span className="font-semibold">Fix:</span> {fix}</div>
+            <div className="text-sm text-slate-300 mb-2"><span className="font-semibold">Cause:</span> {cause}</div>
+            <div className="text-sm text-slate-300"><span className="font-semibold">Fix:</span> {fix}</div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">UA Expert for Diagnosis</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">UA Expert for Diagnosis</h2>
       <p>
         UA Expert (Unified Automation, free) is the go-to OPC UA diagnostic client. Key diagnostic capabilities:
       </p>
@@ -133,14 +133,14 @@ export default function Troubleshoot() {
           ['Connection log', 'Shows every service call and response, including exact error codes and StatusCodes.'],
           ['Certificate management', 'Accept/reject server certificates directly from UA Expert\'s certificate dialog.'],
         ].map(([feature, desc]) => (
-          <div key={feature} className="p-3 bg-white border border-slate-100 rounded-xl">
-            <div className="font-semibold text-navy-700 text-xs mb-1">{feature}</div>
+          <div key={feature} className="p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="font-semibold text-slate-100 text-xs mb-1">{feature}</div>
             <div className="text-xs text-slate-500">{desc}</div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Wireshark OPC UA Analysis</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Wireshark OPC UA Analysis</h2>
       <p>
         Wireshark includes an OPC UA dissector that decodes OPC UA Binary/TCP frames. Use display filter
         <code>opcua</code> to isolate OPC UA traffic. For SecurityMode=None sessions, the entire

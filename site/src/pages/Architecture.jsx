@@ -30,7 +30,7 @@ export default function Architecture() {
         then opens a Session (application-level identity). All service calls happen within a Session.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">The Layered Model</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">The Layered Model</h2>
       <p>
         OPC UA separates concerns into distinct layers. Understanding these layers explains why certain errors happen
         at certain points in the connection process:
@@ -70,7 +70,7 @@ export default function Architecture() {
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Server Roles</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Server Roles</h2>
       <p>
         In practice, OPC UA servers appear in several different deployment patterns:
       </p>
@@ -98,13 +98,13 @@ export default function Architecture() {
             desc: 'Exposes historical data via OPC UA Part 11. Clients can query tag history using the same OPC UA client that reads live data.',
           },
         ].map(({ role, example, desc }) => (
-          <div key={role} className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+          <div key={role} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-mblue-600 mt-2 flex-shrink-0" />
               <div>
-                <div className="font-bold text-navy-700">{role}</div>
+                <div className="font-bold text-slate-100">{role}</div>
                 <div className="text-xs text-mblue-500 font-mono mb-1">{example}</div>
-                <div className="text-sm text-slate-600">{desc}</div>
+                <div className="text-sm text-slate-400">{desc}</div>
               </div>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function Architecture() {
 
       <GifCard gifKey="network" caption="Multiple OPC UA clients talking to one server" />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Secure Channel Lifecycle</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Secure Channel Lifecycle</h2>
       <p>
         When a client connects to a server, the following sequence occurs before any data exchange:
       </p>
@@ -144,7 +144,7 @@ export default function Architecture() {
         Fix: add the client cert to the server's trusted store (and vice versa for mutual auth).
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">OPC UA Pub/Sub (Part 14)</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">OPC UA Pub/Sub (Part 14)</h2>
       <p>
         The traditional client-server model requires clients to maintain connections and issue Publish requests. For
         large-scale IoT deployments with thousands of sensors, this creates connection management overhead.

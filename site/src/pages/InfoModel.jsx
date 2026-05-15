@@ -31,7 +31,7 @@ export default function InfoModel() {
         device is an Object node. Every relationship is a typed Reference between two nodes.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">NodeId — The Universal Identifier</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">NodeId — The Universal Identifier</h2>
       <p>
         Every node has a NodeId — a unique identifier within a Namespace. NodeIds come in four formats:
       </p>
@@ -43,7 +43,7 @@ export default function InfoModel() {
           { format: 'GUID', example: 'ns=2;g=550e8400-e29b-41d4-a716-446655440000', desc: 'Namespace index + UUID. Used when global uniqueness is required across systems.' },
           { format: 'Opaque', example: 'ns=2;b=AAEC', desc: 'Namespace index + base64-encoded byte string. Rare. Exists for legacy interoperability.' },
         ].map(({ format, example, desc }) => (
-          <div key={format} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <div key={format} className="flex gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex-shrink-0">
               <div className="text-xs font-bold text-mblue-600 uppercase tracking-widest mb-1">{format}</div>
               <code className="text-xs bg-navy-700 text-mcyan-400 px-2 py-1 rounded-lg font-mono">{example}</code>
@@ -59,7 +59,7 @@ export default function InfoModel() {
         implementation, someone is using the wrong namespace.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Node Classes</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Node Classes</h2>
       <p>OPC UA defines eight node classes. The ones you'll actually encounter:</p>
 
       <div className="overflow-x-auto mt-4">
@@ -82,9 +82,9 @@ export default function InfoModel() {
               ['DataType', 'Defines the data type for Variable values', 'Float, Int32, Structure'],
               ['View', 'A pre-defined subset of the Address Space', 'Diagnostic view, operational view'],
             ].map(([cls, purpose, example], i) => (
-              <tr key={cls} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={cls} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-3 font-mono font-bold text-mblue-600 text-xs">{cls}</td>
-                <td className="px-4 py-3 text-slate-700 text-xs">{purpose}</td>
+                <td className="px-4 py-3 text-slate-300 text-xs">{purpose}</td>
                 <td className="px-4 py-3 text-slate-500 text-xs italic">{example}</td>
               </tr>
             ))}
@@ -92,7 +92,7 @@ export default function InfoModel() {
         </table>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">References — How Nodes Connect</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">References — How Nodes Connect</h2>
       <p>
         References are typed, directed connections between two nodes. The type determines the semantic meaning of
         the relationship. Key reference types:
@@ -107,16 +107,16 @@ export default function InfoModel() {
           { ref: 'HasTypeDefinition', desc: 'Every Object and Variable has exactly one type. Object HasTypeDefinition ObjectType.' },
           { ref: 'HasSubtype', desc: 'Type inheritance. AnalogItemType HasSubtype ArrayItemType.' },
         ].map(({ ref, desc }) => (
-          <div key={ref} className="flex gap-3 p-3 bg-white border border-slate-100 rounded-xl">
-            <code className="text-xs bg-slate-100 text-morange-500 px-2 py-1 rounded font-mono flex-shrink-0 self-start mt-0.5">{ref}</code>
-            <p className="text-sm text-slate-600">{desc}</p>
+          <div key={ref} className="flex gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <code className="text-xs bg-white/8 text-morange-500 px-2 py-1 rounded font-mono flex-shrink-0 self-start mt-0.5">{ref}</code>
+            <p className="text-sm text-slate-400">{desc}</p>
           </div>
         ))}
       </div>
 
       <FunFact index={2} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Variable Attributes</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Variable Attributes</h2>
       <p>
         Every Variable node has attributes beyond just its value. The important ones:
       </p>
@@ -143,7 +143,7 @@ export default function InfoModel() {
         value is not trustworthy — your SCADA should not display it as valid data.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">The Standard Address Space Structure</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">The Standard Address Space Structure</h2>
       <p>
         Every OPC UA server has a root Address Space with these standard top-level folders:
       </p>

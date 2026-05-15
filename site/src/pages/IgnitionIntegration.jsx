@@ -31,7 +31,7 @@ export default function IgnitionIntegration() {
         two independent certificate trust relationships.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Ignition's Built-In OPC UA Server</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Ignition's Built-In OPC UA Server</h2>
       <p>
         The Ignition Gateway includes an OPC UA server that exposes the Tag Provider as an OPC UA Address Space.
         External OPC UA clients — HMI systems, historian software, other SCADA platforms — can browse and
@@ -46,14 +46,14 @@ export default function IgnitionIntegration() {
           ['Security', 'Supports None, Sign, SignAndEncrypt. Default is often None in test installs.'],
           ['Address Space', 'Tag providers are browseable. Path: Ignition/[Provider]/[Tag path]'],
         ].map(([label, value]) => (
-          <div key={label} className="flex gap-3 p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm">
-            <span className="font-semibold text-navy-700 flex-shrink-0 w-32">{label}:</span>
-            <span className="text-slate-600">{value}</span>
+          <div key={label} className="flex gap-3 p-3 bg-white/4 border border-slate-100 rounded-xl text-sm">
+            <span className="font-semibold text-slate-100 flex-shrink-0 w-32">{label}:</span>
+            <span className="text-slate-400">{value}</span>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Ignition OPC UA Client — Connecting to PLCs</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Ignition OPC UA Client — Connecting to PLCs</h2>
       <p>
         The OPC UA module in Ignition allows connecting to external OPC UA servers. Configuration is done in
         Gateway → OPC UA → Connections. The workflow:
@@ -67,10 +67,10 @@ export default function IgnitionIntegration() {
           { step: '4', title: 'Push Ignition\'s client certificate to the server', desc: 'If SecurityMode=Sign or SignAndEncrypt, the server also needs to trust Ignition\'s certificate. Export it from Ignition and add it to the server\'s trusted store.' },
           { step: '5', title: 'Verify connection', desc: 'Status should show "Connected". If it stays "Faulted", check the console for the specific error code.' },
         ].map(({ step, title, desc }) => (
-          <div key={step} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <div key={step} className="flex gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex-shrink-0 w-8 h-8 bg-mblue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">{step}</div>
             <div>
-              <div className="font-semibold text-slate-800 text-sm">{title}</div>
+              <div className="font-semibold text-slate-200 text-sm">{title}</div>
               <div className="text-xs text-slate-500 mt-0.5">{desc}</div>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function IgnitionIntegration() {
         Mutual authentication means BOTH sides trust BOTH certificates.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">SEL RTAC as OPC UA Server</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">SEL RTAC as OPC UA Server</h2>
       <p>
         The SEL RTAC (Real Time Automation Controller) includes an OPC UA server that exposes protection relay
         data, I/O points, and communications status to OPC UA clients. The RTAC OPC UA server exposes data from
@@ -92,9 +92,9 @@ export default function IgnitionIntegration() {
       </p>
 
       <div className="grid grid-cols-2 gap-4 mt-4">
-        <div className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-          <div className="font-bold text-navy-700 text-sm mb-2">RTAC OPC UA Configuration</div>
-          <ul className="space-y-1 text-xs text-slate-600">
+        <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="font-bold text-slate-100 text-sm mb-2">RTAC OPC UA Configuration</div>
+          <ul className="space-y-1 text-xs text-slate-400">
             <li>• AcSELerator RTAC: Communications → OPC UA Server</li>
             <li>• Default port: 4840</li>
             <li>• Certificate management in AcSELerator</li>
@@ -102,9 +102,9 @@ export default function IgnitionIntegration() {
             <li>• Supports SecurityMode: None and SignAndEncrypt</li>
           </ul>
         </div>
-        <div className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-          <div className="font-bold text-navy-700 text-sm mb-2">Common RTAC Gotchas</div>
-          <ul className="space-y-1 text-xs text-slate-600">
+        <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="font-bold text-slate-100 text-sm mb-2">Common RTAC Gotchas</div>
+          <ul className="space-y-1 text-xs text-slate-400">
             <li>• RTAC generates self-signed certificate — must trust it in Ignition</li>
             <li>• Ignition certificate must be imported into RTAC trusted store</li>
             <li>• Node paths differ by RTAC firmware version</li>
@@ -114,7 +114,7 @@ export default function IgnitionIntegration() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Tag Creation from OPC UA</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Tag Creation from OPC UA</h2>
       <p>
         Once an OPC UA connection is established in Ignition, you can browse the server's Address Space directly
         from the Tag Browser and drag nodes into your tag tree. Ignition creates OPC UA tags with the NodeId

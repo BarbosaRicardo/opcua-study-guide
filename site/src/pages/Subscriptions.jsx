@@ -31,7 +31,7 @@ export default function Subscriptions() {
         SamplingInterval can be faster than PublishingInterval. Changes are queued.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Subscription Lifecycle</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Subscription Lifecycle</h2>
 
       <div className="mt-4 space-y-3">
         {[
@@ -41,17 +41,17 @@ export default function Subscriptions() {
           { step: '4', service: 'ModifyMonitoredItems (optional)', desc: 'Change sampling interval, queue size, or filter on existing MonitoredItems without recreating them.' },
           { step: '5', service: 'DeleteMonitoredItems / DeleteSubscriptions', desc: 'Clean up when done. Subscriptions are cleaned up automatically when a Session closes.' },
         ].map(({ step, service, desc }) => (
-          <div key={step} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <div key={step} className="flex gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex-shrink-0 w-8 h-8 bg-navy-700 rounded-full flex items-center justify-center text-mcyan-400 font-bold font-mono text-sm">{step}</div>
             <div>
-              <code className="text-xs bg-slate-200 text-navy-700 px-2 py-0.5 rounded font-mono font-bold">{service}</code>
+              <code className="text-xs px-2 py-0.5 rounded font-mono font-bold" style={{ background: 'rgba(255,255,255,0.1)', color: '#22d3ee' }}>{service}</code>
               <p className="text-sm text-slate-600 mt-1">{desc}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Key Subscription Parameters</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Key Subscription Parameters</h2>
 
       <div className="overflow-x-auto mt-4">
         <table className="w-full text-sm border-collapse">
@@ -72,9 +72,9 @@ export default function Subscriptions() {
               ['QueueSize', 'Per MonitoredItem: how many samples to buffer if PublishingInterval > SamplingInterval', '1 – 10 typical'],
               ['DiscardOldest', 'Per MonitoredItem: when queue is full, discard oldest or newest', 'true (discard oldest)'],
             ].map(([param, desc, typical], i) => (
-              <tr key={param} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={param} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-3 font-mono font-bold text-xs text-mblue-600">{param}</td>
-                <td className="px-4 py-3 text-xs text-slate-600">{desc}</td>
+                <td className="px-4 py-3 text-xs text-slate-400">{desc}</td>
                 <td className="px-4 py-3 text-xs text-slate-500 font-mono">{typical}</td>
               </tr>
             ))}
@@ -89,7 +89,7 @@ export default function Subscriptions() {
         they don't survive session loss.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Data Change Filters</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Data Change Filters</h2>
       <p>
         MonitoredItems can have DataChangeFilters that suppress notifications when the change isn't significant:
       </p>
@@ -109,14 +109,14 @@ export default function Subscriptions() {
             desc: 'Notify when StatusCode, value, OR timestamp changes. Useful for historians that need every measurement.',
           },
         ].map(({ filter, desc }) => (
-          <div key={filter} className="flex gap-3 p-3 bg-white border border-slate-100 rounded-xl">
-            <code className="text-xs bg-slate-100 text-morange-500 px-2 py-1 rounded font-mono flex-shrink-0 self-start">{filter}</code>
-            <p className="text-sm text-slate-600">{desc}</p>
+          <div key={filter} className="flex gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <code className="text-xs px-2 py-1 rounded font-mono flex-shrink-0 self-start" style={{ background: 'rgba(255,255,255,0.08)', color: '#fb923c' }}>{filter}</code>
+            <p className="text-sm text-slate-400">{desc}</p>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Deadband Filtering</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Deadband Filtering</h2>
       <p>
         For analog values, deadband filtering prevents notification spam when a value oscillates slightly around
         a threshold. Two deadband types:
@@ -133,7 +133,7 @@ export default function Subscriptions() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Event Subscriptions</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Event Subscriptions</h2>
       <p>
         MonitoredItems can also monitor Events — discrete occurrences rather than value changes. An Event
         subscription on the Server node receives all events from the server. Events carry fields (EventType,

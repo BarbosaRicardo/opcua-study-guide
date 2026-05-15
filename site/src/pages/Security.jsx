@@ -32,7 +32,7 @@ export default function Security() {
         this is a critical vulnerability. Not a checkbox item — a critical vulnerability.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Security Modes</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Security Modes</h2>
 
       <div className="space-y-4 mt-4">
         {[
@@ -60,13 +60,13 @@ export default function Security() {
         ].map(({ mode, color, label, desc, useCase }) => (
           <div key={mode} className={`p-5 rounded-xl border ${color}`}>
             <div className={`font-bold font-mono text-sm mb-2 ${label}`}>{mode}</div>
-            <p className="text-sm text-slate-700 mb-2">{desc}</p>
+            <p className="text-sm text-slate-300 mb-2">{desc}</p>
             <div className="text-xs text-slate-500"><span className="font-semibold">Use when:</span> {useCase}</div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Security Policies</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Security Policies</h2>
       <p>
         SecurityPolicy defines the cryptographic algorithms used for signing and encrypting. Common policies:
       </p>
@@ -90,10 +90,10 @@ export default function Security() {
               ['Aes128_Sha256_RsaOaep', 'SHA256', 'AES-128', 'Current — use for constrained devices'],
               ['Aes256_Sha256_RsaPss', 'SHA256+RSA-PSS', 'AES-256', 'Current — highest security'],
             ].map(([policy, signing, enc, status], i) => (
-              <tr key={policy} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={policy} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-3 font-mono font-bold text-xs text-mblue-600">{policy}</td>
-                <td className="px-4 py-3 text-xs text-slate-600">{signing}</td>
-                <td className="px-4 py-3 text-xs text-slate-600">{enc}</td>
+                <td className="px-4 py-3 text-xs text-slate-400">{signing}</td>
+                <td className="px-4 py-3 text-xs text-slate-400">{enc}</td>
                 <td className={`px-4 py-3 text-xs font-medium ${status.includes('Deprecated') ? 'text-red-600' : status.includes('minimum') ? 'text-amber-600' : status.includes('None') ? 'text-slate-400' : 'text-green-600'}`}>{status}</td>
               </tr>
             ))}
@@ -101,7 +101,7 @@ export default function Security() {
         </table>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Application Instance Certificates</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Application Instance Certificates</h2>
       <p>
         Every OPC UA application — client or server — has an Application Instance Certificate. This is an X.509
         certificate that uniquely identifies the application instance. Unlike web TLS where only the server has
@@ -115,10 +115,10 @@ export default function Security() {
           { step: '3', title: 'Client presents its own certificate', desc: 'For mutual auth (Sign/SignAndEncrypt), the client also sends its certificate. The server checks its trusted store.' },
           { step: '4', title: 'Trust must be explicit on both sides', desc: 'If either side hasn\'t explicitly trusted the other\'s certificate, the connection fails with BadCertificateUntrusted.' },
         ].map(({ step, title, desc }) => (
-          <div key={step} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <div key={step} className="flex gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex-shrink-0 w-8 h-8 bg-mblue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">{step}</div>
             <div>
-              <div className="font-semibold text-slate-800 text-sm">{title}</div>
+              <div className="font-semibold text-slate-200 text-sm">{title}</div>
               <div className="text-xs text-slate-500 mt-0.5">{desc}</div>
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function Security() {
         You must manually trust them on the client side.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">User Authentication</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">User Authentication</h2>
       <p>
         Separate from application certificates, OPC UA also authenticates the user within a Session.
         Three token types:
@@ -145,7 +145,7 @@ export default function Security() {
           { type: 'X.509 Certificate', desc: 'User presents a certificate as identity. The most secure option. Requires per-user certificate management.', risk: 'Low' },
         ].map(({ type, desc, risk }) => (
           <div key={type} className={`p-4 rounded-xl border ${risk === 'High' ? 'border-red-200 bg-red-50' : risk === 'Medium' ? 'border-amber-200 bg-amber-50' : 'border-green-200 bg-green-50'}`}>
-            <div className="font-bold text-slate-800 text-sm mb-1">{type}</div>
+            <div className="font-bold text-slate-200 text-sm mb-1">{type}</div>
             <div className="text-xs text-slate-600 mb-2">{desc}</div>
             <div className={`text-xs font-bold ${risk === 'High' ? 'text-red-600' : risk === 'Medium' ? 'text-amber-600' : 'text-green-600'}`}>Risk: {risk}</div>
           </div>

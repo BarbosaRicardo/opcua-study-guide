@@ -30,7 +30,7 @@ export default function Services() {
         it, returns a response. Asynchronous behavior (subscriptions) is built on top of synchronous Publish calls.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Service Sets</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Service Sets</h2>
 
       <div className="overflow-x-auto mt-4">
         <table className="w-full text-sm border-collapse">
@@ -54,8 +54,8 @@ export default function Services() {
               ['NodeManagement', 'AddNodes, DeleteNodes, AddReferences', 'Dynamic Address Space modification (rare in practice)'],
               ['Query', 'QueryFirst, QueryNext', 'Complex server-side filtering (rarely implemented)'],
             ].map(([set, services, useCase], i) => (
-              <tr key={set} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                <td className="px-4 py-3 font-bold text-navy-700 text-xs">{set}</td>
+              <tr key={set} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
+                <td className="px-4 py-3 font-bold text-slate-100 text-xs">{set}</td>
                 <td className="px-4 py-3 font-mono text-xs text-mblue-600">{services}</td>
                 <td className="px-4 py-3 text-slate-500 text-xs">{useCase}</td>
               </tr>
@@ -64,7 +64,7 @@ export default function Services() {
         </table>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Browse — Navigating the Address Space</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Browse — Navigating the Address Space</h2>
       <p>
         The Browse service walks the Address Space by following References. You specify a starting node, a direction
         (forward/backward/both), and optionally a ReferenceType filter. The response returns a list of
@@ -99,7 +99,7 @@ export default function Services() {
         client, you must handle ContinuationPoints or you'll silently miss nodes.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Read vs Subscribe</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Read vs Subscribe</h2>
       <p>
         This is the most important architectural decision in any OPC UA client implementation. Read is polling —
         you ask for the value every cycle. Subscribe is event-driven — the server tells you when the value changes.
@@ -134,7 +134,7 @@ export default function Services() {
         Ignition is more network-efficient than Modbus TCP polling at scale.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Write Service</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Write Service</h2>
       <p>
         Write sets the value of one or more Variable nodes. The request includes a NodeId, AttributeId (usually
         Value = 13), and a DataValue (value + StatusCode + timestamps). The response returns a StatusCode per write.
@@ -146,7 +146,7 @@ export default function Services() {
         with insufficient user permissions returns BadUserAccessDenied.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Method Call</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Method Call</h2>
       <p>
         OPC UA Methods are functions that run server-side. The Call service passes an Object node (parent),
         a Method NodeId, and input arguments. The server executes the method and returns output arguments and

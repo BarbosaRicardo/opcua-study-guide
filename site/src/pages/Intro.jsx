@@ -30,7 +30,7 @@ export default function Intro() {
         by the OPC Foundation after enough people suffered through OPC Classic's COM/DCOM dependency.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Why OPC Classic Failed (At Scale)</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Why OPC Classic Failed (At Scale)</h2>
       <p>
         OPC Classic — primarily OPC-DA (Data Access) — was released in 1996 and used Microsoft's COM/DCOM technology.
         This meant it was Windows-only, required COM registration, DCOM configuration, and Windows firewall exceptions
@@ -50,7 +50,7 @@ export default function Intro() {
         You will. Probably next week.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">What OPC UA Fixed</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">What OPC UA Fixed</h2>
       <p>OPC UA was designed from scratch with a specific list of requirements that OPC Classic could not meet:</p>
 
       <ul className="list-none space-y-3 mt-4">
@@ -61,17 +61,17 @@ export default function Intro() {
           ['Transport Flexibility', 'Binary TCP (fastest), HTTPS (IT-friendly), WebSocket (for when someone had a grant). All carry the same data model.'],
           ['Companion Specifications', 'Domain-specific extensions — OPC UA for PLCopen, PackML, ISA-95, machine tools, weighing, and dozens more. Industry groups define standard information models on top of OPC UA.'],
         ].map(([title, desc]) => (
-          <li key={title} className="flex gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <li key={title} className="flex gap-3 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <span className="text-mblue-600 font-bold text-sm flex-shrink-0 mt-0.5">→</span>
             <div>
-              <span className="font-semibold text-slate-800">{title}: </span>
+              <span className="font-semibold text-slate-200">{title}: </span>
               <span className="text-slate-600 text-sm">{desc}</span>
             </div>
           </li>
         ))}
       </ul>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Who Uses OPC UA</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Who Uses OPC UA</h2>
       <p>
         Every major industrial automation vendor ships OPC UA server capability. This is not aspirational — it is the
         current state of the market:
@@ -86,8 +86,8 @@ export default function Intro() {
           ['Beckhoff TwinCAT 3', 'Native OPC UA server. Beckhoff was an early adopter and their implementation is frequently cited as a reference.'],
           ['ABB, Emerson, Honeywell', 'DCS vendors all ship OPC UA interfaces. If a modern DCS historian or controller has an external interface, it speaks OPC UA.'],
         ].map(([vendor, desc]) => (
-          <div key={vendor} className="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-            <div className="font-semibold text-navy-700 text-sm mb-1">{vendor}</div>
+          <div key={vendor} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="font-semibold text-slate-100 text-sm mb-1">{vendor}</div>
             <div className="text-xs text-slate-500 leading-relaxed">{desc}</div>
           </div>
         ))}
@@ -95,7 +95,7 @@ export default function Intro() {
 
       <FunFact index={0} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">The Specification Structure</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">The Specification Structure</h2>
       <p>
         OPC UA is documented across 14 parts. You will never read all of them. The important ones:
       </p>
@@ -118,9 +118,9 @@ export default function Intro() {
               ['Part 11', 'Historical Access', 'Reading historian data via OPC UA.'],
               ['Part 14', 'PubSub', 'MQTT-based publish/subscribe extension added in 2018.'],
             ].map(([part, title, reason], i) => (
-              <tr key={part} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={part} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-3 font-mono font-bold text-mblue-600">{part}</td>
-                <td className="px-4 py-3 font-medium text-slate-800">{title}</td>
+                <td className="px-4 py-3 font-medium text-slate-200">{title}</td>
                 <td className="px-4 py-3 text-slate-500 text-xs">{reason}</td>
               </tr>
             ))}

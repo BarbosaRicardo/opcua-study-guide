@@ -41,7 +41,7 @@ export default function Lab() {
         understand OPC UA subscriptions better than 40% of people who claim to know OPC UA.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Required Tools</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Required Tools</h2>
 
       <div className="space-y-4 mt-4">
         {[
@@ -82,10 +82,10 @@ export default function Lab() {
             use: 'Scripted testing, data export, building custom OPC UA clients in Python',
           },
         ].map(({ name, provider, cost, url, platform, desc, use }) => (
-          <div key={name} className="p-5 bg-white border border-slate-100 rounded-xl shadow-sm">
+          <div key={name} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="flex items-start justify-between mb-3">
               <div>
-                <div className="font-bold text-navy-700 text-base">{name}</div>
+                <div className="font-bold text-slate-100 text-base">{name}</div>
                 <div className="text-xs text-slate-500">{provider} · {platform}</div>
               </div>
               <div className="flex items-center gap-2">
@@ -106,7 +106,7 @@ export default function Lab() {
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Lab Exercises</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Lab Exercises</h2>
       <p>Complete these in order. Each one builds on the previous.</p>
 
       <div className="space-y-4 mt-4">
@@ -178,17 +178,17 @@ export default function Lab() {
             ],
           },
         ].map(({ n, title, time, steps }) => (
-          <div key={n} className="p-5 bg-slate-50 border border-slate-100 rounded-xl">
+          <div key={n} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-8 bg-navy-700 rounded-full flex items-center justify-center text-mcyan-400 font-bold text-sm flex-shrink-0">{n}</div>
               <div>
-                <div className="font-bold text-navy-700">{title}</div>
+                <div className="font-bold text-slate-100">{title}</div>
                 <div className="text-xs text-slate-400">Estimated: {time}</div>
               </div>
             </div>
             <ol className="space-y-1">
               {steps.map((step, i) => (
-                <li key={i} className="flex gap-2 text-sm text-slate-600">
+                <li key={i} className="flex gap-2 text-sm text-slate-400">
                   <span className="text-mblue-400 font-mono text-xs mt-0.5 flex-shrink-0">{i + 1}.</span>
                   {step}
                 </li>

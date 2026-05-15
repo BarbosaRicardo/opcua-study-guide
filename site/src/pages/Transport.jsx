@@ -25,7 +25,7 @@ export default function Transport() {
         use in 95% of industrial deployments.
       </p>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Three Transport Mappings</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Three Transport Mappings</h2>
 
       <div className="space-y-4 mt-4">
         {[
@@ -53,7 +53,7 @@ export default function Transport() {
             name: 'OPC UA WebSocket',
             port: '4840 or 443',
             uri: 'opc.wss://hostname:443',
-            color: 'border-slate-300 bg-slate-50',
+            color: 'border border-slate-700 bg-white/5/5',
             header: 'text-slate-600',
             pros: ['Works through web proxies', 'Browser-compatible OPC UA clients possible'],
             cons: ['Limited implementation support', 'Highest overhead of the three', 'Rarely required in industrial environments'],
@@ -73,17 +73,17 @@ export default function Transport() {
                 <ul className="space-y-0.5">{cons.map(c => <li key={c} className="text-xs text-slate-600 flex gap-1"><span className="text-red-500">−</span>{c}</li>)}</ul>
               </div>
             </div>
-            <div className="text-xs font-bold text-slate-700 bg-white/70 rounded-lg px-3 py-1.5 inline-block">{verdict}</div>
+            <div className="text-xs font-bold rounded-lg px-3 py-1.5 inline-block" style={{ background: 'rgba(255,255,255,0.1)', color: '#94a3b8' }}>{verdict}</div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Binary Encoding — Message Structure</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Binary Encoding — Message Structure</h2>
       <p>
         Every OPC UA Binary/TCP message has a 8-byte message header followed by the message body:
       </p>
 
-      <div className="flex overflow-x-auto mt-4 bg-slate-50 rounded-xl border border-slate-200">
+      <div className="flex overflow-x-auto mt-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
         {[
           { label: 'MessageType', bytes: '3 bytes', color: 'bg-mblue-600', detail: 'HEL, ACK, ERR, OPN, CLO, MSG' },
           { label: 'Reserved', bytes: '1 byte', color: 'bg-slate-400', detail: 'F (Final chunk)' },
@@ -98,7 +98,7 @@ export default function Transport() {
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Built-In Data Types</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Built-In Data Types</h2>
       <p>
         OPC UA defines 25 built-in data types. These are the leaf types — everything else is built from them:
       </p>
@@ -114,9 +114,9 @@ export default function Transport() {
           { group: 'Status', types: ['StatusCode (4 bytes)'] },
           { group: 'Container', types: ['Variant (type+value)', 'DataValue (value+status+timestamps)', 'ExtensionObject (any type)'] },
         ].map(({ group, types }) => (
-          <div key={group} className="p-3 bg-white border border-slate-100 rounded-xl">
+          <div key={group} className="p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="text-xs font-bold text-mblue-600 uppercase tracking-widest mb-1">{group}</div>
-            {types.map(t => <div key={t} className="text-xs font-mono text-slate-600">{t}</div>)}
+            {types.map(t => <div key={t} className="text-xs font-mono text-slate-400">{t}</div>)}
           </div>
         ))}
       </div>
@@ -127,7 +127,7 @@ export default function Transport() {
         OPC UA handles a heterogeneous Address Space without separate serialization for each data type.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Chunking — Large Messages</h2>
+      <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Chunking — Large Messages</h2>
       <p>
         When a message exceeds the negotiated MaxMessageSize, it is split into chunks. Each chunk has the same
         message header with a chunk indicator: 'C' (intermediate chunk) or 'F' (final chunk). The receiver
