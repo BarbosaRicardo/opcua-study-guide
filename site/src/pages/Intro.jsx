@@ -6,6 +6,7 @@ import GifCard from '../components/GifCard'
 import AnalogyCard from '../components/AnalogyCard'
 import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
+import TrainingPanel from '../components/TrainingPanel'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
 import { OPCUA_CHAPTER_EXERCISES } from '../data/chapterExercises'
@@ -140,6 +141,7 @@ export default function Intro() {
         <QuizLevels chapterId="intro" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.intro} />
+      <TrainingPanel course="opcua" />
     </ChapterLayout>
   )
 }
