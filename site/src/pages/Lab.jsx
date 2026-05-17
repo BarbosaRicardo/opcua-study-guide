@@ -89,7 +89,7 @@ export default function Lab() {
                 <div className="text-xs text-slate-500">{provider} · {platform}</div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg">{cost}</span>
+                <span className="px-2 py-1 bg-green-100 text-green-400 text-xs font-bold rounded-lg">{cost}</span>
                 <a
                   href={url}
                   target="_blank"

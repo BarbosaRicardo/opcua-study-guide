@@ -111,7 +111,9 @@ export default function Architecture() {
         ))}
       </div>
 
-      <GifCard gifKey="network" caption="Multiple OPC UA clients talking to one server" />
+      <GifCard gifKey="network" caption="Multiple OPC UA clients talking to one server"
+        body="OPC UA's client-server model allows any number of clients to connect simultaneously — each with its own secure channel, session token, and subscription list. A historian, HMI, and analytics platform can all read from the same server concurrently without blocking each other. The server manages each session independently; clients only see data they're authorized to access."
+      />
 
       <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Secure Channel Lifecycle</h2>
       <p>

@@ -127,9 +127,9 @@ export default function Subscriptions() {
           <div className="font-bold text-blue-300 mb-1 text-sm">Absolute Deadband</div>
           <p className="text-xs text-blue-300">Suppress if |new - old| &lt; deadband value. Example: deadband=0.5, only notify if temperature changes by more than 0.5°C.</p>
         </div>
-        <div className="p-4 bg-purple-500/10 border border-purple-500/25 rounded-xl">
+        <div className="p-4 bg-purple-500/100/10 border border-purple-500/25 rounded-xl">
           <div className="font-bold text-purple-800 mb-1 text-sm">Percentage Deadband</div>
-          <p className="text-xs text-purple-700">Suppress if change &lt; X% of the EURange (engineering units range). Requires EURange property on the Variable.</p>
+          <p className="text-xs text-purple-400">Suppress if change &lt; X% of the EURange (engineering units range). Requires EURange property on the Variable.</p>
         </div>
       </div>
 
@@ -146,7 +146,9 @@ export default function Subscriptions() {
         This is how Ignition's Alarm Notification system works with OPC UA alarm sources.
       </Callout>
 
-      <GifCard gifKey="network" caption="Subscription publish loop — server pushes, client receives" />
+      <GifCard gifKey="network" caption="Subscription publish loop — server pushes, client receives"
+        body="OPC UA subscriptions invert the polling model. The client defines MonitoredItems with a sampling rate and deadband; the server only pushes data when a value changes beyond threshold. This eliminates constant-poll bandwidth waste while guaranteeing significant changes are never missed — all within a single persistent connection."
+      />
 
       <FunFact index={5} />
 

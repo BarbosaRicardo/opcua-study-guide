@@ -38,21 +38,21 @@ export default function Security() {
         {[
           {
             mode: 'SecurityMode=None',
-            color: 'bg-red-500/10 border-red-500/25',
+            color: 'bg-red-500/100/10 border-red-500/25',
             label: 'text-red-400',
             desc: 'No security. Messages are not signed or encrypted. Any device on the network can read all traffic. No certificates required on either side.',
             useCase: 'Development, isolated test networks, legacy device compatibility. Never production.',
           },
           {
             mode: 'SecurityMode=Sign',
-            color: 'bg-amber-500/10 border-amber-500/25',
+            color: 'bg-amber-500/100/10 border-amber-500/25',
             label: 'text-amber-400',
             desc: 'Messages are digitally signed. The receiver can verify message integrity and sender identity. Messages are NOT encrypted — content is readable.',
             useCase: 'When you need message integrity verification but can tolerate readable traffic (uncommon).',
           },
           {
             mode: 'SecurityMode=SignAndEncrypt',
-            color: 'bg-green-500/10 border-green-500/25',
+            color: 'bg-green-500/100/10 border-green-500/25',
             label: 'text-green-400',
             desc: 'Messages are both signed and encrypted. This is the correct mode for production systems. Requires valid certificates on both client and server.',
             useCase: 'All production deployments. This is the only acceptable mode on an accessible network.',
@@ -94,7 +94,7 @@ export default function Security() {
                 <td className="px-4 py-3 font-mono font-bold text-xs text-mblue-600">{policy}</td>
                 <td className="px-4 py-3 text-xs text-slate-400">{signing}</td>
                 <td className="px-4 py-3 text-xs text-slate-400">{enc}</td>
-                <td className={`px-4 py-3 text-xs font-medium ${status.includes('Deprecated') ? 'text-red-600' : status.includes('minimum') ? 'text-amber-600' : status.includes('None') ? 'text-slate-400' : 'text-green-600'}`}>{status}</td>
+                <td className={`px-4 py-3 text-xs font-medium ${status.includes('Deprecated') ? 'text-red-400' : status.includes('minimum') ? 'text-amber-400' : status.includes('None') ? 'text-slate-400' : 'text-green-400'}`}>{status}</td>
               </tr>
             ))}
           </tbody>
@@ -144,7 +144,7 @@ export default function Security() {
           { type: 'Username/Password', desc: 'Classic credential pair. Transmitted over the Secure Channel — encrypted if SecurityMode=SignAndEncrypt, plaintext if None.', risk: 'Medium' },
           { type: 'X.509 Certificate', desc: 'User presents a certificate as identity. The most secure option. Requires per-user certificate management.', risk: 'Low' },
         ].map(({ type, desc, risk }) => (
-          <div key={type} className={`p-4 rounded-xl border ${risk === 'High' ? 'border-red-500/30 bg-red-500/10' : risk === 'Medium' ? 'border-amber-500/30 bg-amber-500/10' : 'border-green-500/30 bg-green-500/10'}`}>
+          <div key={type} className={`p-4 rounded-xl border ${risk === 'High' ? 'border-red-500/30 bg-red-500/100/10' : risk === 'Medium' ? 'border-amber-500/30 bg-amber-500/100/10' : 'border-green-500/30 bg-green-500/100/10'}`}>
             <div className="font-bold text-slate-200 text-sm mb-1">{type}</div>
             <div className="text-xs text-slate-400 mb-2">{desc}</div>
             <div className={`text-xs font-bold ${risk === 'High' ? 'text-red-400' : risk === 'Medium' ? 'text-amber-400' : 'text-green-400'}`}>Risk: {risk}</div>
@@ -152,7 +152,9 @@ export default function Security() {
         ))}
       </div>
 
-      <GifCard gifKey="warning" caption="SecurityMode=None on a production network" />
+      <GifCard gifKey="warning" caption="SecurityMode=None on a production network"
+        body="OPC UA supports three security modes: None (plaintext), Sign (message integrity only), and SignAndEncrypt (full protection). SecurityMode=None exposes every tag value, credential, and method call in cleartext — readable by anyone with a network tap or Wireshark. On a production OT network this is not a configuration tradeoff; it's an audit finding."
+      />
 
       <FunFact index={4} />
 

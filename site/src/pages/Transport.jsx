@@ -33,7 +33,7 @@ export default function Transport() {
             name: 'OPC UA Binary / TCP (UA-TCP)',
             port: '4840',
             uri: 'opc.tcp://hostname:4840',
-            color: 'border-mblue-600 bg-blue-50',
+            color: 'border-mblue-600 bg-blue-500/10',
             header: 'text-mblue-700',
             pros: ['Fastest — binary encoding minimizes overhead', 'Most widely implemented', 'Lowest CPU and memory overhead', 'Supported by every OPC UA stack'],
             cons: ['Not human-readable', 'Requires binary protocol analysis tools (UA Expert, Wireshark)'],
@@ -43,8 +43,8 @@ export default function Transport() {
             name: 'OPC UA HTTPS / JSON or Binary',
             port: '4843',
             uri: 'https://hostname:4843',
-            color: 'border-amber-300 bg-amber-50',
-            header: 'text-amber-700',
+            color: 'border-amber-500/40 bg-amber-500/10',
+            header: 'text-amber-400',
             pros: ['Works through HTTP proxies and firewalls', 'JSON encoding is human-readable and debug-friendly', 'IT infrastructure already understands HTTPS'],
             cons: ['Higher overhead than binary TCP', 'Not supported by all OPC UA stacks', 'JSON encoding is significantly larger than binary'],
             verdict: 'Use for IT/OT integration, REST-like access, cloud connectivity.',
@@ -65,11 +65,11 @@ export default function Transport() {
             <div className="font-mono text-xs text-slate-500 mb-3">{uri} · Port {port}</div>
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div>
-                <div className="text-xs font-bold text-green-600 mb-1">Pros</div>
+                <div className="text-xs font-bold text-green-400 mb-1">Pros</div>
                 <ul className="space-y-0.5">{pros.map(p => <li key={p} className="text-xs text-slate-600 flex gap-1"><span className="text-green-500">+</span>{p}</li>)}</ul>
               </div>
               <div>
-                <div className="text-xs font-bold text-red-600 mb-1">Cons</div>
+                <div className="text-xs font-bold text-red-400 mb-1">Cons</div>
                 <ul className="space-y-0.5">{cons.map(c => <li key={c} className="text-xs text-slate-600 flex gap-1"><span className="text-red-500">−</span>{c}</li>)}</ul>
               </div>
             </div>

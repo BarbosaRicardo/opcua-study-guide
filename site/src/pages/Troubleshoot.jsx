@@ -56,7 +56,7 @@ export default function Troubleshoot() {
             when: 'During OpenSecureChannel',
             cause: 'The server received the client\'s certificate but it\'s not in the trusted store. Or the client received the server\'s certificate but hasn\'t trusted it.',
             fix: 'Trust the certificate in the appropriate certificate store (Ignition: Gateway → OPC UA → Certificates → Quarantined). Also ensure the OTHER side has trusted your certificate.',
-            color: 'border-red-300 bg-red-50',
+            color: 'border-red-500/40 bg-red-500/10',
           },
           {
             code: 'BadSecureChannelClosed',
@@ -64,7 +64,7 @@ export default function Troubleshoot() {
             when: 'During service calls, after initial connection',
             cause: 'The secure channel was closed by the server or timed out. Can happen when the server restarts, network interruption, or session timeout.',
             fix: 'Reconnect. If recurring: check server logs for why it\'s closing the channel. May be certificate expiry or server-side session limit.',
-            color: 'border-orange-300 bg-orange-50',
+            color: 'border-orange-500/40 bg-orange-500/10',
           },
           {
             code: 'BadNodeIdUnknown',
@@ -72,7 +72,7 @@ export default function Troubleshoot() {
             when: 'During Read, Write, CreateMonitoredItems',
             cause: 'The NodeId specified in the request doesn\'t exist in the server\'s Address Space.',
             fix: 'Browse the server to verify the NodeId exists and is spelled correctly. Check namespace index — ns=1 vs ns=2 is a common error. NodeIds are case-sensitive for string format.',
-            color: 'border-amber-300 bg-amber-50',
+            color: 'border-amber-500/40 bg-amber-500/10',
           },
           {
             code: 'BadUserAccessDenied',
@@ -80,7 +80,7 @@ export default function Troubleshoot() {
             when: 'During Read, Write, or ActivateSession',
             cause: 'The authenticated user doesn\'t have permission to perform the requested operation, or the user credentials were rejected.',
             fix: 'Verify username/password. Check server\'s user permission configuration. Some servers restrict write access to specific user roles.',
-            color: 'border-yellow-300 bg-yellow-50',
+            color: 'border-yellow-500/40 bg-yellow-500/10',
           },
           {
             code: 'BadSubscriptionIdInvalid',
@@ -88,7 +88,7 @@ export default function Troubleshoot() {
             when: 'During Publish, ModifySubscription',
             cause: 'The SubscriptionId doesn\'t exist on the server. Subscription was deleted or the session was lost and recreated without recreating subscriptions.',
             fix: 'Recreate the subscription. Subscriptions are tied to Sessions — if the session closes, all subscriptions are gone.',
-            color: 'border-blue-300 bg-blue-50',
+            color: 'border-blue-500/40 bg-blue-500/10',
           },
           {
             code: 'BadNotConnected',
@@ -104,7 +104,7 @@ export default function Troubleshoot() {
             when: 'During CreateSubscription',
             cause: 'Server has a per-session or global limit on subscriptions and it\'s been reached.',
             fix: 'Check server config for subscription limits. Delete unused subscriptions. Some embedded devices have very low limits (e.g., 10 subscriptions per session).',
-            color: 'border-purple-300 bg-purple-500/10',
+            color: 'border-purple-500/40 bg-purple-500/100/10',
           },
         ].map(({ code, hex, when, cause, fix, color }) => (
           <div key={code} className={`p-5 rounded-xl border ${color}`}>
@@ -153,7 +153,9 @@ export default function Troubleshoot() {
         generally available in production OPC UA stacks.
       </Callout>
 
-      <GifCard gifKey="nerd" caption="Opening UA Expert at 2am to find the BadCertificateUntrusted" />
+      <GifCard gifKey="nerd" caption="Opening UA Expert at 2am to find the BadCertificateUntrusted"
+        body="UA Expert surfaces the exact StatusCode from the server — BadCertificateUntrusted, BadSessionIdInvalid, BadNodeIdUnknown — with node-level context. When a vendor's OPC UA client says 'connection failed,' UA Expert tells you exactly which handshake step failed and why, which is usually the only way to distinguish a certificate problem from an endpoint configuration problem."
+      />
 
       <FunFact index={11} />
 
