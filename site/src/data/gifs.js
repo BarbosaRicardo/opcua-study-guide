@@ -8,6 +8,6 @@ export const GIFS = {
   network:   'tenor:23588365',          // dataflow game — subscription publishing
   robot:     'tenor:7947037634935471130', // robotic process automation — automated OPC client
   tryAgain:  'tenor:17917310',          // oh no facepalm hazbin — SessionNotActivated
-  courseHero: 'tenor:23588365',          // dataflow game — OPC UA subscriptions in motion
+  courseHero: '077i6AULCXc0FKTj9s',      // data matrix — OPC UA subscriptions in motion
   warning:   'tenor:17740418',          // omg facepalm frustrated — BadSecurityChecksFailed
 }
