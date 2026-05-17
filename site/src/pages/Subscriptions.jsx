@@ -146,8 +146,10 @@ export default function Subscriptions() {
         This is how Ignition's Alarm Notification system works with OPC UA alarm sources.
       </Callout>
 
-      <GifCard gifKey="network" caption="Subscription publish loop — server pushes, client receives"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">The publish loop is asynchronous — the client sends a Publish request and the server holds it until a notification is ready, then responds immediately. The client sends another Publish request right away. This keep-alive mechanism means there's always a pending Publish outstanding, and the server can push data the moment a MonitoredItem changes. KeepAlive messages fire when the publish interval expires with no changes — they confirm the subscription is alive even when nothing is happening.</p>
+        <GifCard gifKey="network" caption="Subscription publish loop — server pushes, client receives" />
+      </div>
 
       <FunFact index={5} />
 

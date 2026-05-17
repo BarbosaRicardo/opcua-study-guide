@@ -137,8 +137,10 @@ export default function IgnitionIntegration() {
         unnecessary.
       </Callout>
 
-      <GifCard gifKey="robot" caption="Ignition and RTAC finally trusting each other's certificates"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">Certificate trust between Ignition and an OPC UA device is mutual — both sides must explicitly trust each other's certificate before a secure session opens. Ignition places incoming certificates in its "Quarantine" store; you move them to "Trusted" via the Gateway Config page. The remote device has an equivalent trust store. Once both sides trust each other, the session opens. If either side's certificate expires or is regenerated, the trust breaks and you repeat the process. Set calendar reminders for certificate expiration — a forgotten expiry takes down the OPC UA connection with no warning.</p>
+        <GifCard gifKey="robot" caption="Ignition and RTAC finally trusting each other's certificates" />
+      </div>
 
       <FunFact index={8} />
 

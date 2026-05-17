@@ -153,8 +153,10 @@ export default function Troubleshoot() {
         generally available in production OPC UA stacks.
       </Callout>
 
-      <GifCard gifKey="nerd" caption="Opening UA Expert at 2am to find the BadCertificateUntrusted"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">UA Expert is the fastest way to verify an OPC UA server is accessible and responding correctly before debugging your SCADA configuration. Connect, browse the address space, subscribe to a changing variable, and watch the data publish. If UA Expert can connect but your SCADA can't, the problem is in the SCADA client configuration — security policy mismatch, wrong endpoint URL, or wrong authentication credentials. If UA Expert also can't connect, the problem is at the server or network level.</p>
+        <GifCard gifKey="nerd" caption="Opening UA Expert at 2am to find the BadCertificateUntrusted" />
+      </div>
 
       <FunFact index={11} />
 

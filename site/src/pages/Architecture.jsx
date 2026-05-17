@@ -111,8 +111,10 @@ export default function Architecture() {
         ))}
       </div>
 
-      <GifCard gifKey="network" caption="Multiple OPC UA clients talking to one server"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">A single OPC UA server maintains concurrent sessions with multiple clients simultaneously — each with its own security policy, subscription list, and session timeout. The server manages the information model independently of how many clients are connected. Clients can be on the same LAN, across a DMZ, or at a remote site over VPN. All of them access the same node IDs. Session count is limited only by the server's license tier and available memory.</p>
+        <GifCard gifKey="network" caption="Multiple OPC UA clients talking to one server" />
+      </div>
 
       <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Secure Channel Lifecycle</h2>
       <p>
