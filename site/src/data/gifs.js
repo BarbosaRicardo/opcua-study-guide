@@ -1,13 +1,12 @@
-// OPC UA Study Guide — Industrial IoT, OPC connectivity, secure channels
-// All IDs unique globally across the entire study guide platform
+// OPC UA Study Guide — verified Giphy IDs only (Tenor API retired)
 export const GIFS = {
-  celebrate: 'tenor:8120823',           // fireworks — session established
-  done:      'tenor:13565015',          // mic drop pew done — certificate trusted
-  mindBlown: 'tenor:4408188',           // mind blown shocked — address space complexity
-  nerd:      'tenor:24397009',          // hacker im in — building node tree
-  network:   'tenor:23588365',          // dataflow game — subscription publishing
-  robot:     'tenor:7947037634935471130', // robotic process automation — automated OPC client
-  tryAgain:  'tenor:17917310',          // oh no facepalm hazbin — SessionNotActivated
-  courseHero: '077i6AULCXc0FKTj9s',      // data matrix — OPC UA subscriptions in motion
-  warning:   'tenor:17740418',          // omg facepalm frustrated — BadSecurityChecksFailed
+  celebrate:  'g9582DNuQppxC', // fireworks — OPC UA session established
+  done:       '3ohzdIuqJoo8QdKlnW',  // mic drop — certificate trusted, secure channel open
+  mindBlown:  'xT0xeJpnrWC4XWblEk',     // mind blown — address space complexity revealed
+  nerd:       'LmNwrBhejkK9EFP504',     // hacker im in — building the node tree
+  network:    'YQitE4YNQNahy',   // dataflow — subscription publishing in motion
+  robot:      '3oEjHWPTo7c0ajPwty',    // robotics — automated OPC UA client
+  tryAgain:   'XsUtdIeJ0MWMo', // facepalm — SessionNotActivated, again
+  courseHero: '077i6AULCXc0FKTj9s',   // data matrix — OPC UA subscriptions in motion
+  warning:    'feqkVgjJpYtjy',  // warning — BadSecurityChecksFailed
 }

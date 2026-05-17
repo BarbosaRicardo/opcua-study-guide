@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BookOpen, Zap, Award, Clock, ArrowRight, Globe, Plug, Shield, Lock } from 'lucide-react'
@@ -16,8 +16,16 @@ const STATS = [
   { icon: Award,    label: 'Cert Paths',  sub: 'GICSP & beyond' },
 ]
 
+const HERO_OPTIONS = [
+  { id: '077i6AULCXc0FKTj9s',  caption: `The OPC UA address space: every node connected to everything.`, tooltip: `OPC UA's address space is a browsable object graph — variables, methods, objects, and types all have defined relationships. Unlike Modbus register maps you must know in advance, a UA server describes its own data. You can browse and discover it at runtime.` },
+  { id: 'xT0xeJpnrWC4XWblEk',  caption: `When you finally understand OPC UA's security model.`,          tooltip: `OPC UA has message-level signing AND encryption, X.509 certificates, and role-based access control — all defined in the protocol spec. It is the first widely-deployed industrial protocol where security was designed in from the start, not patched on after a breach.` },
+  { id: '3oEjHFOscgNwdSRRDy',  caption: `Publishing interval, sampling rate, queue size. UA has opinions.`, tooltip: `OPC UA subscriptions have three separate timing parameters: how often the server samples the variable, how often it sends updates, and how many changes to buffer between sends. Modbus has none of these. Pick your protocol carefully.` },
+  { id: 'LmNwrBhejkK9EFP504',  caption: `Browsing the UA address space for the first time.`,             tooltip: `Unlike Modbus (you must know addresses in advance) and DNP3 (a fixed object model), OPC UA lets you browse the server address space at runtime and discover what data exists. Self-describing systems aren't magic — they just feel like it the first time.` },
+  { id: 'g9582DNuQppxC',        caption: `OPC UA server passes the CTT compliance test. Ship it.`,        tooltip: `The OPC Foundation Compliance Test Tool (CTT) is the gatekeeper of UA interoperability. Passing it means sessions, subscriptions, security, and discovery all work correctly. Failing means you're not OPC UA-compliant, regardless of what the marketing says.` },
+]
 export default function Home() {
   const { overallProgress, reset } = useProgress()
+  const [heroIdx] = useState(() => Math.floor(Math.random() * HERO_OPTIONS.length))
   const prog = overallProgress()
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } }
@@ -46,7 +54,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-shrink-0">
-            <GifCard gifKey="courseHero" caption="The universal translator of industrial protocols." side="right" tooltip="OPC UA speaks Siemens, Rockwell, Beckhoff, ABB, and any PLC that wants to join the conversation. It's the Rosetta Stone for factory floors — and unlike OPC Classic, it actually has security built in." />
+            <GifCard gifId={HERO_OPTIONS[heroIdx].id} caption={HERO_OPTIONS[heroIdx].caption} tooltip={HERO_OPTIONS[heroIdx].tooltip} side="right" />
           </div>
         </div>
       </motion.div>
