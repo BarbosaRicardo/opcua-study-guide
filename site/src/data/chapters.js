@@ -1,5 +1,6 @@
 export const CHAPTERS = [
-  { id: 'intro', label: 'Ch 1: What Is OPC UA?', title: 'What Is OPC UA?', path: '/', icon: 'BookOpen', next: 'architecture' },
+  { id: 'home',  label: 'Home',                    icon: 'Home',     path: '/' },
+  { id: 'intro', label: 'Ch 1: What Is OPC UA?', title: 'What Is OPC UA?', path: '/intro', icon: 'BookOpen', next: 'architecture' },
   { id: 'architecture', label: 'Ch 2: Architecture', title: 'OPC UA Architecture', path: '/architecture', icon: 'Layers', prev: 'intro', next: 'infomodel' },
   { id: 'infomodel', label: 'Ch 3: Information Model', title: 'Information Model & Address Space', path: '/infomodel', icon: 'FolderTree', prev: 'architecture', next: 'services' },
   { id: 'services', label: 'Ch 4: Services', title: 'OPC UA Services', path: '/services', icon: 'Bell', prev: 'infomodel', next: 'security' },
