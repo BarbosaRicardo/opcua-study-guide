@@ -153,7 +153,6 @@ export default function Security() {
       </div>
 
       <GifCard gifKey="warning" caption="SecurityMode=None on a production network"
-        body="OPC UA supports three security modes: None (plaintext), Sign (message integrity only), and SignAndEncrypt (full protection). SecurityMode=None exposes every tag value, credential, and method call in cleartext — readable by anyone with a network tap or Wireshark. On a production OT network this is not a configuration tradeoff; it's an audit finding."
       />
 
       <FunFact index={4} />

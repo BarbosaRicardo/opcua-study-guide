@@ -147,7 +147,6 @@ export default function Subscriptions() {
       </Callout>
 
       <GifCard gifKey="network" caption="Subscription publish loop — server pushes, client receives"
-        body="OPC UA subscriptions invert the polling model. The client defines MonitoredItems with a sampling rate and deadband; the server only pushes data when a value changes beyond threshold. This eliminates constant-poll bandwidth waste while guaranteeing significant changes are never missed — all within a single persistent connection."
       />
 
       <FunFact index={5} />

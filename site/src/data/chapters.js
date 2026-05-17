@@ -14,16 +14,66 @@ export const CHAPTERS = [
 ]
 
 export const ANALOGIES = {
-  intro: { text: "OPC Classic required Windows DCOM. It worked great as long as you enjoyed debugging DCOM security settings, COM registration errors, and Windows firewall exceptions at 2am. OPC UA was designed by people who had done that enough times.", author: "Migration from OPC-DA, 2010" },
-  architecture: { text: "OPC UA is the rare industrial protocol designed by people who had read a networking textbook. This makes it simultaneously more correct and more complex than everything it replaced.", author: "Protocol comparison, 2024" },
-  infomodel: { text: "The OPC UA information model is what happens when database engineers design a protocol. Every piece of data is a node. Every relationship is a reference. It's like SQL, but the query language is browsing.", author: "Address space documentation, page 1" },
-  services: { text: "OPC UA services are RESTful before REST was cool, except instead of HTTP verbs you have 37 service definitions across 11 service sets. Simplicity was not a design goal.", author: "OPC UA Part 4" },
-  security: { text: "OPC UA security is actually well-designed — mutual certificate authentication, encrypted sessions, signed messages. The problem is 90% of deployments run SecurityMode=None because configuring certificates is hard and the deadline was yesterday.", author: "Every OPC UA audit ever" },
-  subscriptions: { text: "OPC UA subscriptions are the answer to 'why is my SCADA polling 500 tags every second when only 3 change?' The server tells you when things change. Radical concept that took industrial automation 30 years to adopt.", author: "Subscription model, designed 2006" },
-  transport: { text: "OPC UA Binary on TCP is the good one. The HTTPS/JSON version exists for IT people who want OPC UA to look like a REST API. The WebSocket version exists because someone had a grant.", author: "Transport selection guide" },
-  ignition: { text: "Ignition treats OPC UA certificates the way TSA treats shoes — mandatory, slightly inconvenient, and everyone's done it enough times to know the ritual even if they resent it.", author: "Ignition commissioning checklist" },
-  troubleshoot: { text: "Debugging OPC UA: 1. Check server running. 2. Check firewall port 4840. 3. Check certificate trust. 4. Check security mode. 5. Check user auth. 6. Open UA Expert. 7. Google the error code. 8. Call the vendor.", author: "OPC UA troubleshooting flowchart" },
-  lab: { text: "UA Expert is free. Prosys simulator is free. There is no excuse to have never connected to an OPC UA server before touching a real Ignition installation. None.", author: "Pre-commissioning checklist, item 1" },
+  intro: {
+    title: "The 2AM DCOM Horror Story",
+    concept: "Why OPC UA Replaced OPC Classic",
+    analogy: "OPC Classic required Windows DCOM. It worked great as long as you enjoyed debugging DCOM security settings, COM registration errors, and Windows firewall exceptions at 2am.\n\nOPC UA was designed by people who had done that **enough times**. It runs on any OS, over any network, with no COM dependencies. The specification is 1,200 pages — but at least it doesn't require a registry entry to function.",
+    gif: 'tryAgain',
+  },
+  architecture: {
+    title: "The Protocol That Read the Textbook",
+    concept: "OPC UA Design Philosophy",
+    analogy: "OPC UA is the rare industrial protocol designed by people who had **actually read a networking textbook**. It has a proper client-server model, a defined security layer, a binary encoding spec, and an information model.\n\nThis makes it simultaneously more correct and more complex than everything it replaced. Most engineers encounter it and say 'this is well-designed' and 'this is overwhelming' in the same breath. Both are accurate.",
+    gif: 'mindBlown',
+  },
+  infomodel: {
+    title: "The Database Engineer's Protocol",
+    concept: "OPC UA Address Space & Node References",
+    analogy: "The OPC UA information model is what happens when **database engineers design a protocol**. Every piece of data is a node. Every relationship is a reference. It's like SQL, but the query language is browsing.\n\nYou don't SELECT * FROM sensors. You browse from the RootFolder down through Objects, find your Device, navigate its Variables, and read the Value attribute. It's powerful, it's hierarchical, and the first time you see a full address space in UA Expert you will question your career choices.",
+    gif: 'nerd',
+  },
+  services: {
+    title: "REST Before REST Was Cool",
+    concept: "OPC UA Service Sets & Complexity",
+    analogy: "OPC UA services are RESTful before REST was cool — except instead of four HTTP verbs you have **37 service definitions** across 11 service sets.\n\nThere is a service for reading. A service for writing. A service for reading multiple attributes in one call. A service for subscribing. A service for modifying a subscription. A service for republishing if you missed a notification. Simplicity was not a design goal. Completeness was. You can do anything. You will need to look up which service does it.",
+    gif: 'warning',
+  },
+  security: {
+    title: "The Certificate Nobody Trusts",
+    concept: "OPC UA Security Modes in Production",
+    analogy: "OPC UA security is actually **well-designed** — mutual certificate authentication, encrypted sessions, signed messages. Both client and server must trust each other's certificates. It's more secure than standard TLS in web browsing.\n\nThe problem is 90% of deployments run **SecurityMode=None** because configuring certificates is hard and the deadline was yesterday. The most common OPC UA error in production is BadCertificateUntrusted — which means the security worked exactly as designed and nobody set it up correctly.",
+    gif: 'tryAgain',
+  },
+  subscriptions: {
+    title: "The News You Didn't Ask For",
+    concept: "OPC UA Subscriptions vs. Polling",
+    analogy: "OPC UA subscriptions are the answer to **'why is my SCADA polling 500 tags every second when only 3 change?'**\n\nOld-school polling: your client asks the server 'anything new?' 500 times per second. The server says 'nope' 499 times and 'yes, this one changed' once.\n\nOPC UA subscriptions: you tell the server which items to watch and how fast to sample. The server tells you when something changes. Radical concept. It took industrial automation 30 years to adopt it.",
+    gif: 'network',
+  },
+  transport: {
+    title: "The Good One, The IT One, and The Grant",
+    concept: "Choosing OPC UA Transport Mappings",
+    analogy: "OPC UA has three transport options:\n\n**OPC UA Binary on TCP** — fast, efficient, binary encoding, every byte counts. This is the good one. Use it.\n\n**HTTPS/JSON** — exists for IT people who want OPC UA to look like a REST API. Works fine. Slower. IT people are happier.\n\n**WebSocket** — exists because someone had a grant. Technically valid. Not something you'll choose intentionally.\n\nPort 4840 is the IANA-assigned port for OPC UA Binary. If your connection fails silently, check the firewall. It's always the firewall.",
+    gif: 'done',
+  },
+  ignition: {
+    title: "The TSA Shoes Ritual",
+    concept: "OPC UA Certificate Trust in Ignition",
+    analogy: "Ignition treats OPC UA certificates the way TSA treats shoes — **mandatory, slightly inconvenient**, and everyone's done it enough times to know the ritual even if they resent it.\n\nStep 1: Start Ignition OPC UA server. Step 2: Connect a client. Step 3: Ignition rejects the certificate and puts it in the 'quarantine' folder. Step 4: Move it to trusted. Step 5: Repeat on the client side. Step 6: It works.\n\nEvery engineer has done these six steps. Every engineer has briefly considered SecurityMode=None. The disciplined ones don't.",
+    gif: 'robot',
+  },
+  troubleshoot: {
+    title: "The 8-Step Debugging Protocol",
+    concept: "OPC UA Troubleshooting Sequence",
+    analogy: "Debugging OPC UA follows a deterministic path:\n\n1. Check the server is running\n2. Check the firewall allows port 4840\n3. Check certificate trust (both directions)\n4. Check security mode matches on client and server\n5. Check user authentication credentials\n6. Open UA Expert and connect manually\n7. Google the exact status code\n8. Call the vendor\n\nMost engineers skip to step 8 after step 2. **Steps 3–7 would have found it.** The BadCertificateUntrusted status code alone accounts for roughly half of all 'OPC UA is broken' tickets.",
+    gif: 'nerd',
+  },
+  lab: {
+    title: "The Zero Excuse Lab Setup",
+    concept: "Pre-Lab Requirements",
+    analogy: "**UA Expert is free. Prosys OPC UA Simulation Server is free.** There is no excuse to have never connected to an OPC UA server before touching a real Ignition installation. None.\n\nDownload both. Start the simulator. Connect UA Expert. Browse the address space. Subscribe to a changing variable. Watch the data flow. Do this once and you will never be confused about what an OPC UA subscription does again.\n\nThe field is not the place to learn what a NodeId looks like.",
+    gif: 'celebrate',
+  },
 }
 
 export const FUN_FACTS = [

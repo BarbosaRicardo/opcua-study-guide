@@ -138,7 +138,6 @@ export default function IgnitionIntegration() {
       </Callout>
 
       <GifCard gifKey="robot" caption="Ignition and RTAC finally trusting each other's certificates"
-        body="Before Ignition and an OPC UA device can exchange data, both endpoints must trust each other's X.509 certificates. Ignition presents its certificate on first connect; the remote server stores it as trusted. Without mutual certificate trust, the OpenSecureChannel step fails — regardless of username or password — because the secure channel can't open."
       />
 
       <FunFact index={8} />

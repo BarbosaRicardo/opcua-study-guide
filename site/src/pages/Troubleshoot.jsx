@@ -154,7 +154,6 @@ export default function Troubleshoot() {
       </Callout>
 
       <GifCard gifKey="nerd" caption="Opening UA Expert at 2am to find the BadCertificateUntrusted"
-        body="UA Expert surfaces the exact StatusCode from the server — BadCertificateUntrusted, BadSessionIdInvalid, BadNodeIdUnknown — with node-level context. When a vendor's OPC UA client says 'connection failed,' UA Expert tells you exactly which handshake step failed and why, which is usually the only way to distinguish a certificate problem from an endpoint configuration problem."
       />
 
       <FunFact index={11} />
