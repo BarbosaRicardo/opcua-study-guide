@@ -210,7 +210,7 @@ export default function Lab() {
 
       <AnalogyCard analogy={ANALOGIES.lab} />
 
-      {QUIZZES.lab && QUIZZES.lab.length > 0 && (
+      {QUIZZES.lab && (
         <QuizLevels chapterId="lab" />
       )}
     </ChapterLayout>

@@ -168,7 +168,7 @@ export default function Services() {
 
       <AnalogyCard analogy={ANALOGIES.services} />
 
-      {QUIZZES.services && QUIZZES.services.length > 0 && (
+      {QUIZZES.services && (
         <QuizLevels chapterId="services" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.services} />

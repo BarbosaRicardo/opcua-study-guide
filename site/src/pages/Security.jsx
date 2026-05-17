@@ -159,7 +159,7 @@ export default function Security() {
 
       <AnalogyCard analogy={ANALOGIES.security} />
 
-      {QUIZZES.security && QUIZZES.security.length > 0 && (
+      {QUIZZES.security && (
         <QuizLevels chapterId="security" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.security} />

@@ -155,7 +155,7 @@ export default function Subscriptions() {
 
       <AnalogyCard analogy={ANALOGIES.subscriptions} />
 
-      {QUIZZES.subscriptions && QUIZZES.subscriptions.length > 0 && (
+      {QUIZZES.subscriptions && (
         <QuizLevels chapterId="subscriptions" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.subscriptions} />

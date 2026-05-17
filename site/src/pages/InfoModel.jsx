@@ -164,7 +164,7 @@ export default function InfoModel() {
 
       <AnalogyCard analogy={ANALOGIES.infomodel} />
 
-      {QUIZZES.infomodel && QUIZZES.infomodel.length > 0 && (
+      {QUIZZES.infomodel && (
         <QuizLevels chapterId="infomodel" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.infomodel} />

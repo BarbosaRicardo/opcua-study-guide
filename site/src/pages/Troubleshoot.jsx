@@ -162,7 +162,7 @@ export default function Troubleshoot() {
 
       <AnalogyCard analogy={ANALOGIES.troubleshoot} />
 
-      {QUIZZES.troubleshoot && QUIZZES.troubleshoot.length > 0 && (
+      {QUIZZES.troubleshoot && (
         <QuizLevels chapterId="troubleshoot" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.troubleshoot} />

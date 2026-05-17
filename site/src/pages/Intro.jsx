@@ -137,7 +137,7 @@ export default function Intro() {
         cuts comprehension time in half.
       </Callout>
 
-      {QUIZZES.intro && QUIZZES.intro.length > 0 && (
+      {QUIZZES.intro && (
         <QuizLevels chapterId="intro" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.intro} />

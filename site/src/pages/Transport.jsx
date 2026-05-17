@@ -145,7 +145,7 @@ export default function Transport() {
 
       <AnalogyCard analogy={ANALOGIES.transport} />
 
-      {QUIZZES.transport && QUIZZES.transport.length > 0 && (
+      {QUIZZES.transport && (
         <QuizLevels chapterId="transport" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.transport} />

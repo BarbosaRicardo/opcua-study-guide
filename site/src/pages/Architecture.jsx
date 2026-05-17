@@ -166,7 +166,7 @@ export default function Architecture() {
 
       <AnalogyCard analogy={ANALOGIES.architecture} />
 
-      {QUIZZES.architecture && QUIZZES.architecture.length > 0 && (
+      {QUIZZES.architecture && (
         <QuizLevels chapterId="architecture" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.architecture} />

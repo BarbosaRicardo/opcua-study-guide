@@ -146,7 +146,7 @@ export default function IgnitionIntegration() {
 
       <AnalogyCard analogy={ANALOGIES.ignition} />
 
-      {QUIZZES.ignition && QUIZZES.ignition.length > 0 && (
+      {QUIZZES.ignition && (
         <QuizLevels chapterId="ignition" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.ignition} />
