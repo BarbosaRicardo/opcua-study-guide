@@ -90,3 +90,57 @@ export const FUN_FACTS = [
   { text: "UA Expert is the OPC UA equivalent of Wireshark — free, powerful, and the first tool every OPC UA engineer reaches for when something is broken. Unified Automation gives it away because making the ecosystem work is more valuable than charging for a client tool.", icon: "Wrench" },
   { text: "The BadCertificateUntrusted status code is the most common OPC UA error in production. Translation: 'I received a valid certificate but I don't trust it yet.' Solution: add it to the trusted certificates store. This is well-documented. Engineers still spend hours on it.", icon: "AlertOctagon" },
 ]
+
+export const FIELD_STORIES = [
+  {
+    title: "The SecurityMode=None Production Server",
+    icon: "Shield",
+    story: "A process plant upgraded their SCADA historian to an OPC UA server. The integrator set SecurityMode=None to 'get it working first' during commissioning. Six months later, a penetration test found the OPC UA server exposed on the corporate LAN with no authentication and no encryption. Any engineer with UA Expert could browse the entire address space, read all process values in real time, and write to any writable node. The integrator had never returned to enable security. 'Get it working first' had become the permanent configuration."
+  },
+  {
+    title: "The Subscription That Wouldn't Die",
+    icon: "Radio",
+    story: "An OPC UA client application crashed repeatedly due to a memory leak. Each crash created a new session without closing the old one. The server had a session timeout of 30 minutes. Over a weekend, 1,400 orphaned sessions accumulated — each with active subscriptions and monitored items. The server ran out of memory on Monday morning. The OPC UA server process crashed, taking the historian offline. The fix required configuring an aggressive session timeout and adding client-side session cleanup on startup."
+  },
+  {
+    title: "The Certificate That Expired at Midnight",
+    icon: "AlertTriangle",
+    story: "An OPC UA server used a self-signed certificate with a 1-year validity set during initial setup. No one tracked the expiry. At midnight on a Tuesday, the certificate expired. All OPC UA clients rejected the connection with BadCertificateTimeInvalid. The plant historian went offline. Alarms went to email — but the OPC UA server was the source of alarm data, so nothing was emailed. Operations ran blind until the day shift engineer noticed the SCADA screens were frozen. Renewing the certificate took 20 minutes. The outage lasted 6 hours because no one knew where to find the certificate or how to renew it."
+  },
+  {
+    title: "The Address Space That Changed",
+    icon: "Ghost",
+    story: "A PLC vendor released a firmware update that reorganized their OPC UA address space. Node IDs changed. The existing SCADA subscriptions — all configured by NodeID — silently stopped returning data. The historian recorded no values. For 3 weeks, the SCADA system displayed the last cached value for 200 process variables. Nobody noticed because the values looked plausible. An audit revealed the stale data during a root cause analysis of an unrelated process deviation."
+  },
+  {
+    title: "The Publish Interval Miscalculation",
+    icon: "AlertOctagon",
+    story: "A water treatment plant configured 500 OPC UA monitored items with a 100ms sampling interval on a low-power embedded server rated for 50 items at 500ms. Under load, the server's CPU hit 100%. Response times grew to seconds. The client's watchdog disconnected. The client reconnected. The server crashed under the reconnection load. This cycle repeated every 90 seconds. The integrator had copied the subscription config from a more powerful server without checking the device spec sheet. Changing to 1000ms publish interval fixed it immediately."
+  },
+]
+
+export const CHAPTER_HOOKS = {
+  intro:        "You inherit a SCADA system with OPC Classic connections to 12 PLCs. Your manager wants to know if migrating to OPC UA is worth the cost. What's the one-sentence case for and against?",
+  architecture: "OPC UA has both a client-server model and a pub-sub model. When would you choose pub-sub over client-server — and what does that decision change in your network architecture?",
+  infomodel:    "Two OPC UA servers expose a 'Temperature' node. One uses NodeId=ns=2;s=Temperature, the other NodeId=ns=1;i=1001. Before connecting, how do you know which tag you're actually reading?",
+  services:     "A client calls Browse on an OPC UA server and gets BadNodeIdUnknown for a node it could read yesterday. The node still shows in UA Expert. What's happening?",
+  security:     "Your OPC UA server has SecurityMode=None in production. A colleague says 'it's on an isolated network.' What's the actual risk — and what would you tell them?",
+  subscriptions:"You have 1,000 monitored items with a 100ms publish interval. The OPC UA server CPU hits 80%. What are the three levers you adjust first — and in what order?",
+  transport:    "OPC UA Binary encoding uses less bandwidth than XML. If bandwidth isn't a concern, is there any reason to prefer XML? What does it cost you?",
+  ignition:     "Ignition acts as both an OPC UA client (to PLCs) and an OPC UA server (to external clients). A tag stops updating in the historian. How do you determine which side of that chain has the problem?",
+  troubleshoot: "A BadTimeout error on an OPC UA subscription. Is this a client problem, a server problem, or a network problem? What's your diagnostic sequence?",
+  lab:          "Before you connect UA Expert to an unfamiliar OPC UA server: what three things do you configure first, and why does the order matter?",
+}
+
+export const CHAPTER_RETRIEVAL = {
+  intro:        { q: "What was the main problem OPC UA was designed to solve over OPC Classic?", a: "OPC Classic required Windows DCOM — OS-specific and firewall-hostile. OPC UA is platform-independent over standard TCP/IP." },
+  architecture: { q: "What two communication models does OPC UA support?", a: "Client-server (request/response) and Publisher-Subscriber (pub-sub)" },
+  infomodel:    { q: "What uniquely identifies a node in an OPC UA address space?", a: "Its NodeId — a namespace index plus identifier (string, integer, or GUID)" },
+  services:     { q: "What OPC UA service does a client use to discover available nodes?", a: "Browse — and BrowseNext for large result sets" },
+  security:     { q: "What are the three OPC UA Security Modes?", a: "None, Sign, SignAndEncrypt" },
+  subscriptions: { q: "What is the difference between SamplingInterval and PublishingInterval in OPC UA?", a: "SamplingInterval: how often the server checks for value changes. PublishingInterval: how often it sends them to the client." },
+  transport:    { q: "What is the default OPC UA TCP port?", a: "Port 4840" },
+  ignition:     { q: "What OPC UA status code means the server received a valid certificate but does not trust it?", a: "BadCertificateUntrusted" },
+  troubleshoot: { q: "What OPC UA service do you call to verify a server is alive before creating a session?", a: "GetEndpoints — or a TCP connect to port 4840 followed by Hello/Acknowledge" },
+  lab:          { q: "What free tool is the industry standard for browsing and testing OPC UA servers?", a: "UA Expert by Unified Automation" },
+}
