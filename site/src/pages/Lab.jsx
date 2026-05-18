@@ -204,7 +204,7 @@ export default function Lab() {
         of an hour of debugging. Muscle memory matters.
       </Callout>
 
-      <GifCard gifKey="done" caption="Lab complete. Now go commission something real." />
+      <GifCard gifKey="done" caption="Lab complete. Now go commission something real." body="Five labs covering the full OPC UA stack: server connection, information model browsing, security mode configuration, monitored item subscriptions, and the Ignition certificate handshake. Engineers who have done these in a lab spend 10 minutes on the first real commissioning instead of an hour chasing BadCertificateUntrusted errors." />
 
       <FunFact index={10} />
 
