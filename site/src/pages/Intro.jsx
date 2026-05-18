@@ -43,8 +43,6 @@ export default function Intro() {
         no certificate infrastructure. As industrial networks became less air-gapped, this became a problem.
       </p>
 
-      <GifCard gifKey="courseHero" caption="The universal translator of industrial protocols." tooltip="OPC UA speaks Siemens, Rockwell, Beckhoff, ABB, and any PLC that wants to join the conversation. It's the Rosetta Stone for factory floors — and unlike OPC Classic, it actually has security built in." />
-
       <Callout type="warning" title="OPC Classic Is Still Everywhere">
         OPC-DA servers still run in production facilities built before 2010. Many Ignition installations connect to
         legacy OPC-DA servers via the OPC-COM module. Knowing OPC UA doesn't mean you'll never see OPC-DA again.
@@ -71,6 +69,8 @@ export default function Intro() {
           </li>
         ))}
       </ul>
+
+      <GifCard gifKey="courseHero" caption="The universal translator of industrial protocols." tooltip="OPC UA speaks Siemens, Rockwell, Beckhoff, ABB, and any PLC that wants to join the conversation. It's the Rosetta Stone for factory floors — and unlike OPC Classic, it actually has security built in." />
 
       <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Who Uses OPC UA</h2>
       <p>

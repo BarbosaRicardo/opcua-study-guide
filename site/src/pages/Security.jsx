@@ -66,6 +66,11 @@ export default function Security() {
         ))}
       </div>
 
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">SecurityMode=None is not a "starter config you fix later." In practice it becomes the permanent config, because changing it after commissioning requires certificate exchange on both sides, a maintenance window, and someone willing to own the change order. Field reality: the majority of OPC UA servers reachable from the plant LAN run SecurityMode=None. If your threat model includes a compromised engineering workstation, that's your blast radius.</p>
+        <GifCard gifKey="warning" caption="SecurityMode=None on a production network" />
+      </div>
+
       <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Security Policies</h2>
       <p>
         SecurityPolicy defines the cryptographic algorithms used for signing and encrypting. Common policies:
@@ -151,9 +156,6 @@ export default function Security() {
           </div>
         ))}
       </div>
-
-      <GifCard gifKey="warning" caption="SecurityMode=None on a production network"
-      />
 
       <FunFact index={4} />
 
