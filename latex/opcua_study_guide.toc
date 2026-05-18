@@ -33,3 +33,4 @@
 \contentsline {chapter}{\chapternumberline {10}Lab \& Tools}{21}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Required Tools (All Free)}{21}{section.10.1}%
 \contentsline {section}{\numberline {10.2}Lab Exercises}{21}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Professional Certification Context}{22}{section.10.3}%
