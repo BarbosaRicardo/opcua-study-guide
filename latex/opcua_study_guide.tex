@@ -120,6 +120,7 @@
 }
 
 % ── Fonts & headings ──────────────────────────────────────────
+\usepackage{amssymb}
 \usepackage{fontawesome5}
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
@@ -240,6 +241,7 @@ Secure Channel, opens a Session, then browses, reads, writes, and subscribes to 
 
 \begin{figure}[h]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
   box/.style={rectangle, draw, rounded corners=4pt, minimum width=3cm, minimum height=1.2cm,
               text centered, font=\small\bfseries},
@@ -274,6 +276,7 @@ Secure Channel, opens a Session, then browses, reads, writes, and subscribes to 
 \node[font=\scriptsize, text=gray, below=0.2cm of tcp] {Connection flow: TCP → Secure Channel → Session → Services};
 
 \end{tikzpicture}
+}
 \caption{OPC UA Client-Server Architecture with Layered Security Model}
 \end{figure}
 
@@ -317,7 +320,7 @@ is a node. Nodes are connected by typed References.
 
 Every node has a NodeId --- a unique identifier within a Namespace. Four formats exist:
 
-\begin{tcolorbox}[title={NodeId Format Examples}, colback=codebg, colframe=opcuanavY!50!black, arc=4pt]
+\begin{tcolorbox}[title={NodeId Format Examples}, colback=codebg, colframe=opcuanavy!50!black, arc=4pt]
 \begin{tabular}{ll}
 \textbf{Format} & \textbf{Example} \\
 \hline
@@ -426,8 +429,8 @@ configuration is hard and the deadline was yesterday.
 \toprule
  & \textbf{None} & \textbf{Sign} & \textbf{Sign\&Encrypt} \\
 \midrule
-\rowcolor{securityred} Message Signing & \texttimes & \checkmark & \checkmark \\
-\rowcolor{securityred} Encryption & \texttimes & \texttimes & \checkmark \\
+\rowcolor{securityred} Message Signing & $\times$ & \checkmark & \checkmark \\
+\rowcolor{securityred} Encryption & $\times$ & $\times$ & \checkmark \\
 \rowcolor{rowlight} Certificates Required & No & Yes (both) & Yes (both) \\
 \rowcolor{securityred} Traffic Readable & Yes & Yes & No \\
 \rowcolor{securitygreen} Suitable for Production & No & Marginal & \textbf{Yes} \\
