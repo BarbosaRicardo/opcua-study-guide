@@ -70,7 +70,10 @@ export default function Intro() {
         ))}
       </ul>
 
-      <GifCard gifKey="courseHero" caption="The universal translator of industrial protocols." tooltip="OPC UA speaks Siemens, Rockwell, Beckhoff, ABB, and any PLC that wants to join the conversation. It's the Rosetta Stone for factory floors — and unlike OPC Classic, it actually has security built in." />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">OPC UA replaced the fragmented OPC Classic model — DA, HDA, and A&E were three separate specs that required DCOM and only ran on Windows. OPC UA unified all of that into a single protocol: one transport, one security model, one information model. It runs on a Raspberry Pi, a Siemens S7, a SEL RTAC, and a cloud historian. Every vendor ships it. Every modern SCADA platform speaks it. If you learn one industrial communication protocol for field work, this is the one.</p>
+        <GifCard gifKey="courseHero" caption="The universal translator of industrial protocols." tooltip="OPC UA speaks Siemens, Rockwell, Beckhoff, ABB, and any PLC that wants to join the conversation. It's the Rosetta Stone for factory floors — and unlike OPC Classic, it actually has security built in." />
+      </div>
 
       <h2 className="text-xl font-bold text-cyan-400 mt-8 mb-3">Who Uses OPC UA</h2>
       <p>
