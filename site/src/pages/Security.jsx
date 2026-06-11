@@ -161,6 +161,12 @@ export default function Security() {
 
       <AnalogyCard analogy={ANALOGIES.security} />
 
+      {/* IDENTITY-TOKENS — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Identity Tokens: Who Is Asking</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Session activation carries a <b>UserIdentityToken</b>. The standard variants: AnonymousIdentityToken (no identity), <b>UserNameIdentityToken</b> (username + password, encrypted with the server\u2019s key), X509IdentityToken (certificate-based user identity), and IssuedIdentityToken (external tokens like JWT). Certificates secure the channel; the identity token authorizes the human.</p>
+      </div>
+
       {QUIZZES.security && (
         <QuizLevels chapterId="security" />
       )}

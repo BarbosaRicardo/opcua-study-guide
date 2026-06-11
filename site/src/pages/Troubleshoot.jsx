@@ -162,6 +162,12 @@ export default function Troubleshoot() {
 
       <AnalogyCard analogy={ANALOGIES.troubleshoot} />
 
+      {/* P2P-TERM — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">P2P Checkout for OPC UA Channels</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Commissioning an OPC UA channel ends the same way as any other: a <b>P2P (point-to-point) checkout</b> against the tag list — write or force each point at the source, verify value, quality, and timestamp at the consumer, and sign it off. The survey\u2019s \u201cconduct P2P\u201d competencies mean exactly this procedure.</p>
+      </div>
+
       {QUIZZES.troubleshoot && (
         <QuizLevels chapterId="troubleshoot" />
       )}

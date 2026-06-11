@@ -156,6 +156,13 @@ export default function Subscriptions() {
       <AnalogyCard analogy={ANALOGIES.subscriptions} />
 
       {QUIZZES.subscriptions && (
+      {/* EVENT-FILTERS — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Alarms and Event Filters</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Alarm-capable servers expose conditions as <b>AcknowledgeableConditionType</b> — with AckedState and an Acknowledge method — so a client can track and acknowledge alarms through the standard, not a vendor add-on.</p>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Event subscriptions accept a <b>ContentFilter</b>: operators like <code>OfType</code> (match an event type) or <code>InList</code> (match specific source nodes) decide which events the server sends — the filtering happens server-side, before the wire.</p>
+      </div>
+
         <QuizLevels chapterId="subscriptions" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.subscriptions} />
