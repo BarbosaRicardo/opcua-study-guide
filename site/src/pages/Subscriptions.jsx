@@ -154,8 +154,6 @@ export default function Subscriptions() {
       <FunFact index={5} />
 
       <AnalogyCard analogy={ANALOGIES.subscriptions} />
-
-      {QUIZZES.subscriptions && (
       {/* EVENT-FILTERS — survey/orphan audit 2026-06-11 */}
       <div className="card mb-6">
         <h3 className="text-lg font-bold text-white mb-2">Alarms and Event Filters</h3>
@@ -163,6 +161,8 @@ export default function Subscriptions() {
         <p className="text-sm text-slate-300 leading-relaxed mb-2">Event subscriptions accept a <b>ContentFilter</b>: operators like <code>OfType</code> (match an event type) or <code>InList</code> (match specific source nodes) decide which events the server sends — the filtering happens server-side, before the wire.</p>
       </div>
 
+
+      {QUIZZES.subscriptions && (
         <QuizLevels chapterId="subscriptions" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.subscriptions} />

@@ -144,14 +144,14 @@ export default function Transport() {
       <FunFact index={6} />
 
       <AnalogyCard analogy={ANALOGIES.transport} />
-
-      {QUIZZES.transport && (
       {/* PORT-4840 — survey/orphan audit 2026-06-11 */}
       <div className="card mb-6">
         <h3 className="text-lg font-bold text-white mb-2">Spotting OPC UA on the Wire</h3>
         <p className="text-sm text-slate-300 leading-relaxed mb-2">The default binary endpoint is TCP port <b>4840</b>. In Wireshark, <code>tcp.port == 4840</code> isolates the traffic, and the built-in OPC UA dissector decodes the binary encoding — including which service each message invokes.</p>
       </div>
 
+
+      {QUIZZES.transport && (
         <QuizLevels chapterId="transport" />
       )}
       <ChapterExercise exercise={OPCUA_CHAPTER_EXERCISES.transport} />
